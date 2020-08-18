@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Barang;
+use App\JenisBarang;
+use App\SatuanPembelian;
+use App\SatuanPenjualan;
 
 class BarangController extends Controller
 {
@@ -13,7 +17,8 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $barang=Barang::all();
+        return view('barang.index',compact('barang'));
     }
 
     /**
@@ -23,7 +28,12 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        
+        $satuanpembelian= SatuanPembelian::all();
+        $satuanpenjualan = SatuanPenjualan::all();
+        $jenisbarang = JenisBarang::all();
+        $barang = Barang::all();
+        return view('barang.create', compact('satuanpembelian', 'satuanpenjualan', 'jenisbarang'));
     }
 
     /**
@@ -34,6 +44,19 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kode_barang'=>'required',
+            'nama_barang'=>'required',
+            'jenis_barang_id'=>'required',
+            'satuan_pembelian_id'=>'required',
+            'isi'=>'required',
+            'satuan_penjualan_id'=>'required',
+            'harga_beli'=>'required',
+            'harga_jual'=>'required',
+            'stok'=>'required',
+        ]);
+        $barang=Barang::create($request->all());
+        return redirect()->route('barang.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +77,13 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_barang)
     {
-        //
+        $satuanpembelian= SatuanPembelian::all();
+        $satuanpenjualan = SatuanPenjualan::all();
+        $jenisbarang = JenisBarang::all();
+        $barang=Barang::findOrFail($id_barang);
+        return view('barang.edit',compact('barang', 'satuanpembelian', 'satuanpenjualan', 'jenisbarang'));
     }
 
     /**
@@ -66,8 +93,23 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_barang)
     {
+        
+        $request->validate([
+            'kode_barang'=>'required',
+            'nama_barang'=>'required',
+            'jenis_barang_id'=>'required',
+            'satuan_pembelian_id'=>'required',
+            'isi'=>'required',
+            'satuan_penjualan_id'=>'required',
+            'harga_beli'=>'required',
+            'harga_jual'=>'required',
+            'stok'=>'required',
+        ]);
+        $barang=Barang::find($id_barang);
+        $barang->update($request->all());
+        return redirect()->route('barang.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +119,11 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_barang)
     {
+        $barang=Barang::find($id_barang);
+        $barang->delete();
+        return redirect()->route('barang.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

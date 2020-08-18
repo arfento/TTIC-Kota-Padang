@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Supplier;
 
 class SupplierController extends Controller
 {
@@ -13,7 +14,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $supplier=Supplier::all();
+        return view('supplier.index',compact('supplier'));
     }
 
     /**
@@ -23,7 +25,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('supplier.create');
     }
 
     /**
@@ -34,6 +36,13 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_supplier'=>'required',
+            'email_supplier'=>'required',
+            'telepon'=>'required',
+        ]);
+        $supplier=Supplier::create($request->all());
+        return redirect()->route('supplier.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +63,10 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_supplier)
     {
-        //
+        $supplier=Supplier::findOrFail($id_supplier);
+        return view('supplier.edit',compact('supplier'));
     }
 
     /**
@@ -66,8 +76,16 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_supplier)
     {
+        $request->validate([
+            'nama_supplier'=>'required',
+            'email_supplier'=>'required',
+            'telepon'=>'required',
+        ]);
+        $supplier=Supplier::find($id_supplier);
+        $supplier->update($request->all());
+        return redirect()->route('supplier.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +95,11 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_supplier)
     {
+        $supplier=Supplier::find($id_supplier);
+        $supplier->delete();
+        return redirect()->route('supplier.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

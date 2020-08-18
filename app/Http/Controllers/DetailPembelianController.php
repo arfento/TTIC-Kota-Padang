@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Barang;
+use App\DetailPembelian;
+use App\Pembelian;
 use Illuminate\Http\Request;
 
 class DetailPembelianController extends Controller
@@ -13,7 +16,8 @@ class DetailPembelianController extends Controller
      */
     public function index()
     {
-        //
+        $detailpembelian=DetailPembelian::all();
+        return view('detailpembelian.index',compact('detailpembelian'));
     }
 
     /**
@@ -23,7 +27,11 @@ class DetailPembelianController extends Controller
      */
     public function create()
     {
-        //
+        
+        $pembelian= Pembelian::all();
+        $barang = Barang::all();
+        $detailpembelian = DetailPembelian::all();
+        return view('detailpembelian.create', compact('pembelian', 'barang'));
     }
 
     /**
@@ -34,6 +42,15 @@ class DetailPembelianController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'barang_id'=>'required|numeric',
+            'pembelian_id'=>'required|numeric',
+            'jumlah'=>'required|numeric',
+            'harga_satuan'=>'required|numeric',
+            'tanggal_kadaluarsa'=>'required|date',
+        ]);
+        $detailpembelian=DetailPembelian::create($request->all());
+        return redirect()->route('detailpembelian.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +71,12 @@ class DetailPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_detail_pembelian)
     {
-        //
+        $pembelian= Pembelian::all();
+        $barang = Barang::all();
+        $detailpembelian=DetailPembelian::findOrFail($id_detail_pembelian);
+        return view('detailpembelian.edit',compact('detailpembelian', 'barang', 'pembelian'));
     }
 
     /**
@@ -66,8 +86,19 @@ class DetailPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_detail_pembelian)
     {
+        
+        $request->validate([
+            'barang_id'=>'required|numeric',
+            'pembelian_id'=>'required|numeric',
+            'jumlah'=>'required|numeric',
+            'harga_satuan'=>'required|numeric',
+            'tanggal_kadaluarsa'=>'required|date',
+        ]);
+        $detailpembelian=DetailPembelian::find($id_detail_pembelian);
+        $detailpembelian->update($request->all());
+        return redirect()->route('detailpembelian.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +108,11 @@ class DetailPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_detail_pembelian)
     {
+        $detailpembelian=DetailPembelian::find($id_detail_pembelian);
+        $detailpembelian->delete();
+        return redirect()->route('detailpembelian.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

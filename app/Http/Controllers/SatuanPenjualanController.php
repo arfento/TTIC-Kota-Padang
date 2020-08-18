@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\SatuanPenjualan;
 
 class SatuanPenjualanController extends Controller
 {
@@ -13,7 +14,8 @@ class SatuanPenjualanController extends Controller
      */
     public function index()
     {
-        //
+        $satuanpenjualan=SatuanPenjualan::all();
+        return view('satuanpenjualan.index',compact('satuanpenjualan'));
     }
 
     /**
@@ -23,7 +25,7 @@ class SatuanPenjualanController extends Controller
      */
     public function create()
     {
-        //
+        return view('satuanpenjualan.create');
     }
 
     /**
@@ -34,6 +36,11 @@ class SatuanPenjualanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'satuan'=>'min:2|required',
+        ]);
+        $satuanpenjualan=SatuanPenjualan::create($request->all());
+        return redirect()->route('satuanpenjualan.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +61,10 @@ class SatuanPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_satuan_penjualan)
     {
-        //
+        $satuanpenjualan=SatuanPenjualan::findOrFail($id_satuan_penjualan);
+        return view('satuanpenjualan.edit',compact('satuanpenjualan'));
     }
 
     /**
@@ -66,8 +74,14 @@ class SatuanPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_satuan_penjualan)
     {
+        $request->validate([
+            'satuan'=>'min:2|required',
+        ]);
+        $satuanpenjualan=SatuanPenjualan::find($id_satuan_penjualan);
+        $satuanpenjualan->update($request->all());
+        return redirect()->route('satuanpenjualan.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +91,11 @@ class SatuanPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_satuan_penjualan)
     {
+        $satuanpenjualan=SatuanPenjualan::find($id_satuan_penjualan);
+        $satuanpenjualan->delete();
+        return redirect()->route('satuanpenjualan.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

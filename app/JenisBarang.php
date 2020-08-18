@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class JenisBarang extends Model
 {
     protected $fillable = ['jenis'];
-    public $timestamps = false;
+
+	protected $primaryKey='id_jenis_barang';
 
     public function barang()
     {

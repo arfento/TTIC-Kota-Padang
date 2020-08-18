@@ -19,6 +19,7 @@ class CreatePersediaansTable extends Migration
             $table->unsignedInteger('barang_id');
             $table->unsignedInteger('stok');
             $table->date('tanggal_kadaluarsa')->nullable();
+            $table->timestamps();
         
             $table->foreign('barang_id')->references('id_barang')->on('barangs')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('rak_id')->references('id_rak')->on('raks')->onUpdate('cascade')->onDelete('cascade');

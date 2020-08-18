@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Rak;
 
 use Illuminate\Http\Request;
+use DB;
 
 class RakController extends Controller
 {
@@ -13,7 +15,9 @@ class RakController extends Controller
      */
     public function index()
     {
-        //
+        $raks=Rak::all();
+        // $raks=DB::table('raks')->get();
+        return view('rak.index',compact('raks'));
     }
 
     /**
@@ -23,7 +27,7 @@ class RakController extends Controller
      */
     public function create()
     {
-        //
+        return view('rak.create');
     }
 
     /**
@@ -34,13 +38,18 @@ class RakController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nomor_rak'=>'min:4|required',
+        ]);
+        $raks=Rak::create($request->all());
+        return redirect()->route('rak.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Rak $id_rak
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -51,34 +60,52 @@ class RakController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     *  @param  \App\Rak $id_rak
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Rak $rak)
     {
-        //
+        $arr['raks'] = $rak;
+        return view('rak.edit')->with($arr);
+        // $raks=Rak::find($rak);
+        // return view('rak.edit',compact('raks'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Rak $rak
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $rak)
     {
+        // $rak -> nomor_rak = $request->nomor_rak;
+        // $rak -> save();
+        // return redirect()->route('rak.index')->with('pesan','Data Berhasil Dihapus');;
+
+        $request->validate([
+            'nomor_rak'=>'required',
+        ]);
+        $raks=Rak::find($rak);
+        $raks->update($request->all());
+        return redirect()->route('rak.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Rak $id_rak
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_rak)
     {
+        // DB::table('raks')->where('id_rak', $id_rak)->delete();
+
+        // $id_rak->delete();
+        Rak::destroy($id_rak);
+        return redirect()->route('rak.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Barang;
+use App\DetailPenjualan;
+use App\Penjualan;
 use Illuminate\Http\Request;
 
 class DetailPenjualanController extends Controller
@@ -13,7 +16,8 @@ class DetailPenjualanController extends Controller
      */
     public function index()
     {
-        //
+        $detailpenjualan=detailpenjualan::all();
+        return view('detailpenjualan.index',compact('detailpenjualan'));
     }
 
     /**
@@ -23,7 +27,11 @@ class DetailPenjualanController extends Controller
      */
     public function create()
     {
-        //
+        
+        $penjualan= Penjualan::all();
+        $barang = Barang::all();
+        $detailpenjualan = detailpenjualan::all();
+        return view('detailpenjualan.create', compact('penjualan', 'barang', 'detailpenjualan'));
     }
 
     /**
@@ -34,6 +42,15 @@ class DetailPenjualanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'penjualan_id'=>'required|numeric',
+            'barang_id'=>'required|numeric',
+            'jumlah'=>'required|numeric',
+            'harga_satuan'=>'required|numeric',
+           
+        ]);
+        $detailpenjualan=DetailPenjualan::create($request->all());
+        return redirect()->route('detailpenjualan.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +71,12 @@ class DetailPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_detail_penjualan)
     {
-        //
+        $penjualan= Penjualan::all();
+        $barang = Barang::all();
+        $detailpenjualan=DetailPenjualan::findOrFail($id_detail_penjualan);
+        return view('detailpenjualan.edit',compact('detailpenjualan', 'barang', 'penjualan'));
     }
 
     /**
@@ -66,8 +86,19 @@ class DetailPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_detail_penjualan)
     {
+        
+        $request->validate([
+            'penjualan_id'=>'required|numeric',
+            'barang_id'=>'required|numeric',
+            'jumlah'=>'required|numeric',
+            'harga_satuan'=>'required|numeric',
+            
+        ]);
+        $detailpenjualan=DetailPenjualan::find($id_detail_penjualan);
+        $detailpenjualan->update($request->all());
+        return redirect()->route('detailpenjualan.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +108,11 @@ class DetailPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_detail_penjualan)
     {
+        $detailpenjualan=DetailPenjualan::find($id_detail_penjualan);
+        $detailpenjualan->delete();
+        return redirect()->route('detailpenjualan.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

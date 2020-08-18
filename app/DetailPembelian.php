@@ -8,7 +8,8 @@ class DetailPembelian extends Model
 {
     
     protected $fillable = ['pembelian_id', 'barang_id', 'jumlah', 'harga_satuan', 'tanggal_kadaluarsa'];
-    public $timestamps = false;
+    protected $primaryKey = 'id_detail_pembelian';
+   
 
     public function pembelian()
     {

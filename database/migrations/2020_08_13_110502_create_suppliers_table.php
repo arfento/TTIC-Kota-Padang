@@ -18,6 +18,7 @@ class CreateSuppliersTable extends Migration
             $table->string('nama_supplier', 50);
             $table->string('email_supplier', 50);
             $table->string('telepon', 14)->nullable();
+            $table->timestamps();
         });
     }
 

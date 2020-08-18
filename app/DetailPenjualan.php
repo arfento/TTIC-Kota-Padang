@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetailPenjualan extends Model
 {
     protected $fillable = ['penjualan_id', 'barang_id', 'jumlah', 'harga_satuan'];
-    public $timestamps = false;
-
+    protected $primaryKey = 'id_detail_penjualan';
     public function penjualan()
     {
         return $this->belongsTo(Penjualan::class, 'penjualan_id');

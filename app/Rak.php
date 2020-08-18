@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Rak extends Model
 {
     protected $fillable = ['nomor_rak'];
+    protected $primaryKey ='id_rak';
+    
     public $timestamps = false;
 
     public function persediaan()

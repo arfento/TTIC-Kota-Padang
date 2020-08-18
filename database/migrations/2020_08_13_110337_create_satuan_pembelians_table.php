@@ -15,8 +15,10 @@ class CreateSatuanPembeliansTable extends Migration
     {
         Schema::create('satuan_pembelians', function (Blueprint $table) {
             $table->increments('id_satuan_pembelian');
-            $table->string('satuan', 10)->unique();
+            $table->string('satuan', 50)->unique();
+            $table->timestamps();
         });
+
     }
 
     /**

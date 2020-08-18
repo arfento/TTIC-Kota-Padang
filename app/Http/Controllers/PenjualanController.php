@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Penjualan;
+use App\User;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -13,7 +15,8 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        //
+        $penjualan=Penjualan::all();
+        return view('penjualan.index',compact('penjualan'));
     }
 
     /**
@@ -23,7 +26,9 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        //
+        
+        $user= User::all();
+        return view('penjualan.create', compact('user'));
     }
 
     /**
@@ -34,6 +39,15 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nomor_faktur'=>'required|string',
+            'tanggal'=>'required|date',
+            'jumlah_bayar'=>'required|numeric',
+            'total'=>'required|numeric',
+            'user_id'=>'required|string',
+        ]);
+        $penjualan=Penjualan::create($request->all());
+        return redirect()->route('penjualan.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +68,11 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_penjualan)
     {
-        //
+        $user= User::all();
+        $penjualan=Penjualan::findOrFail($id_penjualan);
+        return view('penjualan.edit',compact('penjualan', 'user'));
     }
 
     /**
@@ -66,8 +82,19 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_penjualan)
     {
+        
+        $request->validate([
+            'nomor_faktur'=>'required|string',
+            'tanggal'=>'required|date',
+            'jumlah_bayar'=>'required|numeric',
+            'total'=>'required|numeric',
+            'user_id'=>'required|string',
+        ]);
+        $penjualan=Penjualan::find($id_penjualan);
+        $penjualan->update($request->all());
+        return redirect()->route('penjualan.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +104,11 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_penjualan)
     {
+        $penjualan=Penjualan::find($id_penjualan);
+        $penjualan->delete();
+        return redirect()->route('penjualan.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

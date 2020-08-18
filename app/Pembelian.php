@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pembelian extends Model
 {
     protected $fillable = ['nomor_faktur', 'supplier_id', 'tanggal', 'total', 'user_id'];
-    public $timestamps = false;
+    protected $primaryKey = 'id_pembelian';
 
     public function detailPembelian()
     {
@@ -16,7 +16,7 @@ class Pembelian extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
     public function user()

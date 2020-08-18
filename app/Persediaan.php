@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Persediaan extends Model
 {
     protected $fillable = ['rak_id', 'barang_id', 'stok', 'tanggal_kadaluarsa'];
-    public $timestamps = false;
-    protected $dateFormat = 'd-m-Y';
+    protected $primaryKey = 'id_persediaan';
 
     public function barang()
     {

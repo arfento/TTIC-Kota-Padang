@@ -20,6 +20,7 @@ class CreateDetailPembeliansTable extends Migration
             $table->unsignedInteger('jumlah');
             $table->unsignedInteger('harga_satuan');
             $table->date('tanggal_kadaluarsa')->nullable();
+            $table->timestamps();
         });
 
         Schema::table('detail_pembelians', function (Blueprint $table) {
