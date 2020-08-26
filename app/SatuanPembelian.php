@@ -8,9 +8,10 @@ class SatuanPembelian extends Model
 {
     protected $fillable = ['satuan'];
 
-	protected $primaryKey='id_satuan_pembelian';
+    protected $primaryKey='id_satuan_pembelian';
+    
     public function barang()
     {
-        return $this->hasMany(Barang::class);
+        return $this->hasMany(Barang::class, 'satuan_pembelian_id');
     }
 }

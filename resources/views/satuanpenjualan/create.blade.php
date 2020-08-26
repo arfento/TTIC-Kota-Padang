@@ -40,7 +40,8 @@
             <a href="{{ route('satuanpenjualan.index') }}" class="btn btn-danger">Kembali</a>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 @endsection

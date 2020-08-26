@@ -26,7 +26,7 @@
             <a href="{{ route('barang.create')}}" class="btn btn-info btn-sm">Tambah Barang</a><hr>
             @include('notifikasi')
 
-            <table class="table table-bordered" id="users-table">
+            <table class="table table-bordered" id="barang-table">
                 <thead>
                     <tr>
                         <th>Nomor</th>
@@ -39,7 +39,8 @@
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
                         <th>stok</th>
-                        <th scope="col" colspan="2" class="text-center w-25">Opsi</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,10 +76,14 @@
 </section>
 @endsection
 
-@push('scripts')
+@section('bot')
 <script>
-    $(function() {
-        $('#users-table').DataTable();
+    $(function () {
+        $("#barang-table").DataTable({
+            "responsive": true,
+            "autoWidth": true,
+        });
+        
     });
 </script>
-@endpush
+@endsection

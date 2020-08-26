@@ -14,7 +14,7 @@ class JenisBarangController extends Controller
      */
     public function index()
     {
-        $jenisbarang=JenisBarang::all();
+        $jenisbarang=JenisBarang::orderBy('jenis', 'ASC')->withCount('barang')->get();
         return view('jenisbarang.index',compact('jenisbarang'));
     }
 

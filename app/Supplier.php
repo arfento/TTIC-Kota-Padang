@@ -11,6 +11,6 @@ class Supplier extends Model
 
     public function pembelian()
     {
-        return $this->hasMany(Pembelian::class);
+        return $this->hasMany(Pembelian::class, 'supplier_id');
     }
 }

@@ -41,7 +41,6 @@
             <a href="{{ route('satuanpenjualan.index') }}" class="btn btn-danger">Kembali</a>
           </div>
         </div>
-        
       </form>
     </div>
   </div>

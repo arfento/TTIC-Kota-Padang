@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Persediaan;
 use App\Rak;
 
 use Illuminate\Http\Request;
@@ -52,9 +54,12 @@ class RakController extends Controller
      * @param  \App\Rak $id_rak
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_rak, $id_persediaan)
     {
         //
+        $id_rak = Persediaan::where('id_persediaan', $id_persediaan)->first();
+        $id_persediaan = Persediaan::where('id_rak', $id_rak->id_rak)->where('id_persediaan', $id_persediaan)->firstOrFail();
+        return view('rak.show', compact('id_persediaan'));
     }
 
     /**

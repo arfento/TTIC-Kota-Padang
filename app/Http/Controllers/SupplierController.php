@@ -14,7 +14,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $supplier=Supplier::all();
+        $supplier=Supplier::orderBy('nama_supplier', 'ASC')->withCount('pembelian')->get();
         return view('supplier.index',compact('supplier'));
     }
 

@@ -12,7 +12,25 @@
 <!-- /.content-header -->
 
 <section class="content"> 
-    
+    <div class="row row-cols-1 row-cols-md-3">
+        @foreach ($raks as $item)
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">Nomor Rak</div>
+                <div class="card-body">
+                    <h6 class="card-title">{{ $item->nomor_rak }}</h6>
+                    <br>
+                    <hr>
+                    <p class="card-text">asda</p>
+                    <a class="btn btn-primary">Button</a>
+                    <span  class="info" style="color: #0065ff">{{-- {{ item.jumlah_produk }} produk, {{ item.total_stok }} stok --}}</span>
+                    <span v-else class="info">rak sedang kosong</span>
+                </div>
+            </div>
+            
+        </div>
+        @endforeach
+    </div>
     <div class="card">
         <div class="card-header">Rak Barang</div>
         

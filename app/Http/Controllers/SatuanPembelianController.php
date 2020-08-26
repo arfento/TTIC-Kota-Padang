@@ -13,7 +13,11 @@ class SatuanPembelianController extends Controller
      */
     public function index()
     {
-        $satuanpembelian=SatuanPembelian::all();
+        // $satuanpembelian=SatuanPembelian::orderby('satuan', 'ASC')->paginate(5);
+        $satuanpembelian=SatuanPembelian::orderBy('satuan', 'ASC')->withCount('barang')->get();
+        // $satuanpembelian=SatuanPembelian::select(['id_satuan_pembelian', 'satuan'])->withCount('barang')->get();
+        // $count = SatuanPembelian::all()->count();
+        // return view('satuanpembelian.index',compact('count'));
         return view('satuanpembelian.index',compact('satuanpembelian'));
     }
 

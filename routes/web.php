@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+    
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('satuanpenjualan','SatuanPenjualanController');
@@ -33,3 +34,5 @@ Route::resource('detailpembelian','DetailPembelianController');
 Route::resource('penjualan','PenjualanController');
 Route::resource('detailpenjualan','DetailPenjualanController');
 Route::resource('persediaan','PersediaanController');
+
+// Route::get('rak/{id_rak:slug}/{id_persediaan:slug}', 'RakController@show')->name('rak.show');

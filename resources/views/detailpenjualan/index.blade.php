@@ -34,7 +34,8 @@
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
                         <th>Harga Satuan</th>
-                        <th scope="col" colspan="2" class="text-center w-25">Opsi</th>
+                        <th>Edit</th>
+                        <th>Hapus</th>
                     </tr>
                 </thead>
                 <tbody>

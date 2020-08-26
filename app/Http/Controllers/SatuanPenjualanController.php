@@ -14,7 +14,8 @@ class SatuanPenjualanController extends Controller
      */
     public function index()
     {
-        $satuanpenjualan=SatuanPenjualan::all();
+        // $satuanpenjualan=SatuanPenjualan::orderBy('satuan', 'ASC')->withCount('barang')->get();
+        $satuanpenjualan=SatuanPenjualan::orderBy('satuan', 'ASC')->withCount('barang')->get();
         return view('satuanpenjualan.index',compact('satuanpenjualan'));
     }
 
