@@ -16,8 +16,10 @@ class PersediaanController extends Controller
      */
     public function index()
     {
-        $persediaan=Persediaan::all();
-        return view('persediaan.index',compact('persediaan'));
+        // $persediaan=Persediaan::all();
+        // return view('persediaan.index',compact('persediaan'));
+        $raks = Rak::orderBy('id_rak', 'asc')->withCount('persediaan')->get();
+        return view('persediaan.index_perrak', ['raks' => $raks]);
     }
 
     /**
@@ -45,7 +47,7 @@ class PersediaanController extends Controller
             'rak_id'=>'required|numeric',
             'barang_id'=>'required|numeric',
             'stok'=>'required|numeric',
-            'tanggal_kadaluarsa'=>'required|date',
+            'tanggal_kadaluarsa'=>'date',
         ]);
         $persediaan=Persediaan::create($request->all());
         return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Dimasukkan');
@@ -60,9 +62,9 @@ class PersediaanController extends Controller
      */
     public function show($id)
     {
-        //
+        $persediaan = Persediaan::with(['Barang','Rak'])->where('rak_id', $id)->get();
+        return view('persediaan.index', compact('persediaan') );
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,7 +93,7 @@ class PersediaanController extends Controller
             'rak_id'=>'required|numeric',
             'barang_id'=>'required|numeric',
             'stok'=>'required|numeric',
-            'tanggal_kadaluarsa'=>'required|date',
+            'tanggal_kadaluarsa'=>'date',
         ]);
         $persediaan=Persediaan::find($id_persediaan);
         $persediaan->update($request->all());

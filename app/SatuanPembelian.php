@@ -14,4 +14,8 @@ class SatuanPembelian extends Model
     {
         return $this->hasMany(Barang::class, 'satuan_pembelian_id');
     }
+    // public function countbarang()
+    // {
+    //     return Barang::count();
+    // }
 }

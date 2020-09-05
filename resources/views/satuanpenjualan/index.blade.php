@@ -20,14 +20,16 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+            <a href="{{ route('satuanpenjualan.create')}}" class="btn btn-info btn-sm">Tambah Satuan Penjualan</a><hr>
+            @include('notifikasi')
+
             <table id="satuanpenjualan" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center" width="10" >Nomor</th>
-                        <th class="text-center">Satuan</th>
-                        <th class="text-center">Count</th>
-                        <th class="text-center">Edit</th>
-                        <th class="text-center">Hapus</th>
+                        <th width="10%" >Nomor</th>
+                        <th>Satuan</th>
+                        <th>Count</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,12 +39,10 @@
                         <td>{{ $item->satuan }}</td>
                         <td>{{ $item->barang_count }}</td>
                         
-                        <td class="text-center">
+                        <td>
                             <a href="{{ route('satuanpenjualan.edit',$item->id_satuan_penjualan)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
-                            
-                        </td>
-                        <td class="text-center">
-                            <form action="{{ route('satuanpenjualan.destroy', $item->id_satuan_penjualan) }}" method="POST">
+                        
+                            <form action="{{ route('satuanpenjualan.destroy', $item->id_satuan_penjualan) }}" method="POST" style="display: inline">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>

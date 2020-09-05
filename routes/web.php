@@ -34,5 +34,7 @@ Route::resource('detailpembelian','DetailPembelianController');
 Route::resource('penjualan','PenjualanController');
 Route::resource('detailpenjualan','DetailPenjualanController');
 Route::resource('persediaan','PersediaanController');
+// Route::post('satuanpembelian/delid', 'SatuanPembelianController@delid');
+    
 
 // Route::get('rak/{id_rak:slug}/{id_persediaan:slug}', 'RakController@show')->name('rak.show');

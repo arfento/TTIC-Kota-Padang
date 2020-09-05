@@ -21,10 +21,10 @@
                     <h6 class="card-title">{{ $item->nomor_rak }}</h6>
                     <br>
                     <hr>
-                    <p class="card-text">asda</p>
+                    <p class="card-text">{{ $item->persediaan_count }}</p>
                     <a class="btn btn-primary">Button</a>
-                    <span  class="info" style="color: #0065ff">{{-- {{ item.jumlah_produk }} produk, {{ item.total_stok }} stok --}}</span>
-                    <span v-else class="info">rak sedang kosong</span>
+                    <span  class="info" style="color: #0065ff">{{-- {{ $item.persediaan_count }} --}} produk, {{-- {{ $item.total_stok }} --}} stok</span>
+                    {{-- <span v-else class="info">rak sedang kosong</span> --}}
                 </div>
             </div>
             
@@ -43,6 +43,8 @@
                     <tr>
                         <th scope="col">No</th>
                         <th>Nomor Rak</th>
+                        <th>Count</th>
+                        <th>jumlah</th>
                         <th scope="col" colspan="2" class="text-center w-25">Opsi</th>
                     </tr>
                 </thead>
@@ -52,6 +54,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->nomor_rak }}</td>
+                        <td>{{ $item->persediaan_count }}</td>
+                        <td>{{ $item->total }}</td>
                         
                         <td><a href="{{ route('rak.edit', $item->id_rak )}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
                         <td><form action="{{ route('rak.destroy', $item->id_rak) }}" method="POST">

@@ -19,35 +19,33 @@
 </style>
 
 <section class="content">
-        <div class="card">
-            <div class="card-header">Table Supplier</div>
-            <div class="card-body">
-                <a href="{{ route('supplier.create')}}" class="btn btn-info btn-sm">Tambah Supplier</a><hr>
-                @include('notifikasi')
-                <table class="table table-bordered" id="supplier-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nomor</th>
-                            <th>Nama Supplier</th>
-                            <th>Email Supplier</th>
-                            <th>Nomor Telepon Supplier</th>
-                            <th>Jumlah Transaksi</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        @foreach ($supplier as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->nama_supplier }}</td>
-                            <td>{{ $item->email_supplier }}</td>
-                            <td>{{ $item->telepon }}</td>
-                            <td>{{ $item->pembelian_count }}</td>
-                            
-                            <td><a href="{{ route('supplier.edit',$item->id_supplier)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
-                            <td><form action="{{ route('supplier.destroy', $item->id_supplier) }}" method="POST">
+    <div class="card">
+        <div class="card-header">Table Supplier</div>
+        <div class="card-body">
+            <a href="{{ route('supplier.create')}}" class="btn btn-info btn-sm">Tambah Supplier</a><hr>
+            @include('notifikasi')
+            <table class="table table-bordered" id="supplier-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nomor</th>
+                        <th>Nama Supplier</th>
+                        <th>Email Supplier</th>
+                        <th>Nomor Telepon Supplier</th>
+                        <th>Jumlah Transaksi</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($supplier as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->nama_supplier }}</td>
+                        <td>{{ $item->email_supplier }}</td>
+                        <td>{{ $item->telepon }}</td>
+                        <td>{{ $item->pembelian_count }}</td>
+                        <td>
+                            <a href="{{ route('supplier.edit',$item->id_supplier)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
+                            <form action="{{ route('supplier.destroy', $item->id_supplier) }}" method="POST" style="display: inline">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>
@@ -58,10 +56,8 @@
                     @endforeach
                 </tbody>
             </table>
-            
         </div>
-
-</div>
+    </div>
 </section>
 @endsection
 

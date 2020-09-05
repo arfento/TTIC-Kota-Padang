@@ -33,8 +33,7 @@
                         <th>Nomor</th>
                         <th>Jenis Barang</th>
                         <th>Count</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,24 +42,22 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->jenis }}</td>
-                        <td>{{ $item->barang_count }}</td>
-                        
-                        <td><a href="{{ route('jenisbarang.edit',$item->id_jenis_barang)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
-                        <td><form action="{{ route('jenisbarang.destroy', $item->id_jenis_barang) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            
-                            <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php $no++; ?>
-                @endforeach
-            </tbody>
-        </table>
-        
+                        <td>{{ $item->barang_count }}</td>                        
+                        <td>
+                            <a href="{{ route('jenisbarang.edit',$item->id_jenis_barang)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
+                            <form action="{{ route('jenisbarang.destroy', $item->id_jenis_barang) }}" method="POST" style="display: inline" >
+                                @csrf
+                                @method('delete')    
+                                <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php $no++; ?>
+                    @endforeach
+                </tbody>
+            </table>            
+        </div>
     </div>
-</div>
 </section>
 @endsection
 

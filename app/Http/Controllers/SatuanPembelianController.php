@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Barang;
 use App\SatuanPembelian;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class SatuanPembelianController extends Controller
 {
@@ -13,12 +15,13 @@ class SatuanPembelianController extends Controller
      */
     public function index()
     {
+        $countbarang =Barang::count();
         // $satuanpembelian=SatuanPembelian::orderby('satuan', 'ASC')->paginate(5);
         $satuanpembelian=SatuanPembelian::orderBy('satuan', 'ASC')->withCount('barang')->get();
         // $satuanpembelian=SatuanPembelian::select(['id_satuan_pembelian', 'satuan'])->withCount('barang')->get();
         // $count = SatuanPembelian::all()->count();
         // return view('satuanpembelian.index',compact('count'));
-        return view('satuanpembelian.index',compact('satuanpembelian'));
+        return view('satuanpembelian.index',compact('satuanpembelian', 'countbarang'));
     }
 
     /**
@@ -101,4 +104,13 @@ class SatuanPembelianController extends Controller
         return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
+    // public function delid(Request $request)
+    // {
+    //     $delid = $request -> input('delid');
+    //     SatuanPembelian::whereIn('id_satuan_pembelian', $delid)
+    //     ->delete();
+    //     dd('$delid');
+    //     // return redirect()->route('satuanpembelian.index')->with('pesan','Data Yang telah Dipilih Berhasil Dihapus');
+    //     //
+    // }
 }

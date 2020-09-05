@@ -2,30 +2,30 @@
 
 
 @section('top')
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
-    <!-- bootstrap datepicker -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+<!-- daterange picker -->
+<link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 @endsection
 
 @section('content')
 <style type="text/css">
-.card-header {
-  background-color: #27c8f9;
-}
+    .card-header {
+        background-color: #27c8f9;
+    }
 </style>
 
 <section class="content">
     <div class="card">
         <div class="card-header">Barang</div>
-
+        
         <div class="card-body">
             <a href="{{ route('barang.create')}}" class="btn btn-info btn-sm">Tambah Barang</a><hr>
             @include('notifikasi')
-
+            
             <table class="table table-bordered" id="barang-table">
                 <thead>
                     <tr>
@@ -34,13 +34,12 @@
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
                         <th>Satuan Pembelian</th>
-                        <th>isi</th>
+                        <th>Isi</th>
                         <th>Satuan Penjualan</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>stok</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,19 +57,20 @@
                         <td>{{ $item-> harga_jual }}</td>
                         <td>{{ $item-> stok }}</td>
                         
-                        <td><a href="{{ route('barang.edit',$item->id_barang)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
-                        <td><form action="{{ route('barang.destroy', $item->id_barang) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>
-                        </form>
+                        <td>
+                            <a href="{{ route('barang.edit',$item->id_barang)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
+                            <form action="{{ route('barang.destroy', $item->id_barang) }}" method="POST" style="display: inline">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>
+                            </form>
                         </td>  
-                        </tr>
+                    </tr>
                     <?php $no++; ?>
                     @endforeach
                 </tbody>
             </table>
-
+            
         </div>
     </div>
 </section>
