@@ -23,7 +23,8 @@ class CreateBarangsTable extends Migration
             $table->unsignedInteger('satuan_penjualan_id');
             $table->unsignedInteger('harga_beli')->nullable();
             $table->unsignedInteger('harga_jual')->nullable();
-            $table->unsignedInteger('stok_minimal')->nullable();
+            $table->unsignedInteger('stok')->nullable();
+            $table->timestamps();
         });
 
         Schema::table('barangs', function (Blueprint $table) {

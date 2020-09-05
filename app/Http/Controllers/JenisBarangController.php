@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\JenisBarang;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class JenisBarangController extends Controller
      */
     public function index()
     {
-        //
+        $jenisbarang=JenisBarang::orderBy('jenis', 'ASC')->withCount('barang')->get();
+        return view('jenisbarang.index',compact('jenisbarang'));
     }
 
     /**
@@ -23,7 +25,7 @@ class JenisBarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('jenisbarang.create');
     }
 
     /**
@@ -34,6 +36,11 @@ class JenisBarangController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'jenis'=>'required',
+        ]);
+        $jenisbarang=JenisBarang::create($request->all());
+        return redirect()->route('jenisbarang.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +61,10 @@ class JenisBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_jenis_barang)
     {
-        //
+        $jenisbarang=JenisBarang::findOrFail($id_jenis_barang);
+        return view('jenisbarang.edit',compact('jenisbarang'));
     }
 
     /**
@@ -66,8 +74,14 @@ class JenisBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_jenis_barang)
     {
+        $request->validate([
+            'jenis'=>'required',
+        ]);
+        $jenisbarang=JenisBarang::find($id_jenis_barang);
+        $jenisbarang->update($request->all());
+        return redirect()->route('jenisbarang.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +91,11 @@ class JenisBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_jenis_barang)
     {
+        $jenisbarang=JenisBarang::find($id_jenis_barang);
+        $jenisbarang->delete();
+        return redirect()->route('jenisbarang.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

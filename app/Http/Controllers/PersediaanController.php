@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Barang;
+use App\Persediaan;
+use App\Rak;
 use Illuminate\Http\Request;
 
 class PersediaanController extends Controller
@@ -13,7 +16,10 @@ class PersediaanController extends Controller
      */
     public function index()
     {
-        //
+        // $persediaan=Persediaan::all();
+        // return view('persediaan.index',compact('persediaan'));
+        $raks = Rak::orderBy('id_rak', 'asc')->withCount('persediaan')->get();
+        return view('persediaan.index_perrak', ['raks' => $raks]);
     }
 
     /**
@@ -23,7 +29,10 @@ class PersediaanController extends Controller
      */
     public function create()
     {
-        //
+        
+        $barang= Barang::all();
+        $rak= Rak::all();
+        return view('persediaan.create', compact('rak', 'barang'));
     }
 
     /**
@@ -34,6 +43,14 @@ class PersediaanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'rak_id'=>'required|numeric',
+            'barang_id'=>'required|numeric',
+            'stok'=>'required|numeric',
+            'tanggal_kadaluarsa'=>'date',
+        ]);
+        $persediaan=Persediaan::create($request->all());
+        return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -45,18 +62,21 @@ class PersediaanController extends Controller
      */
     public function show($id)
     {
-        //
+        $persediaan = Persediaan::with(['Barang','Rak'])->where('rak_id', $id)->get();
+        return view('persediaan.index', compact('persediaan') );
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_persediaan)
     {
-        //
+        $barang= Barang::all();
+        $rak= Rak::all();
+        $persediaan=Persediaan::findOrFail($id_persediaan);
+        return view('persediaan.edit',compact('persediaan', 'barang', 'rak'));
     }
 
     /**
@@ -66,8 +86,18 @@ class PersediaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_persediaan)
     {
+        
+        $request->validate([
+            'rak_id'=>'required|numeric',
+            'barang_id'=>'required|numeric',
+            'stok'=>'required|numeric',
+            'tanggal_kadaluarsa'=>'date',
+        ]);
+        $persediaan=Persediaan::find($id_persediaan);
+        $persediaan->update($request->all());
+        return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +107,11 @@ class PersediaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_persediaan)
     {
+        $persediaan=Persediaan::find($id_persediaan);
+        $persediaan->delete();
+        return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
 }

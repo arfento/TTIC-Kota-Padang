@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pembelian extends Model
 {
-    protected $fillable = ['nomor_faktur', 'supplier_id', 'tanggal', 'total', 'user_id'];
-    public $timestamps = false;
+    protected $fillable = ['nomor_faktur', 'supplier_id', 'tanggal_pembelian', 'total', 'user_id'];
+    protected $primaryKey = 'id_pembelian';
 
     public function detailPembelian()
     {
-        return $this->hasMany(DetailPembelian::class);
+        return $this->hasMany(DetailPembelian::class, 'pembelian_id');
     }
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
     public function user()

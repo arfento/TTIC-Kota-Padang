@@ -20,6 +20,7 @@ class CreatePembeliansTable extends Migration
             $table->unsignedInteger('supplier_id');
             $table->date('tanggal_pembelian');
             $table->unsignedInteger('total');
+            $table->timestamps();
         });
 
         Schema::table('pembelians', function (Blueprint $table) {

@@ -19,6 +19,7 @@ class CreateDetailPenjualansTable extends Migration
             $table->unsignedInteger('barang_id');
             $table->unsignedInteger('jumlah');
             $table->unsignedInteger('harga_satuan');
+            $table->timestamps();
         
            
             $table->foreign('barang_id')->references('id_barang')->on('barangs')->onUpdate('cascade')->onDelete('cascade');

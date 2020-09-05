@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Barang;
+use App\SatuanPembelian;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class SatuanPembelianController extends Controller
 {
@@ -13,7 +15,13 @@ class SatuanPembelianController extends Controller
      */
     public function index()
     {
-        //
+        $countbarang =Barang::count();
+        // $satuanpembelian=SatuanPembelian::orderby('satuan', 'ASC')->paginate(5);
+        $satuanpembelian=SatuanPembelian::orderBy('satuan', 'ASC')->withCount('barang')->get();
+        // $satuanpembelian=SatuanPembelian::select(['id_satuan_pembelian', 'satuan'])->withCount('barang')->get();
+        // $count = SatuanPembelian::all()->count();
+        // return view('satuanpembelian.index',compact('count'));
+        return view('satuanpembelian.index',compact('satuanpembelian', 'countbarang'));
     }
 
     /**
@@ -23,7 +31,7 @@ class SatuanPembelianController extends Controller
      */
     public function create()
     {
-        //
+        return view('satuanpembelian.create');
     }
 
     /**
@@ -34,6 +42,11 @@ class SatuanPembelianController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'satuan'=>'min:2|required',
+        ]);
+        $satuanpembelian=SatuanPembelian::create($request->all());
+        return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Dimasukkan');
         //
     }
 
@@ -54,9 +67,10 @@ class SatuanPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_satuan_pembelian)
     {
-        //
+        $satuanpembelian=SatuanPembelian::findOrFail($id_satuan_pembelian);
+        return view('satuanpembelian.edit',compact('satuanpembelian'));
     }
 
     /**
@@ -66,8 +80,14 @@ class SatuanPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_satuan_pembelian)
     {
+        $request->validate([
+            'satuan'=>'min:2|required',
+        ]);
+        $satuanpembelian=SatuanPembelian::find($id_satuan_pembelian);
+        $satuanpembelian->update($request->all());
+        return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Diupdate');
         //
     }
 
@@ -77,8 +97,20 @@ class SatuanPembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_satuan_pembelian)
     {
+        $satuanpembelian=SatuanPembelian::find($id_satuan_pembelian);
+        $satuanpembelian->delete();
+        return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Dihapus');
         //
     }
+    // public function delid(Request $request)
+    // {
+    //     $delid = $request -> input('delid');
+    //     SatuanPembelian::whereIn('id_satuan_pembelian', $delid)
+    //     ->delete();
+    //     dd('$delid');
+    //     // return redirect()->route('satuanpembelian.index')->with('pesan','Data Yang telah Dipilih Berhasil Dihapus');
+    //     //
+    // }
 }

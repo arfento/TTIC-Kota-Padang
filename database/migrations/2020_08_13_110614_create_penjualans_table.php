@@ -20,6 +20,7 @@ class CreatePenjualansTable extends Migration
             $table->unsignedInteger('jumlah_bayar');
             $table->unsignedInteger('total');
             $table->unsignedInteger('user_id');
+            $table->timestamps();
         });
 
         Schema::table('penjualans', function (Blueprint $table) {

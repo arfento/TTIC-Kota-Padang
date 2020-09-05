@@ -1,4 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+
+@section('top')
+
+@endsection
 
 @section('content')
 <style type="text/css">
@@ -6,51 +11,66 @@
   background-color: #27c8f9;
 }
 </style>
-<div class="content-wrapper">
-  <div class="col-md-12">
-    <div class="card">
-        <div class="card-header">Satuan Penjualan</div>
 
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Tabel Satuan Penjualan</h3>
+        </div>
+        <!-- /.card-header -->
         <div class="card-body">
             <a href="{{ route('satuanpenjualan.create')}}" class="btn btn-info btn-sm">Tambah Satuan Penjualan</a><hr>
             @include('notifikasi')
 
-            <table class="table table-bordered" id="users-table">
+            <table id="satuanpenjualan" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th width="10%" >Nomor</th>
                         <th>Satuan</th>
-                        <th scope="col" colspan="2" class="text-center w-25">Opsi</th>
+                        <th>Count</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no=1; ?>
                     @foreach ($satuanpenjualan as $item)
                     <tr>
-                        <td>{{ $item->id_satuan_penjualan}}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->satuan }}</td>
+                        <td>{{ $item->barang_count }}</td>
                         
-                        <td><a href="{{ route('satuanpenjualan.edit',$item->id_satuan_penjualan)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
-                        {!! Form::open(['route'=>['satuanpenjualan.destroy',$item->id_satuan_penjualan],'method'=>'DELETE']) !!}
-                        <td><button type="submit" name="submit" class="btn btn-danger btn-sm fas fa-trash-alt"> Hapus </button></td>
-                        {!! Form::close() !!}   
+                        <td>
+                            <a href="{{ route('satuanpenjualan.edit',$item->id_satuan_penjualan)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
+                        
+                            <form action="{{ route('satuanpenjualan.destroy', $item->id_satuan_penjualan) }}" method="POST" style="display: inline">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>
+                            </form>
+                        </td>
                     </tr>
-                    <?php $no++; ?>
                     @endforeach
+                    
+                    
                 </tbody>
+                
             </table>
-
         </div>
+        <!-- /.card-body -->
     </div>
-</div>
-</div>
-</div>
+    <!-- /.card -->
+   
+</section>
 @endsection
 
-@push('scripts')
+@section('bot')
 <script>
-    $(function() {
-        $('#users-table').DataTable();
+    $(function () {
+        $("#satuanpenjualan").DataTable({
+            "responsive": true,
+            "autoWidth": true,
+        });
+        
     });
 </script>
-@endpush
+@endsection

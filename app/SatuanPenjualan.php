@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class SatuanPenjualan extends Model
 {
     protected $fillable = ['satuan'];
-    public $timestamps = false;
 
+	protected $primaryKey='id_satuan_penjualan';
     public function barang()
     {
-        return $this->hasMany(Barang::class);
+        return $this->hasMany(Barang::class, 'satuan_penjualan_id');
     }
 }

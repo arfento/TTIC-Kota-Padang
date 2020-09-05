@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
-    protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual', 'stok_minimal'];
-    public $timestamps = false;
-
+    protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual', 'stok'];
+    protected $primaryKey = 'id_barang';
+    protected $guarded=[];
     public function persediaan()
     {
         return $this->hasMany(Persediaan::class);

@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Penjualan extends Model
 {
     protected $fillable = ['nomor_faktur', 'tanggal', 'jumlah_bayar', 'total', 'user_id'];
-    public $timestamps = false;
-    
+    protected $primaryKey = 'id_penjualan';
     public function detailPenjualan()
     {
         return $this->hasMany(DetailPenjualan::class);
