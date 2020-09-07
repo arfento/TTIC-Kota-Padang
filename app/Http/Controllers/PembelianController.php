@@ -102,6 +102,8 @@ class PembelianController extends Controller
             Barang::where('id_barang', $request-> barang_id) ->update([
                 'harga_beli'           => $request-> harga_satuan
             ]);
+
+            
         // }
         // $request -> detail_pembelian = array();
       /*   for ($i=0; $i < count($request -> detail_pembelian); $i++) { 

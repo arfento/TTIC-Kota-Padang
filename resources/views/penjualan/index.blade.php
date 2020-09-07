@@ -32,9 +32,9 @@
                         <th>Nomor</th>
                         <th>Nomor Faktur</th>
                         <th>Tanggal</th>
-                        <th>Jumlah bayar</th>
+                        <th>Jumlah Item</th>
                         <th>Total</th>
-                        <th>Nama User</th>
+                        <th>Petugas</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -44,7 +44,7 @@
                         <td>{{ $loop-> iteration }}</td>
                         <td>{{ $item-> nomor_faktur }}</td>
                         <td>{{ $item-> tanggal }}</td>
-                        <td>{{ $item-> jumlah_bayar }}</td>
+                        <td>{{ $item-> detailPenjualan_count }}</td>
                         <td>{{ $item-> total }}</td>
                         <td>{{ $item-> user -> name }}</td>
                         

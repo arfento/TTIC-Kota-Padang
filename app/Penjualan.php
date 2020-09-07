@@ -10,7 +10,7 @@ class Penjualan extends Model
     protected $primaryKey = 'id_penjualan';
     public function detailPenjualan()
     {
-        return $this->hasMany(DetailPenjualan::class);
+        return $this->hasMany(DetailPenjualan::class, 'penjualan_id');
     }
     
     public function user()
@@ -22,7 +22,7 @@ class Penjualan extends Model
     {
         $pcsCount = 0;
         foreach ($this->detailPenjualan as $data) {
-            $pcsCount += $data->kuantitas;
+            $pcsCount += $data->jumlah;
         }
         
         return count($this->detailPenjualan).' item, '.$pcsCount.' pcs';
@@ -65,7 +65,7 @@ public static function getDataPenjualan($request)
     $from = $request->from;
     $to = $request->to;
     
-    $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(kuantitas) as total')
+    $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(jumlah) as total')
     ->join('detail_penjualans', 'penjualans.id', '=', 'detail_penjualans.penjualan_id')
     ->where('detail_penjualans.barang_id', $barang_id)
     ->whereRaw("DATE_FORMAT(penjualans.tanggal, '%Y-%m') >= '$from' AND DATE_FORMAT(penjualans.tanggal, '%Y-%m') <= '$to'")
@@ -100,13 +100,13 @@ public static function getAllDataPenjualan()
 // public static function getData($type, $request)
 // {
     //     if ($request->barang_id == null) {
-        //         $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(kuantitas) as total')
+        //         $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(jumlah) as total')
         //             ->join('detail_penjualans', 'penjualans.id', '=', 'detail_penjualans.penjualan_id')
         //             ->whereRaw("DATE_FORMAT(penjualans.tanggal, '%Y-%m') >= '$request->from' AND DATE_FORMAT(penjualans.tanggal, '%Y-%m') <= '$request->to'")
         //             ->groupBy('periode')
         //             ->get();
         //     } else {
-            //         $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(kuantitas) as total')
+            //         $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(jumlah) as total')
             //             ->join('detail_penjualans', 'penjualans.id', '=', 'detail_penjualans.penjualan_id')
             //             ->where('detail_penjualans.barang_id', $request->barang_id)
             //             ->whereRaw("DATE_FORMAT(penjualans.tanggal, '%Y-%m') >= '$request->from' AND DATE_FORMAT(penjualans.tanggal, '%Y-%m') <= '$request->to'")
