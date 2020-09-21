@@ -23,6 +23,6 @@ class Rak extends Model
             $pcsCount += $data->stok;
         }
 
-        return count($this->persediaan).' item, '.$pcsCount.' pcs';
+        return count($this->persediaan).' barang, '.$pcsCount.' stok';
     }
 }

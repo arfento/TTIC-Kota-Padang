@@ -8,6 +8,10 @@ use Laravel\Ui\Presets\React;
 
 class SatuanPembelianController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +50,7 @@ class SatuanPembelianController extends Controller
             'satuan'=>'min:2|required',
         ]);
         $satuanpembelian=SatuanPembelian::create($request->all());
-        return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('satuanpembelian.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -87,7 +91,7 @@ class SatuanPembelianController extends Controller
         ]);
         $satuanpembelian=SatuanPembelian::find($id_satuan_pembelian);
         $satuanpembelian->update($request->all());
-        return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('satuanpembelian.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -101,16 +105,8 @@ class SatuanPembelianController extends Controller
     {
         $satuanpembelian=SatuanPembelian::find($id_satuan_pembelian);
         $satuanpembelian->delete();
-        return redirect()->route('satuanpembelian.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('satuanpembelian.index')->with('success','Data Berhasil Dihapus');
         //
     }
-    // public function delid(Request $request)
-    // {
-    //     $delid = $request -> input('delid');
-    //     SatuanPembelian::whereIn('id_satuan_pembelian', $delid)
-    //     ->delete();
-    //     dd('$delid');
-    //     // return redirect()->route('satuanpembelian.index')->with('pesan','Data Yang telah Dipilih Berhasil Dihapus');
-    //     //
-    // }
+    
 }

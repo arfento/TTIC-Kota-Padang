@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class JenisBarangController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +44,7 @@ class JenisBarangController extends Controller
             'jenis'=>'required',
         ]);
         $jenisbarang=JenisBarang::create($request->all());
-        return redirect()->route('jenisbarang.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('jenisbarang.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -81,7 +85,7 @@ class JenisBarangController extends Controller
         ]);
         $jenisbarang=JenisBarang::find($id_jenis_barang);
         $jenisbarang->update($request->all());
-        return redirect()->route('jenisbarang.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('jenisbarang.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -95,7 +99,7 @@ class JenisBarangController extends Controller
     {
         $jenisbarang=JenisBarang::find($id_jenis_barang);
         $jenisbarang->delete();
-        return redirect()->route('jenisbarang.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('jenisbarang.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

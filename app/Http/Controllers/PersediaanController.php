@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class PersediaanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +54,7 @@ class PersediaanController extends Controller
             'tanggal_kadaluarsa'=>'date',
         ]);
         $persediaan=Persediaan::create($request->all());
-        return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('persediaan.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -97,7 +101,7 @@ class PersediaanController extends Controller
         ]);
         $persediaan=Persediaan::find($id_persediaan);
         $persediaan->update($request->all());
-        return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('persediaan.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -111,7 +115,7 @@ class PersediaanController extends Controller
     {
         $persediaan=Persediaan::find($id_persediaan);
         $persediaan->delete();
-        return redirect()->route('persediaan.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('persediaan.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

@@ -22,11 +22,17 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Tabel Satuan Pembelian {{ $countbarang }}</h3>
+           
             
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <a href="{{ route('satuanpembelian.create')}}" class="btn btn-info btn-sm">Tambah Satuan Pembelian</a><hr>
+            <div class="header">
+                <a href="{{ route('satuanpembelian.create')}}" class="btn btn-primary btn-sm" >Tambah Satuan Pembelian</a>
+                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
+                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+            </div>
+            <hr>
             @include('notifikasi')
             
             <table id="example1" class="table table-bordered table-striped">

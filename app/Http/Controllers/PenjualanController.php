@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -97,7 +101,7 @@ class PenjualanController extends Controller
         
 
         // $penjualan=Penjualan::create($request->all());
-        return redirect()->route('penjualan.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('penjualan.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -144,7 +148,7 @@ class PenjualanController extends Controller
         ]);
         $penjualan=Penjualan::find($id_penjualan);
         $penjualan->update($request->all());
-        return redirect()->route('penjualan.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('penjualan.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -158,7 +162,7 @@ class PenjualanController extends Controller
     {
         $penjualan=Penjualan::find($id_penjualan);
         $penjualan->delete();
-        return redirect()->route('penjualan.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('penjualan.index')->with('success','Data Berhasil Dihapus');
         //
     }
 

@@ -17,6 +17,7 @@ class CreatePenjualansTable extends Migration
             $table->increments('id_penjualan');
             $table->string('nomor_faktur', 25);
             $table->date('tanggal');
+            $table->string('status', 10)->default('0');
             $table->unsignedInteger('jumlah_bayar');
             $table->unsignedInteger('total');
             $table->unsignedInteger('user_id');

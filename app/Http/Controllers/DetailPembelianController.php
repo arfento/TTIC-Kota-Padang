@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class DetailPembelianController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +54,7 @@ class DetailPembelianController extends Controller
             'tanggal_kadaluarsa'=>'required|date',
         ]);
         $detailpembelian=DetailPembelian::create($request->all());
-        return redirect()->route('detailpembelian.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('detailpembelian.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -98,7 +102,7 @@ class DetailPembelianController extends Controller
         ]);
         $detailpembelian=DetailPembelian::find($id_detail_pembelian);
         $detailpembelian->update($request->all());
-        return redirect()->route('detailpembelian.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('detailpembelian.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -112,7 +116,7 @@ class DetailPembelianController extends Controller
     {
         $detailpembelian=DetailPembelian::find($id_detail_pembelian);
         $detailpembelian->delete();
-        return redirect()->route('detailpembelian.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('detailpembelian.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

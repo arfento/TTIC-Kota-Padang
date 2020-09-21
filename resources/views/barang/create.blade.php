@@ -46,7 +46,8 @@
           <label class="col-md-2 col-form-label text-md-right">Jenis Barang</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <select class="form-control" name="jenis_barang_id">
+              <select class="form-control" name="jenis_barang_id" placeholder = "-- Pilih Jenis Barang --">
+                {{-- <option value="" placeholder="Select Jenis Barang" readonly >Select Jenis Barang</option> --}}
                 @foreach ($jenisbarang as $item)
                 <option value="{{ $item->id_jenis_barang }}"> {{ $item->jenis }} </option>
                 @endforeach
@@ -67,12 +68,6 @@
               <div class="clearfix"></div>
             </div>
           </div>
-          {{-- <div class="col-md-6">
-            <div class="col-md-6">
-              <input type="text" name="satuan_pembelian_id" class="form-control">
-            </div>
-            <div class="clearfix"></div>
-          </div> --}}
         </div>
         <div class="form-group row">
           <label class="col-md-2 col-form-label text-md-right">Isi</label>
@@ -114,11 +109,25 @@
             <div class="clearfix"></div>
           </div>
         </div>
+        
         <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">stok</label>
+          <label class="col-md-2 col-form-label text-md-right">Gambar</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input type="text" name="stok" class="form-control">
+                <input type="file" class="form-control-file @error('gambar') is-invalid @enderror" id="gambar" name="gambar" onchange="loadPreview(this);" value="{{ old('gambar') }}" required autofocus>
+                <span class="help-block with-errors"></span>
+                <label for="gambar"></label>
+                <img id="preview_img" src="" class="" width="200" height="200"/>
+        
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">Keterangan</label>
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <input type="text" name="keterangan" class="form-control">
             </div>
             <div class="clearfix"></div>
           </div>
@@ -134,3 +143,20 @@
     </div>
   </section>
   @endsection
+  <script>
+    function loadPreview(input, id) {
+      id = id || '#preview_img';
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+   
+          reader.onload = function (e) {
+              $(id)
+                      .attr('src', e.target.result)
+                      .width(200)
+                      .height(200);
+          };
+   
+          reader.readAsDataURL(input.files[0]);
+      }
+   }
+  </script>

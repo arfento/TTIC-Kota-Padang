@@ -10,6 +10,10 @@ use DB;
 
 class RakController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -75,7 +79,7 @@ class RakController extends Controller
             'nomor_rak'=>'min:4|required',
         ]);
         $raks=Rak::create($request->all());
-        return redirect()->route('rak.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('rak.index')->with('success','Data Berhasil Dimasukkan');
         //
 
         // $request->validate([
@@ -129,7 +133,7 @@ class RakController extends Controller
     {
         // $rak -> nomor_rak = $request->nomor_rak;
         // $rak -> save();
-        // return redirect()->route('rak.index')->with('pesan','Data Berhasil Dihapus');;
+        // return redirect()->route('rak.index')->with('success','Data Berhasil Dihapus');;
         // $request->validate([
         //     'nomor_rak'    => 'required|string|unique:raks,nomor_rak,'.$request->id.'',
         // ]);
@@ -149,7 +153,7 @@ class RakController extends Controller
         ]);
         $raks=Rak::find($rak);
         $raks->update($request->all());
-        return redirect()->route('rak.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('rak.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -165,7 +169,7 @@ class RakController extends Controller
 
         // $id_rak->delete();
         Rak::destroy($id_rak);
-        return redirect()->route('rak.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('rak.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

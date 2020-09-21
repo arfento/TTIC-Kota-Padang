@@ -19,7 +19,7 @@
 </style>
 <section class="content">
   <div class="card">
-    <div class="card-header">Edit Satuan Penjualan</div>
+    <div class="card-header">Edit Barang</div>
     <div class="card-body">
       @include('validasi')
       <form action="{{ route('barang.update', $barang->id_barang) }}" method="POST">
@@ -48,7 +48,6 @@
           <div class="col-md-6">
             <div class="col-md-6">
               <select class="form-control" name="jenis_barang_id">
-              
                 @foreach ($jenisbarang as $item)
                 @if ($item->id_jenis_barang == $item ->jenis_barang_id)
                   <option value="{{ $item->id_jenis_barang }}" selected="selected"> {{ $item->jenis }} </option>
@@ -127,15 +126,31 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">Stok</label>
+          <label class="col-md-2 col-form-label text-md-right">Gambar</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input type="text" name="stok" class="form-control" value="{{ $barang->stok }}">
+                <input type="file" class="form-control-file @error('gambar') is-invalid @enderror" id="gambar" name="gambar" onchange="loadPreview(this);" value="{{ $barang->gambar }}" required autofocus>
+                <span class="help-block with-errors"></span>
+                <label for="gambar"></label>
+                <img id="preview_img" src="" class="" width="200" height="200" src="{{ url('/upload/barangs/'.$item->gambar)}}">
+        
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">Keterangan</label>
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <input type="text" name="keterangan" class="form-control" value="{{ $barang->keterangan }}">
             </div>
             <div class="clearfix"></div>
           </div>
         </div>
         
+
+
         <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-2">
             <button type="submit" class="btn btn-info">Update data</button>
@@ -148,3 +163,20 @@
   </div>
 </section>
 @endsection
+<script>
+  function loadPreview(input, id) {
+    id = id || '#preview_img';
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+ 
+        reader.onload = function (e) {
+            $(id)
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(200);
+        };
+ 
+        reader.readAsDataURL(input.files[0]);
+    }
+ }
+</script>

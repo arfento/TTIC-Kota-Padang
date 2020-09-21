@@ -7,6 +7,10 @@ use App\Supplier;
 
 class SupplierController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +46,7 @@ class SupplierController extends Controller
             'telepon'=>'required',
         ]);
         $supplier=Supplier::create($request->all());
-        return redirect()->route('supplier.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('supplier.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -85,7 +89,7 @@ class SupplierController extends Controller
         ]);
         $supplier=Supplier::find($id_supplier);
         $supplier->update($request->all());
-        return redirect()->route('supplier.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('supplier.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -99,7 +103,7 @@ class SupplierController extends Controller
     {
         $supplier=Supplier::find($id_supplier);
         $supplier->delete();
-        return redirect()->route('supplier.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('supplier.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

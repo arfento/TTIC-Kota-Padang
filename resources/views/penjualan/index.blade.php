@@ -23,7 +23,12 @@
         <div class="card-header">Penjualan</div>
         
         <div class="card-body">
-            <a href="{{ route('penjualan.create')}}" class="btn btn-info btn-sm">Tambah Penjualan</a><hr>
+            <div class="header">
+                <a href="{{ route('penjualan.create')}}" class="btn btn-primary btn-sm" >Tambah Penjualan</a>
+                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
+                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+            </div>
+            <hr>
             @include('notifikasi')
             
             <table class="table table-bordered" id="users-table">

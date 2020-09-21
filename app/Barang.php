@@ -6,12 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
-    protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual', 'stok'];
+    protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual', 'gambar', 'keterangan'];
     protected $primaryKey = 'id_barang';
-    protected $guarded=[];
+    // protected $guarded=[];
     public function persediaan()
     {
-        return $this->hasMany(Persediaan::class);
+        return $this->hasMany(Persediaan::class, 'barang_id');
+    }
+
+    public function getpersediaanCountAttribute($value)
+    {
+        $pcsCount = 0;
+        foreach ($this->persediaan as $data) {
+            $pcsCount += $data->stok;
+        }
+
+        return $pcsCount;
     }
 
     public function detailPenjualan()

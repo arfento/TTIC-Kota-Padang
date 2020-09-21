@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class DetailPenjualanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +54,7 @@ class DetailPenjualanController extends Controller
            
         ]);
         $detailpenjualan=DetailPenjualan::create($request->all());
-        return redirect()->route('detailpenjualan.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('detailpenjualan.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -98,7 +102,7 @@ class DetailPenjualanController extends Controller
         ]);
         $detailpenjualan=DetailPenjualan::find($id_detail_penjualan);
         $detailpenjualan->update($request->all());
-        return redirect()->route('detailpenjualan.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('detailpenjualan.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -112,7 +116,7 @@ class DetailPenjualanController extends Controller
     {
         $detailpenjualan=DetailPenjualan::find($id_detail_penjualan);
         $detailpenjualan->delete();
-        return redirect()->route('detailpenjualan.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('detailpenjualan.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

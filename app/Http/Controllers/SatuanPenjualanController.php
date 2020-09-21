@@ -7,6 +7,10 @@ use App\SatuanPenjualan;
 
 class SatuanPenjualanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +45,7 @@ class SatuanPenjualanController extends Controller
             'satuan'=>'min:2|required',
         ]);
         $satuanpenjualan=SatuanPenjualan::create($request->all());
-        return redirect()->route('satuanpenjualan.index')->with('pesan','Data Berhasil Dimasukkan');
+        return redirect()->route('satuanpenjualan.index')->with('success','Data Berhasil Dimasukkan');
         //
     }
 
@@ -82,7 +86,7 @@ class SatuanPenjualanController extends Controller
         ]);
         $satuanpenjualan=SatuanPenjualan::find($id_satuan_penjualan);
         $satuanpenjualan->update($request->all());
-        return redirect()->route('satuanpenjualan.index')->with('pesan','Data Berhasil Diupdate');
+        return redirect()->route('satuanpenjualan.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -96,7 +100,7 @@ class SatuanPenjualanController extends Controller
     {
         $satuanpenjualan=SatuanPenjualan::find($id_satuan_penjualan);
         $satuanpenjualan->delete();
-        return redirect()->route('satuanpenjualan.index')->with('pesan','Data Berhasil Dihapus');
+        return redirect()->route('satuanpenjualan.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

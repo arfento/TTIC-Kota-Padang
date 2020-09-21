@@ -23,9 +23,13 @@
         <div class="card-header">Barang</div>
         
         <div class="card-body">
-            <a href="{{ route('barang.create')}}" class="btn btn-info btn-sm">Tambah Barang</a><hr>
+            <div class="header">
+                <a href="{{ route('barang.create')}}" class="btn btn-primary btn-sm" >Tambah Barang</a>
+                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
+                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+            </div>
+            <hr>
             @include('notifikasi')
-            
             <table class="table table-bordered" id="barang-table">
                 <thead>
                     <tr>
@@ -38,7 +42,8 @@
                         <th>Satuan Penjualan</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Stok</th>
+                        <th>Keterangan</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -55,7 +60,11 @@
                         <td>{{ $item-> satuanPenjualan -> satuan }}</td>
                         <td>{{ $item-> harga_beli }}</td>
                         <td>{{ $item-> harga_jual }}</td>
-                        <td>{{ $item-> stok }}</td>
+                        <td>{{ $item-> keterangan }}</td>
+                        <td>
+                            {{-- <a href="{{ asset('/upload/barangs/'.$item->gambar) }}" target="_blank">{{ $item->gambar }}</a> --}}
+                            <img width="200px" height="100px" class="profile-user-img img-fluid" src="{{ url('/upload/barangs/'.$item->gambar)}}" >
+                        </td>
                         
                         <td>
                             <a href="{{ route('barang.edit',$item->id_barang)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>

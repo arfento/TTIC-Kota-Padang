@@ -75,6 +75,6 @@ class RegisterController extends Controller
     protected function registered()
     {
         $this ->guard()->logout();
-        return redirect()->route('login')->with('pesan', "You're registered, and please login.");
+        return redirect()->route('login')->with('success', "You're registered, and please login.");
     }
 }
