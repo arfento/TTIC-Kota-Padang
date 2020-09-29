@@ -63,7 +63,8 @@
                         <td>{{ $item-> keterangan }}</td>
                         <td>
                             {{-- <a href="{{ asset('/upload/barangs/'.$item->gambar) }}" target="_blank">{{ $item->gambar }}</a> --}}
-                            <img width="200px" height="100px" class="profile-user-img img-fluid" src="{{ url('/upload/barangs/'.$item->gambar)}}" >
+                            {{-- <img src="{{ asset('storage/products/' . $product->image) }}" width="100px" height="100px" alt="{{ $product->name }}"> --}}
+                            <img width="200px" height="100px" class="profile-user-img img-fluid" src="{{ asset('storage/barangs/' . $item->gambar) }}" >
                         </td>
                         
                         <td>

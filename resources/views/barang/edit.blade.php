@@ -22,7 +22,7 @@
     <div class="card-header">Edit Barang</div>
     <div class="card-body">
       @include('validasi')
-      <form action="{{ route('barang.update', $barang->id_barang) }}" method="POST">
+      <form action="{{ route('barang.update', $barang->id_barang) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group row">
@@ -125,14 +125,16 @@
             <div class="clearfix"></div>
           </div>
         </div>
+      
         <div class="form-group row">
           <label class="col-md-2 col-form-label text-md-right">Gambar</label>
           <div class="col-md-6">
             <div class="col-md-6">
-                <input type="file" class="form-control-file @error('gambar') is-invalid @enderror" id="gambar" name="gambar" onchange="loadPreview(this);" value="{{ $barang->gambar }}" required autofocus>
+              {{-- <input type="file" class="form-control" id="gambar" name="gambar"> --}}
+                <input type="file" class="form-control-file" id="gambar" name="gambar" onchange="loadPreview(this);" autofocus>
                 <span class="help-block with-errors"></span>
-                <label for="gambar"></label>
-                <img id="preview_img" src="" class="" width="200" height="200" src="{{ url('/upload/barangs/'.$item->gambar)}}">
+                <label ></label>
+                <img id="preview_img" class="" width="200" height="200"  src="{{ asset('storage/barangs/' . $barang->gambar) }}"  alt="{{ $barang->gambar }}">
         
             </div>
             <div class="clearfix"></div>

@@ -8,10 +8,10 @@
         </div>
         <div class="col-md-12 mt-2">
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('homes') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $barang->nama_barang }}</li>
-              </ol>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('homes') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $barang->nama_barang }}</li>
+                </ol>
             </nav>
         </div>
         <div class="col-md-12 mt-1">
@@ -19,7 +19,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{ url('uploads') }}/{{ $barang->gambar }}" class="rounded mx-auto d-block" width="100%" alt=""> 
+                            
+                            <img src="{{ asset('storage/barangs/' . $barang->gambar) }}" class="rounded mx-auto d-block" width="100%" alt="">
                         </div>
                         <div class="col-md-6 mt-5">
                             <h2>{{ $barang->nama_barang }}</h2>
@@ -40,21 +41,24 @@
                                         <td>:</td>
                                         <td>{{ $barang->keterangan }}</td>
                                     </tr>
-                                   
+
                                     <tr>
                                         <td>Jumlah Pesan</td>
                                         <td>:</td>
                                         <td>
-                                             <form method="post" action="{{ url('pesan') }}/{{ $barang->id_barang }}" >
-                                            @csrf
+                                            <form method="post" action="{{ url('pesan') }}/{{ $barang->id_barang }}">
+                                                @csrf
+
                                                 <input type="text" name="jumlah_pesan" class="form-control" required="">
-                                                <button type="submit" class="btn btn-primary mt-2"><i class="fa fa-shopping-cart"></i> Masukkan Keranjang</button>
+                                                <input type="text" name="nomor_faktur" class="form-control" required="">
+                                                <button type="submit" class="btn btn-primary mt-2"><i
+                                                        class="fa fa-shopping-cart"></i> Masukkan Keranjang</button>
                                             </form>
                                         </td>
                                     </tr>
-                                   
-                                    
-                                    
+
+
+
                                 </tbody>
                             </table>
                         </div>

@@ -71,7 +71,7 @@
           </ul>
         </li>
         <li class="nav-item has-treeview menu-open">
-          <a href="{{ route('persediaan.index') }}" class="nav-link active">
+          <a href="{{ route('persediaanperrak') }}" class="nav-link active">
             <i class="nav-icon fas fa-box-open"></i>
             <p>
               Persediaan

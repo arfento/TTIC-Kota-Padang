@@ -49,161 +49,142 @@
           </div>
         </li>
       </ul>
-  </div> --}}
-  <div class="container">
-    {{-- <div class="topbar">
-                  <div class="page-title">
-                      <a class="logo" @click="$router.go(-1)"><div class="back"><span class="icon-expand"></span></div><img class="img" src="/images/logo2.png" alt="Logo"/></a>
+      </div> --}}
+      <div class="container">
+        {{-- <div class="topbar">
+                      <div class="page-title">
+                          <a class="logo" @click="$router.go(-1)"><div class="back"><span class="icon-expand"></span></div><img class="img" src="/images/logo2.png" alt="Logo"/></a>
+                      </div>
+                      <div class="user-area">
+                          <div class="user">
+                              <div class="name">{{ user }}</div>
+        <span class="role">{{ role }}</span>
+        </div>
+        <img class="img" src="/images/avatar.png">
+        </div>
+        </div> --}}
+        <div class="row">
+          <div class="col col-12">
+            <div class="main-content row">
+              <div class="col" style="width: 70%;padding-right: 10px">
+                <div class="card row header" style="padding:0px; margin-bottom: 20px">
+                  <div class="row">
+
+                    <div class="col col-4" style="padding: 20px">
+                      <div class="form-group">
+
+                        <span class="label text-dark">Nomor Faktur</span>
+                        <input class="form-control" name="nomor_faktur">
+                      </div>
+                    </div>
+
+                    <div class="col col-4" style="padding: 20px; border-left: 1px solid #eaeaea">
+                      <div class="form-group">
+                        <span class="label text-dark">Tanggal</span>
+                        {!! Form::text('tanggal', old('tanggal',
+                        Carbon\Carbon::today()->format('Y-m-d')),['class'=>'form-control date-picker', 'readonly']) !!}
+                        {{-- <span class="value" value="tanggal">{{ date('d-m-Y', strtotime($penjualan -> tanggal)) }}</span>
+                        --}}
+                      </div>
+                    </div>
+                    <div class="col col-4" style="padding: 20px; border-left: 1px solid #eaeaea">
+                      <div class="form-group">
+                        <span class="label text-dark">Petugas</span><br>
+                        <span class="form-control">{{ Auth::user()->name }}</span>
+                        <input class="form-control" name="user_id" value="{{ Auth::user()->id }}" hidden>
+                      </div>
+                    </div>
+
+                    <div class="col col-4" style="padding: 20px">
+                      <div class="form-group">
+
+                        <span class="label text-dark">Nama Pembeli</span>
+                        <input class="form-control" name="user_nama">
+                      </div>
+                    </div>
+                    <div class="col col-4" style="padding: 20px">
+                      <div class="form-group">
+
+                        <span class="label text-dark">Nomor HP Pembeli</span>
+                        <input class="form-control" name="user_nohp">
+                      </div>
+                    </div>
+                    <div class="col col-4" style="padding: 20px">
+                      <div class="form-group">
+
+                        <span class="label text-dark">Alamat Pembeli</span>
+                        <input class="form-control" name="user_alamat">
+                      </div>
+                    </div>
                   </div>
-                  <div class="user-area">
-                      <div class="user">
-                          <div class="name">{{ user }}</div>
-  <span class="role">{{ role }}</span>
-  </div>
-  <img class="img" src="/images/avatar.png">
-  </div>
-  </div> --}}
-  <div class="row">
-    <div class="col col-12">
-      <div class="main-content row">
-        <div class="col" style="width: 70%;padding-right: 10px">
-          <div class="card row header" style="padding:0px; margin-bottom: 20px">
-            <div class="row">
-
-              <div class="col col-4" style="padding: 20px">
-                <div class="form-group">
-
-                  <span class="label text-dark">Nomor Faktur</span>
-                  <input class="form-control" name="nomor_faktur">
                 </div>
-              </div>
-              <div class="col col-4" style="padding: 20px; border-left: 1px solid #eaeaea">
-                <div class="form-group">
-                  <span class="label text-dark">Tanggal</span>
-                  {!! Form::text('tanggal', old('tanggal',
-                  Carbon\Carbon::today()->format('Y-m-d')),['class'=>'form-control date-picker', 'readonly']) !!}
-                  {{-- <span class="value" value="tanggal">{{ date('d-m-Y', strtotime($penjualan -> tanggal)) }}</span>
-                  --}}
-                </div>
-              </div>
-              <div class="col col-4" style="padding: 20px; border-left: 1px solid #eaeaea">
-                <div class="form-group">
-                  <span class="label text-dark">Petugas</span><br>
-                  <span class="form-control">{{ Auth::user()->name }}</span>
-                  <input class="form-control" name="user_id" value="{{ Auth::user()->id }}" hidden>
+                <div class="card row body" style="padding:0px; margin-bottom: 20px">
+
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Nama Barang</th>
+                        <th>Jumlah Barang</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th><a href="#" class="addRow"><i class="glyphicon glyphicon-plus"></i></a></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <select class="form-control barang_id" name="barang_id[0]">
+                            @foreach ($barang as $item)
+                            <option value="{{ $item-> id_barang }}"> {{ $item-> nama_barang }} </option>
+                            @endforeach
+                          </select>
+                        </td>
+
+                        <td><input type="text" name="jumlah[0]" class="form-control jumlah" required=""></td>
+                        <td><input type="text" name="harga_satuan[0]" class="form-control harga_satuan"></td>
+                        <td><input type="text" name="total[0]" class="form-control total"></td>
+                        <td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>
+                      </tr>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        {{-- <td style="border: none"></td> --}}
+                        <td style="border: none"></td>
+                        <td style="border: none"></td>
+                        <td>Total</td>
+                        <td>
+                          <b class="totalall"></b>
+                          {{-- <input class="totalall" name="totalall" --}}
+                        </td>
+                        <td>
+                          <input type="submit" name="" value="Submit" class="btn btn-success">
+                          {{-- <div class="col-md-6 offset-md-2">
+                                  <button type="submit" class="btn btn-info">Tambah data</button> --}}
+                          <a href="{{ route('pembelian.index') }}" class="btn btn-danger">Kembali</a>
+                          {{-- </div> --}}
+                        </td>
+
+                      </tr>
+                      <tr>
+                        {{-- <td style="border: none"></td> --}}
+                        <td style="border: none"></td>
+                        <td style="border: none"></td>
+                        <td>jumlah bayar</td>
+                        <td>
+                          <input class="jumlahbayar" name="jumlah_bayar">
+                        </td>
+
+                      </tr>
+                    </tfoot>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card row body" style="padding:0px; margin-bottom: 20px">
-
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th >Nama Barang</th>
-                  <th>Jumlah Barang</th>
-                  <th>Harga</th>
-                  <th>Total</th>
-                  <th><a href="#" class="addRow"><i class="glyphicon glyphicon-plus"></i></a></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <select class="form-control barang_id" name="barang_id">
-                      @foreach ($barang as $item)
-                              <option value="{{ $item-> id_barang }}"> {{ $item-> nama_barang }} </option>
-                      @endforeach
-                    </select>
-                  </td>
-                 
-                  <td><input type="text" name="jumlah" class="form-control jumlah" required=""></td>
-                  <td><input type="text" name="harga_satuan" class="form-control harga_satuan"></td>
-                  <td><input type="text" name="total" class="form-control total"></td>
-                  <td><input type="text" name="jumlah_bayar" class="form-control jumlah_bayar"></td>
-                  <td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>
-                </tr>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  {{-- <td style="border: none"></td> --}}
-                  <td style="border: none"></td>
-                  <td style="border: none"></td>
-                  <td>Total</td>
-                  <td><b class="totalall"></b> </td>
-                  <td>
-                    <input type="submit" name="" value="Submit" class="btn btn-success">
-                    {{-- <div class="col-md-6 offset-md-2">
-                            <button type="submit" class="btn btn-info">Tambah data</button> --}}
-                    <a href="{{ route('pembelian.index') }}" class="btn btn-danger">Kembali</a>
-                    {{-- </div> --}}
-                  </td>
-
-                </tr>
-              </tfoot>
-            </table>
-
-            {{-- <table> --}}
-              {{-- <thead>
-                <tr>
-                  <th class="nomor">No</th>
-                  <th style="width: 200px;">Barang</th>
-                  <th style="width: 50px;text-align: center;">Jumlah</th>
-                  <th style="width: 100px">Harga</th>
-                  <th style="width: 120px">Subtotal</th>
-                  <th style="width: 30px"></th>
-                </tr>
-              </thead> --}}
-              {{-- <tbody> --}}
-                {{-- <tr v-for="(item, index) in penjualan.detail_penjualan" :key="index"> --}}
-                  {{-- <td class="nomor">1</td> --}}
-                  {{-- <td v-if="cekKuantitas[index]" style="min-width: 150px;"><a --}}
-                      {{-- style="font-weight: 500">{{ item.nama_produk }}Nama --}}
-                      {{-- Barang</a><span>{{ item.jenis_produk }} kode barang | <span --}}
-                        {{-- style="color: #ff4949">{{ item.stok }}00 stok tersedia</span></span></td> --}}
-                  {{-- <td v-else style="min-width: 150px;"><a style="font-weight: 500">{{ item.nama_produk }}</a><span>{{ item.kode_produk }}
-                    | {{ item.stok }} {{ item.satuan_produk.toLowerCase() }} tersedia</span></td> --}}
-                  {{-- <td><input --}}
-                      {{-- v-model="item.kuantitas" @input="cekStok(item.kuantitas, item.stok, item.nama_produk, index)" :class="{'has-error': cekKuantitas[index] || item.kuantitas == '' || item.kuantitas == 0}" --}}
-                      {{-- type="number" class="input" min="1" --}}
-                      {{-- style="width: 50px;text-align: center;padding: 0;margin: 0 auto"></td> --}}
-                  {{-- <td>{{ item.harga_satuan | rupiah }} </td> --}}
-                  {{-- <td>{{ item.kuantitas * item.harga_satuan | rupiah }}</td> --}}
-                  {{-- <td><a @click.prevent="removeCart(index)" href=""><i class="icon-hapus error" --}}
-                        {{-- title="hapus"></i></a></td> --}}
-                {{-- </tr> --}}
-              {{-- </tbody> --}}
-            {{-- </table> --}}
-          </div>
-        </div>
-        {{-- <div class="col col-4" style="width: 30%;padding-left: 10px"> --}}
-          {{-- <div class="card right"> --}}
-            {{-- <div class="total"> --}}
-              {{-- <span class="label">Total</span> --}}
-              {{-- <span class="value">{{ getTotal | rupiah }}111110101</span> --}}
-            {{-- </div> --}}
-            {{-- <div class="bayar"> --}}
-              {{-- <span class="label">Bayar</span> --}}
-              {{-- <input v-model="penjualan.jumlah_bayar" type="number" @keyup.enter="bayar" --}}
-                {{-- placeholder="0"> --}}
-
-            {{-- </div> --}}
-          {{-- </div> --}}
-          {{-- <button --}}
-            {{-- v-if="penjualan.detail_penjualan.length > 0 && penjualan.jumlah_bayar > 0 && cekKuantitas.length == 0 && getTotal > 0" --}}
-            {{-- class="button button-bayar" type="button" @click="bayar">Bayar</button> --}}
-
-
-          {{-- <button v-else class="button button-bayar nonaktif" type="button" style="cursor: default">Bayar</button> --}}
-        {{-- </div> --}}
-      </div>
-    </div>
-  </div>
-  </div>
-  {{-- <flash></flash> --}}
-  {{-- <kembalianmodal></kembalianmodal> --}}
-  </form>
+        {{-- <flash></flash> --}}
+        {{-- <kembalianmodal></kembalianmodal> --}}
+    </form>
   </div>
 
   <script type="text/javascript">
@@ -214,6 +195,7 @@
             var total=(jumlah*harga_satuan);
             tr.find('.total').val(total);
             totalall();
+            jumlahbayar()
         });
         function totalall(){
             var totalall=0;
@@ -222,15 +204,25 @@
             totalall +=total;
         });
         $('.totalall').html("Rp. "+totalall);   
+        };
+        function jumlahbayar(){
+            var jumlahbayar=0;
+            $('.total').each(function(i,e){
+                var total=$(this).val()-0;
+                jumlahbayar +=total;
+        });
+        $('.jumlahbayar').html("Rp. "+jumlahbayar);   
         }
         $('.addRow').on('click',function(){
             addRow();
         });
+        var index = 1;
+        var no = 2;
         function addRow()
         {
             var tr='<tr>'+
             '<td>'+
-              '<select class="form-control" name="barang_id">'+
+              '<select class="form-control" name="barang_id[' + index + ']">'+
                       '@foreach ($barang as $item)'+
                       '<option value="{{ $item-> id_barang }}"> {{ $item-> nama_barang }} </option>'+
                       '@endforeach'+
@@ -238,12 +230,12 @@
             // <input type="text" name="barang_id" class="form-control">
             '</td>'+
           
-            '<td><input type="text" name="jumlah" class="form-control jumlah"></td>'+
-            '<td><input type="text" name="harga_satuan" class="form-control harga_satuan"></td>'+
-            ' <td><input type="text" name="total" class="form-control total"></td>'+
-            ' <td><input type="text" name="jumlah_bayar" class="form-control jumlah_bayar"></td>'+
+            '<td><input type="text" name="jumlah[' + index + ']" class="form-control jumlah"></td>'+
+            '<td><input type="text" name="harga_satuan[' + index + ']" class="form-control harga_satuan"></td>'+
+            ' <td><input type="text" name="total[' + index + ']" class="form-control total"></td>'+
             '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
             '</tr>';
+            index++;
             $('tbody').append(tr);
         };
         $('.remove').live('click',function(){

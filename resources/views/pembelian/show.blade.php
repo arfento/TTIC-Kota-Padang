@@ -3,27 +3,66 @@
 @section('content')
 <div class="content pembelian">
     <div class="container">
-        <topbar :title="title"></topbar>
-        <loading v-if="loading"></loading>
         <div v-else class="row">
             <div class="col col-11">
-                <div class="card custom detail">
-                    <div style="display:flex; justify-content: space-between">
-                        <span class="title" style="margin-bottom: 20px;display: block;">Nomor Faktur: {{ pembelian.nomor_faktur }} ({{ pembelian.detail_pembelian_count }})</span>
-                        <i class="icon-cetak success"></i>
-                    </div>
-                    <div class="row">
-                        <div class="col col-5" style="padding-right: 10px">
-                            <span>Nama Vendor</span>
-                            <span class="value">{{ pembelian.nama_vendor }}</span>
-                        </div>
-                        <div class="col col-4" style="padding: 0px 10px">
-                            <span>Tanggal Pembelian</span>
-                            <span class="value">{{ pembelian.tanggal }}</span>
-                        </div>
-                        <div class="col col-3" style="padding-left: 10px">
-                            <span>Petugas</span>
-                            <span class="value">{{ pembelian.nama_user }}</span>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="card custom" style="padding: 25px 40px">
+                            <span class="title " style="margin-bottom: 10px">
+                                <font size="5">Pembelian Baru</font>
+                            </span>
+
+                            <div class="row">
+                                <div class="col-md-3" style="padding-right: 10px">
+                                    <div class="form-group">
+                                        <label class="label text-dark">Nama Supplier</label>
+                                        <select class="form-control" name="supplier_id">
+
+                                            <option value="{{ $pembelian-> supplier-> id_supplier }}">
+                                                {{ $pembelian-> supplier-> nama_supplier }} </option>
+
+                                        </select>
+                                        {{-- <search-select v-model="pembelian.vendor_id" :options="vendor" placeholder="Pilih Vendor"></search-select> --}}
+                                        {{-- <span v-if="errors.vendor_id" class="help error">{{ errors.vendor_id[0] }}</span>
+                                        --}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3" style="padding: 0px 10px">
+                                    <div class="form-group">
+                                        <label class="label text-dark">Nomor Faktur</label>
+                                        <input type="text" name="nomor_faktur" class="form-control"
+                                            value="{{ $pembelian->nomor_faktur }}" readonly>
+                                        {{-- <input v-model="pembelian.nomor_faktur" type="text" class="input" @change="checkForm('nomor_faktur')"> --}}
+                                        {{-- <span v-if="errors.nomor_faktur" class="help error">{{ errors.nomor_faktur[0] }}</span>
+                                        --}}
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 10px">
+                                    <div class="form-group">
+                                        <label class="label text-dark">Tanggal Pembelian</label>
+                                        <input class="form-control" type="text" onfocus="(this.type='date')"
+                                            onfocusout="(this.type='text')" name="tanggal_pembelian"
+                                            value="{{ \Carbon\Carbon::parse($pembelian->tanggal_pembelian) ->format('d/m/Y')}}"
+                                            disabled>
+                                        {{-- <input v-model="pembelian.tanggal" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" class="input" @change="checkForm('tanggal')"> --}}
+                                        {{-- <span v-if="errors.tanggal" class="help error">{{ errors.tanggal[0] }}</span>
+                                        --}}
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding: 0px 10px">
+                                    <div class="form-group">
+                                        <label class="label text-dark">Nama Petugas</label>
+                                        <input type="text" name="user_id" class="form-control"
+                                            value="{{ Auth::user()->id }}" hidden>
+                                        <label class="form-control">{{ Auth::user()->name }}</label>
+                                        {{-- <input v-model="pembelian.nomor_faktur" type="text" class="input" @change="checkForm('nomor_faktur')"> --}}
+                                        {{-- <span v-if="errors.nomor_faktur" class="help error">{{ errors.nomor_faktur[0] }}</span>
+                                        --}}
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -32,26 +71,39 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th style="">Produk</th>
-                                <th style="width: 70px">Kuantitas</th>
+                                <th style="">Barang</th>
+                                <th style="">Rak Penyimpanan Barang</th>
+                                <th style="width: 70px">Jumlah</th>
                                 <th style="width: 175px">Harga</th>
                                 <th style="width: 175px">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in detailPembelian" :key="item.id">
-                                <td class="nomor" style="text-align:center">{{ 1 + index }}</td>
-                                <td style="min-width: 150px;"><a>{{ item.nama_produk }}</a><span>{{ item.kode_produk }}</span></td>
-                                <td>{{ item.kuantitas }}</td>
-                                <td>{{ item.harga_satuan | rupiah }}</td>
-                                <td>{{ item.kuantitas * item.harga_satuan | rupiah }}</td>
+                            <?php $totalall = 0; ?>
+                            @foreach ($detail as $item)
+                            <tr>
+                                <td class="nomor" style="text-align:center">{{ $loop ->iteration }}</td>
+                                <td style="min-width: 150px;">
+                                    <span style="display: flex">{{ $item->nama_barang }}</span>
+                                    <span>{{ $item->kode_barang }}</span>
+                                </td>
+                                <td style="min-width: 150px;">
+                                    @foreach($item -> barang-> persediaan as $itemp)
+                                    @endforeach 
+                                    <span> {{ $itemp-> rak -> nomor_rak }} </span>           
+                                </td>
+                                <td>{{ $item->jumlah }}</td>
+                                <td>{{ $item->harga_satuan}}</td>
+                                <td>{{ $item->jumlah * $item->harga_satuan }}</td>
                             </tr>
+                            <?php $totalall = $totalall + ($item -> jumlah * $item->harga_satuan) ?>
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="footer">
                         <div class="left">
                             <span>Total</span>
-                            <div class="total">{{ getTotal | rupiah }}</div>
+                            <div class="totalall">{{ $totalall }}</div>
                         </div>
                     </div>
                 </div>

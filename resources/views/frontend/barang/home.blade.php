@@ -9,7 +9,7 @@
         @foreach($barangs as $barang)
         <div class="col-md-4">
             <div class="card">
-              <img src="{{ url('/upload/barangs/') }}/{{ $barang-> gambar }}" class="card-img-top" alt="...">
+              <img src="{{ asset('storage/barangs/' . $barang->gambar) }}" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">{{ $barang-> nama_barang }}</h5>
                 <p class="card-text">
@@ -17,11 +17,9 @@
                     <strong>Stok :</strong> {{ ($barang -> persediaan_count)}} <br>
                     <strong>Stok :</strong> 	
                     @foreach($barang-> persediaan as $itemp)
-                        @if ($itemp->stok == null)
-                            {{ $itemp->stok == 0 }}                  
-                        @else
+                      
                         {{ $itemp->stok}}
-                        @endif                             
+                                                
                     @endforeach 
                     
                     <br>

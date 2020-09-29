@@ -18,7 +18,7 @@ class PersediaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexperrak()
     {
         // $persediaan=Persediaan::all();
         // return view('persediaan.index',compact('persediaan'));
@@ -26,12 +26,18 @@ class PersediaanController extends Controller
         return view('persediaan.index_perrak', ['raks' => $raks]);
     }
 
+    public function index($id)
+    {
+        $persediaan = Persediaan::with(['Barang','Rak'])->where('rak_id', $id)->get();
+        return view('persediaan.index', compact('persediaan') );
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         
         $barang= Barang::all();
@@ -77,9 +83,14 @@ class PersediaanController extends Controller
      */
     public function edit($id_persediaan)
     {
+        // dd($id_persediaan);
+        $perkembangansiswa = collect([]);
+        // $persediaan = Persediaan::with(['Barang','Rak'])->where('barang_id', $id_persediaan)->get();
+       
         $barang= Barang::all();
-        $rak= Rak::all();
+        $rak = Rak::all();
         $persediaan=Persediaan::findOrFail($id_persediaan);
+        // dd($persediaan);
         return view('persediaan.edit',compact('persediaan', 'barang', 'rak'));
     }
 
@@ -97,11 +108,11 @@ class PersediaanController extends Controller
             'rak_id'=>'required|numeric',
             'barang_id'=>'required|numeric',
             'stok'=>'required|numeric',
-            'tanggal_kadaluarsa'=>'date',
+            'tanggal_kadaluarsa'=>'nullable|date',
         ]);
         $persediaan=Persediaan::find($id_persediaan);
         $persediaan->update($request->all());
-        return redirect()->route('persediaan.index')->with('success','Data Berhasil Diupdate');
+        return redirect()->view('persediaan.index')->with('success','Data Berhasil Diupdate');
         //
     }
 
@@ -115,7 +126,7 @@ class PersediaanController extends Controller
     {
         $persediaan=Persediaan::find($id_persediaan);
         $persediaan->delete();
-        return redirect()->route('persediaan.index')->with('success','Data Berhasil Dihapus');
+        return redirect()->view('persediaan.index')->with('success','Data Berhasil Dihapus');
         //
     }
 }

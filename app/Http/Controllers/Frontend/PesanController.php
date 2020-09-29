@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\User;
 use App\Barang;
 use App\DetailPenjualan;
@@ -24,7 +24,6 @@ class PesanController extends Controller
     public function index($id_barang)
     {
     	$barang = Barang::where('id_barang', $id_barang)->first();
-
     	return view('frontend.pesan.index', compact('barang'));
     }
 
@@ -38,29 +37,32 @@ class PesanController extends Controller
 
     public function pesan(Request $request, $id_barang)
     {	
-        $barang = Barang::where('id_barang', $id_barang)->first();
+        dd($request);
+        $barang = Barang::where('id_barang', $id_barang)->withCount('persediaan')->first();
         $tanggal = Carbon::now();
         $persediaan = Persediaan::all();
 
         //validasi apakah melebihi stok
-/*     	if($request->jumlah > $barang->stok)
+    	if($request->jumlah_pesan > $barang-> persediaan_count)
     	{
     		return redirect('pesan/'.$id_barang);
     	}
- */
+
     	//cek validasi
-    /* 	$cek_pesanan = Penjualan::where('user_id', Auth::user()->id)->where('status',0)->first();
+    	$cek_pesanan = Penjualan::where('user_id', Auth::user()->id)->where('status',0)->first();
     	//simpan ke database pesanan
     	if(empty($cek_pesanan))
     	{
     		$penjualan = new Penjualan();
 	    	$penjualan->user_id = Auth::user()->id;
+	    	$penjualan->nomor_faktur = $request-> nomor_faktur;
 	    	$penjualan->tanggal = $tanggal;
 	    	$penjualan->status = 0;
 	    	$penjualan->jumlah_bayar = 0;
-            $penjualan->kode = mt_rand(100, 999);
+	    	$penjualan->total = 0;
+            // $penjualan->kode = mt_rand(100, 999);
 	    	$penjualan->save();
-    	} */
+    	}
     	
 
     	//simpan ke database pesanan detail
@@ -72,9 +74,10 @@ class PesanController extends Controller
     	{
     		$pesanan_detail = new DetailPenjualan();
 	    	$pesanan_detail->barang_id = $barang->id_barang;
-	    	$pesanan_detail->pesanan_id = $pesanan_baru->id_penjualan;
-	    	$pesanan_detail->jumlah = $request->jumlah;
-	    	// $pesanan_detail->jumlah_harga = $barang->harga*$request->jumlah;
+	    	$pesanan_detail->penjualan_id = $pesanan_baru->id_penjualan;
+	    	$pesanan_detail->harga_satuan = $request->harga_jual;
+	    	$pesanan_detail->jumlah = $request->jumlah_pesan;
+	    	// $pesanan_detail->jumlah_harga = $barang->harga_jual*$request->jumlah_pesan;
 	    	$pesanan_detail->save();
     	}else 
     	{
@@ -83,15 +86,16 @@ class PesanController extends Controller
     		$pesanan_detail->jumlah = $pesanan_detail->jumlah+$request->jumlah_pesan;
 
     		//harga sekarang
-    		$harga_pesanan_detail_baru = $barang->harga*$request->jumlah_pesan;
-	    	$pesanan_detail->jumlah_harga = $pesanan_detail->jumlah_harga+$harga_pesanan_detail_baru;
+    		// $harga_pesanan_detail_baru = $barang->harga_satuan*$request->jumlah_pesan;
+	    	// $pesanan_detail->jumlah_harga = $pesanan_detail->jumlah_harga+$harga_pesanan_detail_baru;
 	    	$pesanan_detail->update();
     	}
 
     	//jumlah total
-    	$pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
-    	$pesanan->jumlah_harga = $pesanan->jumlah_harga+$barang->harga*$request->jumlah_pesan;
-    	$pesanan->update();
+    	$penjualan = Penjualan::where('user_id', Auth::user()->id)->where('status',0)->first();
+    	$penjualan->jumlah_bayar = $penjualan->jumlah_bayar+$barang->harga_jual*$request->jumlah_pesan;
+    	$penjualan->total = $penjualan->total+$barang->harga_jual*$request->jumlah_pesan;
+    	$penjualan->update();
     	
         Alert::success('Pesanan Sukses Masuk Keranjang', 'Success');
     	return redirect('check-out');

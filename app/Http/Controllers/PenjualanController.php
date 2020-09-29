@@ -56,32 +56,44 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'nomor_faktur'=>'required|string',
             'tanggal'=>'required|date',
             'jumlah_bayar'=>'required|numeric',
-            'total'=>'required|numeric',
+            // 'total'=>'required|numeric',
             'user_id'=>'required|string',
+            'user_nama'=>'required|string',
+            'user_nohp'=>'required|string',
+            'user_alamat'=>'required',
         ]);
+        
+        $total = 0;
+        foreach ($request->total as $key => $value){
+            $total += $value;
+        }
         
         Penjualan::create([
             'nomor_faktur'  => $request->nomor_faktur,
             'tanggal'       => $request->tanggal,
             'jumlah_bayar'  => $request->jumlah_bayar,
-            'total'         => $request->total,
-            'user_id'       => $request->user_id
+            'total'         => $total,
+            'user_id'       => $request->user_id,
+            'user_nama'       => $request->user_nama,
+            'user_nohp'       => $request->user_nohp,
+            'user_alamat'       => $request->user_alamat,
         ]);
 
-        
+        foreach ($request->total as $key => $value){
             DetailPenjualan::create([
-                'penjualan_id'      => $this->getPenjualanID($request->nomor_faktur),
-                'barang_id'         => $request-> barang_id,
-                'jumlah'         => $request-> jumlah,
-                'harga_satuan'      => $request-> harga_satuan,
+                'penjualan_id' => $this->getPenjualanID($request->nomor_faktur),
+                'barang_id' => $request->barang_id[$key],
+                'jumlah'       => $request-> jumlah[$key],
+                'harga_satuan' => $request-> harga_satuan[$key],
             ]);
 
-            $barang_id = $request-> barang_id;
-            $jumlah = $request-> jumlah;
+            $barang_id = $request-> barang_id[$key];
+            $jumlah = $request-> jumlah[$key];
 
             $persediaan = Persediaan::where('barang_id', $barang_id)->get();
 
@@ -96,13 +108,50 @@ class PenjualanController extends Controller
                     break;
                 }
                 $n += $persediaan[$j]['stok'];
-                Persediaan::where('id', $persediaan[$j]['id_persediaan'])->delete();
+                Persediaan::where('id_persediaan', $persediaan[$j]['id_persediaan'])->delete();
             }
-        
-
+        }
+           
         // $penjualan=Penjualan::create($request->all());
         return redirect()->route('penjualan.index')->with('success','Data Berhasil Dimasukkan');
         //
+
+        
+
+      
+        // Pembelian::create([
+        //     'nomor_faktur'      => $request->nomor_faktur,
+        //     'user_id'           => $request->user_id,
+        //     'supplier_id'       => $request->supplier_id,
+        //     'tanggal_pembelian' => $request->tanggal_pembelian,
+        //     'total'             => $total
+
+            
+        // ]);
+        // $detail = array();
+        // foreach ($request->total as $key => $value) {
+        //     DetailPembelian::create([
+        //         'barang_id' => $request->barang_id[$key],
+        //         'pembelian_id' => $this->getPembelianID($request->nomor_faktur),
+        //         'jumlah' => $request->jumlah[$key],
+        //         'harga_satuan' => $request->harga_satuan[$key],
+        //     ]);
+
+        //     $isi = Barang::where('id_barang', $request->barang_id[$key])->first()->isi;
+        //     $stok = $isi * $request->jumlah[$key];
+
+        //     Persediaan::create([
+        //         'rak_id'                => $request->rak_id[$key],
+        //         'barang_id'             => $request->barang_id[$key],
+        //         'stok'                  => $stok
+        //     ]);
+
+        //     Barang::where('id_barang', $request->barang_id[$key])->update([
+        //         'harga_beli'           => $request->harga_satuan[$key],
+        //     ]);
+
+            
+        // }
     }
 
     /**
@@ -145,6 +194,9 @@ class PenjualanController extends Controller
             'jumlah_bayar'=>'required|numeric',
             'total'=>'required|numeric',
             'user_id'=>'required|string',
+            'user_nama'=>'required|string',
+            'user_nohp'=>'required|string',
+            'user_alamat'=>'required',
         ]);
         $penjualan=Penjualan::find($id_penjualan);
         $penjualan->update($request->all());

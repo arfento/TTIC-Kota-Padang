@@ -148,9 +148,20 @@ class PembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_pembelian)
     {
-        //
+        $pembelian = Pembelian::withCount('detailPembelian')->with('user')->with('supplier')->where('nomor_faktur', $id_pembelian)->first();
+        $detail = DetailPembelian::join('pembelians', 'detail_pembelians.pembelian_id', '=', 'pembelians.id_pembelian')
+            ->join('barangs', 'detail_pembelians.barang_id', '=', 'barangs.id_barang')
+            ->where('pembelians.nomor_faktur', $id_pembelian)
+            ->get();
+
+        // $rak = Rak::all();
+        // $persediaan = Persediaan::with(['Barang','Rak'])->where('rak_id', $rak->id_rak)->get();
+        
+        // dd($detail);
+
+            return view('pembelian.show', compact('pembelian', 'detail'));
     }
 
     /**
@@ -163,8 +174,11 @@ class PembelianController extends Controller
     {
         $user = User::all();
         $supplier = Supplier::all();
-        $pembelian = Pembelian::findOrFail($id_pembelian);
+        // $pembelian = Pembelian::findOrFail($id_pembelian);
+        $pembelian = Pembelian::findOrFail($id_pembelian)->withCount('detailPembelian')->where('id_pembelian', $id_pembelian)->first();
+       
         $detailpembelian = DetailPembelian::all();
+        $persediaan = Persediaan::all();
         $barang = Barang::all();
         $rak = Rak::all();
         return view('pembelian.edit', compact('pembelian', 'user', 'supplier', 'rak', 'detailpembelian', 'barang'));
@@ -222,14 +236,14 @@ class PembelianController extends Controller
 
 
 
-    public function detail($nomorFaktur)
+    public function detail($id_pembelian)
     {
-        $pembelian = Pembelian::withCount('detailPembelian')->with('user')->with('supplier')->where('nomor_faktur', $nomorFaktur)->first();
-        $detail = DetailPembelian::join('pembelians', 'detail_pembelians.pembelian_id', '=', 'pembelians.id')
-            ->join('barangs', 'detail_pembelians.barang_id', '=', 'barangs.id')
-            ->where('pembelians.nomor_faktur', $nomorFaktur)
+        $pembelian = Pembelian::withCount('detailPembelian')->with('user')->with('supplier')->where('id_pembelian', $nomorFaktur)->first();
+        $detail = DetailPembelian::join('pembelians', 'detail_pembelians.pembelian_id', '=', 'pembelians.id_pembelian')
+            ->join('barangs', 'detail_pembelians.barang_id', '=', 'barangs.id_barang')
+            ->where('pembelians.id_pembelian', $id_pembelian)
             ->get();
-            dd($detail);
+           
 
             return view('pembelian.index', compact('pembelian', 'detail'));
         // return response()->json(['pembelian' => $pembelian, 'detail' => $detail]);

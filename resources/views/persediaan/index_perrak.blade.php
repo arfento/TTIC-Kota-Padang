@@ -18,7 +18,7 @@
                             
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title"><a href="{{ route('persediaan.show',$item->id_rak)}}"> {{ $item->nomor_rak }}</a></h4>
+                        <h4 class="card-title"><a href="/persediaan/{{ $item->id_rak }}"> {{ $item->nomor_rak }}</a></h4>
                         <br>
                         <hr>
                         <p class="card-text">{{ $item->persediaan_count }}</p>

@@ -14,13 +14,15 @@ class CreatePenjualansTable extends Migration
     public function up()
     {
         Schema::create('penjualans', function (Blueprint $table) {
-            $table->increments('id_penjualan');
-            $table->string('nomor_faktur', 25);
+            $table->bigIncrements('id_penjualan');
+            $table->string('nomor_faktur', 10)->unique();
             $table->date('tanggal');
-            $table->string('status', 10)->default('0');
-            $table->unsignedInteger('jumlah_bayar');
-            $table->unsignedInteger('total');
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('total');
+            $table->unsignedBigInteger('user_id');
+
+            $table->string('user_nama', 100);
+            $table->string('user_nohp', 15);
+            $table->text('user_alamat');
             $table->timestamps();
         });
 

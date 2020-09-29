@@ -32,11 +32,44 @@ Route::resource('jenisbarang','JenisBarangController');
 Route::resource('supplier','SupplierController');
 Route::resource('barang','BarangController');
 Route::resource('jenisbarang','JenisBarangController');
+
 Route::resource('pembelian','PembelianController');
+Route::get('pembelian/detail/{nomorFaktur}', 'PembelianController@detail');
+
 Route::resource('detailpembelian','DetailPembelianController');
 Route::resource('penjualan','PenjualanController');
 Route::resource('detailpenjualan','DetailPenjualanController');
+
 Route::resource('persediaan','PersediaanController');
+Route::get('/persediaan/{id}', 'PersediaanController@index');
+Route::get('/persediaan/{id}/create','PersediaanController@create');
+Route::post('/persediaan/store','PersediaanController@store');
+Route::delete('/persediaan/hapus/{id}','PersediaanController@destroy');
+Route::get('/persediaan/edit/{id}','PersediaanController@edit');
+Route::post('/persediaan/update','PersediaanController@update');
+Route::get('/persediaanperrak', 'PersediaanController@indexperrak')->name('persediaanperrak');
+
+Route::get('/perkembangansiswa/{id}/siswa_perkelas', 'PersediaanController@getsiswaPerkelas');
+
+
+
+Route::get('/front', 'Ecommerce\FrontController@index')->name('front.index');
+Route::get('/product', 'Ecommerce\FrontController@product')->name('front.product');
+Route::get('/category/{slug}', 'Ecommerce\FrontController@categoryProduct')->name('front.category');
+Route::get('/product/{slug}', 'Ecommerce\FrontController@show')->name('front.show_product');
+
+Route::post('cart', 'Ecommerce\CartController@addToCart')->name('front.cart');
+Route::get('/cart', 'Ecommerce\CartController@listCart')->name('front.list_cart');
+Route::post('/cart/update', 'Ecommerce\CartController@updateCart')->name('front.update_cart');
+
+Route::get('/checkout', 'Ecommerce\CartController@checkout')->name('front.checkout');
+Route::post('/checkout', 'Ecommerce\CartController@processCheckout')->name('front.store_checkout');
+Route::get('/checkout/{invoice}', 'Ecommerce\CartController@checkoutFinish')->name('front.finish_checkout');
+
+
+
+
+
 
 Route::resource('barangs','Frontend\BarangController');
 // Route::resource('history','Frontend\HistoryController');

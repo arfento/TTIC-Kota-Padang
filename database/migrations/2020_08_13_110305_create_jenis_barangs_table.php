@@ -14,7 +14,7 @@ class CreateJenisBarangsTable extends Migration
     public function up()
     {
         Schema::create('jenis_barangs', function (Blueprint $table) {
-            $table->increments('id_jenis_barang');
+            $table->BigIncrements('id_jenis_barang');
             $table->string('jenis', 50)->unique();
             $table->timestamps();
         });

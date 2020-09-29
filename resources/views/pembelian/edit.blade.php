@@ -43,7 +43,8 @@
                 <div class="col-md-3" style="padding: 0px 10px">
                   <div class="form-group">
                     <label class="label text-dark">Nomor Faktur</label>
-                    <input type="text" name="nomor_faktur" class="form-control" value="{{ $pembelian->nomor_faktur }}" readonly>
+                    <input type="text" name="nomor_faktur" class="form-control" value="{{ $pembelian->nomor_faktur }}"
+                      readonly>
                     {{-- <input v-model="pembelian.nomor_faktur" type="text" class="input" @change="checkForm('nomor_faktur')"> --}}
                     {{-- <span v-if="errors.nomor_faktur" class="help error">{{ errors.nomor_faktur[0] }}</span> --}}
                   </div>
@@ -96,27 +97,33 @@
                     </td>
                     <td>
                       <select class="form-control" name="rak_id[0]">
-                        @foreach ($rak as $item)
-                        <option value="{{ $item-> id_rak }}"> {{ $item-> nomor_rak }} </option>
+                       
+                        @foreach ($rak  as $item)
+                   
+                        @if ($persediaan -> rak ->rak_id == $item->id_rak)
+                        <option value="{{ $itemp-> rak ->rak_id }}" selected="selected"> {{ $itemp-> rak -> nomor_rak }}
+                        </option>
+
+                        @else
+                        <option value="{{ $item->id_rak }}">{{ $item->nomor_rak }}</option>
+                        @endif
                         @endforeach
                       </select>
                     </td>
-                    <td><input type="text" name="jumlah[0]" class="form-control jumlah" required="" 
-                      
-                      @foreach($pembelian-> detailPembelian as $itemp)
-                      
+                    <td><input type="text" name="jumlah[0]" class="form-control jumlah" required=""
+                        @foreach($pembelian-> detailPembelian as $itemp)
+
                       value=" {{ $itemp->jumlah}}"
-                                               
-                       @endforeach>
+
+                      @endforeach>
                     </td>
-                    <td><input type="text" name="harga_satuan[0]" class="form-control harga_satuan" 
-                      
-                      @foreach($pembelian-> detailpembelian as $itemp)
-                      
+                    <td><input type="text" name="harga_satuan[0]" class="form-control harga_satuan"
+                        @foreach($pembelian-> detailpembelian as $itemp)
+
                       value="{{ $itemp->harga_satuan}}"
-                                               
-                       @endforeach>
-                    
+
+                      @endforeach>
+
                     </td>
                     <td><input type="text" name="total[0]" class="form-control total" readonly></td>
                     <td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>
@@ -142,80 +149,81 @@
                 </tfoot>
               </table>
             </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">Nomor Faktur</label>
-          <div class="col-md-6">
-            <div class="col-md-6">
-              <input type="text" name="nomor_faktur" class="form-control" value="{{ $pembelian->nomor_faktur }}">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label text-md-right">Nomor Faktur</label>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                  <input type="text" name="nomor_faktur" class="form-control" value="{{ $pembelian->nomor_faktur }}">
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">Nama User</label>
-          <div class="col-md-6">
-            <div class="col-md-6">
-              <select class="form-control" name="user_id">
-          
-                @foreach ($user as $item)
-                @if ($item->id == $item ->user_id)
-                  <option value="{{ $item->id }}" selected="selected"> {{ $item->name }} </option>
-                  @else
-                  <option value="{{ $item->id }}"> {{ $item->name }} </option>
-                @endif
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label text-md-right">Nama User</label>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                  <select class="form-control" name="user_id">
 
-                @endforeach
-              </select>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">Nama Supplier</label>
-          <div class="col-md-6">
-            <div class='col-md-6'>
-              <select class="form-control" name="supplier_id" >
+                    @foreach ($user as $item)
+                    @if ($item->id == $item ->user_id)
+                    <option value="{{ $item->id }}" selected="selected"> {{ $item->name }} </option>
+                    @else
+                    <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                    @endif
 
-                @foreach ($supplier as $item)
-                @if ($item->id_supplier == $item ->supplier_id)
-                  <option value="{{ $item->id_supplier }}" selected="selected"> {{ $item->nama_supplier }} </option>
-                  @else
-                  <option value="{{ $item->id_supplier }}"> {{ $item->nama_supplier }} </option>
-                @endif
+                    @endforeach
+                  </select>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label text-md-right">Nama Supplier</label>
+              <div class="col-md-6">
+                <div class='col-md-6'>
+                  <select class="form-control" name="supplier_id">
 
-                @endforeach
-              </select>
-              <div class="clearfix"></div>
+                    @foreach ($supplier as $item)
+                    @if ($item->id_supplier == $item ->supplier_id)
+                    <option value="{{ $item->id_supplier }}" selected="selected"> {{ $item->nama_supplier }} </option>
+                    @else
+                    <option value="{{ $item->id_supplier }}"> {{ $item->nama_supplier }} </option>
+                    @endif
+
+                    @endforeach
+                  </select>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">Tanggal Pembelian</label>
-          <div class="col-md-6">
-            <div class="col-md-6">
-              <input class="form-control" type="date" name="tanggal_pembelian" value="{{ $pembelian->tanggal_pembelian }}">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label text-md-right">Tanggal Pembelian</label>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                  <input class="form-control" type="date" name="tanggal_pembelian"
+                    value="{{ $pembelian->tanggal_pembelian }}">
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">Total</label>
-          <div class="col-md-6">
-            <div class="col-md-6">
-              <input type="text" name="total" class="form-control" value="{{ $pembelian->total }}">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label text-md-right">Total</label>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                  <input type="text" name="total" class="form-control" value="{{ $pembelian->total }}">
+                </div>
+                <div class="clearfix"></div>
+              </div>
             </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-       
-        
-        <div class="form-group row mb-0">
-          <div class="col-md-6 offset-md-2">
-            <button type="submit" class="btn btn-info">Update data</button>
-            <a href="{{ route('pembelian.index') }}" class="btn btn-danger">Kembali</a>
-          </div>
-        </div>
-        
+
+
+            <div class="form-group row mb-0">
+              <div class="col-md-6 offset-md-2">
+                <button type="submit" class="btn btn-info">Update data</button>
+                <a href="{{ route('pembelian.index') }}" class="btn btn-danger">Kembali</a>
+              </div>
+            </div>
+
       </form>
     </div>
   </div>

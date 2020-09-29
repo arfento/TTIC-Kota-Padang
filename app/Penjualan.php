@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Penjualan extends Model
 {
-    protected $fillable = ['nomor_faktur', 'tanggal', 'status', 'jumlah_bayar', 'total', 'user_id'];
+    protected $guarded = [];
     protected $primaryKey = 'id_penjualan';
     public function detailPenjualan()
     {
@@ -66,7 +66,7 @@ public static function getDataPenjualan($request)
     $to = $request->to;
     
     $data = Penjualan::selectRaw('DATE_FORMAT(penjualans.tanggal, "%Y-%m") as periode, sum(jumlah) as total')
-    ->join('detail_penjualans', 'penjualans.id', '=', 'detail_penjualans.penjualan_id')
+    ->join('detail_penjualans', 'penjualans.id_penjualan', '=', 'detail_penjualans.penjualan_id')
     ->where('detail_penjualans.barang_id', $barang_id)
     ->whereRaw("DATE_FORMAT(penjualans.tanggal, '%Y-%m') >= '$from' AND DATE_FORMAT(penjualans.tanggal, '%Y-%m') <= '$to'")
     ->groupBy('periode')

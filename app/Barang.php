@@ -8,7 +8,14 @@ class Barang extends Model
 {
     protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual', 'gambar', 'keterangan'];
     protected $primaryKey = 'id_barang';
+    // protected $uploads = '/uploads/gambar/' ;
     // protected $guarded=[];
+
+    // public function getGambarAttribute($gambar)
+    // {
+    //     return $this->uploads . $gambar ;
+    // }
+
     public function persediaan()
     {
         return $this->hasMany(Persediaan::class, 'barang_id');

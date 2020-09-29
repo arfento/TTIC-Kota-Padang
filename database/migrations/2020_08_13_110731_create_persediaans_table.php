@@ -14,10 +14,10 @@ class CreatePersediaansTable extends Migration
     public function up()
     {
         Schema::create('persediaans', function (Blueprint $table) {
-            $table->increments('id_persediaan');
-            $table->unsignedInteger('rak_id');
-            $table->unsignedInteger('barang_id');
-            $table->unsignedInteger('stok');
+            $table->bigIncrements('id_persediaan');
+            $table->unsignedBigInteger('rak_id');
+            $table->unsignedBigInteger('barang_id');
+            $table->unsignedBigInteger('stok');
             $table->date('tanggal_kadaluarsa')->nullable();
             $table->timestamps();
         

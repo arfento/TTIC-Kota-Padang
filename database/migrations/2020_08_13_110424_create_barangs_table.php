@@ -14,17 +14,17 @@ class CreateBarangsTable extends Migration
     public function up()
     {
         Schema::create('barangs', function (Blueprint $table) {
-            $table->increments('id_barang');
+            $table->BigIncrements('id_barang');
             $table->string('kode_barang', 10)->unique();
             $table->string('nama_barang', 50);
-            $table->unsignedInteger('jenis_barang_id');
-            $table->unsignedInteger('satuan_pembelian_id');
-            $table->unsignedInteger('isi');
-            $table->unsignedInteger('satuan_penjualan_id');
-            $table->unsignedInteger('harga_beli')->nullable();
-            $table->unsignedInteger('harga_jual')->nullable();
+            $table->unsignedBigInteger('jenis_barang_id');
+            $table->unsignedBigInteger('satuan_pembelian_id');
+            $table->unsignedBigInteger('isi');
+            $table->unsignedBigInteger('satuan_penjualan_id');
+            $table->unsignedBigInteger('harga_beli')->nullable();
+            $table->unsignedBigInteger('harga_jual')->nullable();
             $table->string('gambar')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
 

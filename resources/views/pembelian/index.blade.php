@@ -50,7 +50,7 @@
                     @foreach ($pembelian as $item)
                     <tr>
                         <td>{{ $loop-> iteration }}</td>
-                        <td><a href="{{ route('pembelian.edit',$item->id_pembelian)}}" style="text-blue"> {{ $item-> nomor_faktur }} </a></td>
+                        <td><a href="{{ route('pembelian.show',$item->nomor_faktur)}}" style="text-blue"> {{ $item-> nomor_faktur }} </a></td>
                         <td>{{ $item-> supplier -> nama_supplier }}</td>
                         <td>{{ $item-> tanggal_pembelian }}</td>
                         <td>{{ $item-> detailPembelian_count }}</td>
@@ -58,7 +58,7 @@
                         <td>{{ $item-> user -> name }}</td>   
                         <td>
                             <a href="{{ route('pembelian.edit',$item->id_pembelian)}}" class="btn btn-info btn-sm fa fa-list-alt"> Detail </a>
-                            <a href="{{ route('pembelian.edit',$item->id_pembelian)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
+                            <a href="{{ route('pembelian.edit',$item->nomor_faktur)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
                             <form action="{{ route('pembelian.destroy', $item->id_pembelian) }}" method="POST" style="display: inline">
                                 @csrf
                                 @method('delete')
