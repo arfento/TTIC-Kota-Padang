@@ -107,7 +107,7 @@
 										<h5>Satuan Penjualan</h5>
 									</td>
 									<td>
-                                        <h5>{{ $barang->satuanPenjualan->satuan }} gr</h5>
+                                        <h5>{{ $barang->isi }} {{ $barang->satuanPenjualan->satuan }}</h5>
 									</td>
 								</tr>
 								<tr>

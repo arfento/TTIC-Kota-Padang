@@ -45,7 +45,7 @@
                 <div class="col-md-3" style="padding: 0px 10px">
                   <div class="form-group">
                     <label class="label text-dark">Nomor Faktur</label>
-                    <input type="text" name="nomor_faktur" class="form-control">
+                    <input type="text" name="nomor_faktur" class="form-control" value="{{ $random }}" readonly>
                     {{-- <input v-model="pembelian.nomor_faktur" type="text" class="input" @change="checkForm('nomor_faktur')"> --}}
                     {{-- <span v-if="errors.nomor_faktur" class="help error">{{ errors.nomor_faktur[0] }}</span> --}}
                   </div>
@@ -92,24 +92,23 @@
                 <tbody>
                   <tr>
                     <td>
-                      <select class="form-control" name="barang_id[0]">
+                      <select class="form-control" name="barang_id[]">
                         @foreach ($barang as $item)
                         <option value="{{ $item-> id_barang }}"> {{ $item-> nama_barang }} </option>
                         @endforeach
                       </select>
                     </td>
                     <td>
-                      <select class="form-control" name="rak_id[0]">
+                      <select class="form-control" name="rak_id[]">
                         @foreach ($rak as $item)
                         <option value="{{ $item-> id_rak }}"> {{ $item-> nomor_rak }} </option>
                         @endforeach
                       </select>
                     </td>
-                    <td><input type="text" name="jumlah[0]" class="form-control jumlah" required=""></td>
-                    <td><input type="text" name="harga_satuan[0]" class="form-control harga_satuan"> </td>
-                    <td><input type="text" name="total[0]" class="form-control total" readonly></td>
+                    <td><input type="text" name="jumlah[]" class="form-control jumlah" required=""></td>
+                    <td><input type="text" name="harga_satuan[]" class="form-control harga_satuan"> </td>
+                    <td><input type="text" name="total[]" class="form-control total" readonly></td>
                     <td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>
-                  </tr>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -235,7 +234,7 @@
           {
               var tr='<tr>'+
               '<td>'+
-                '<select class="form-control" name="barang_id[' + index + ']">'+
+                '<select class="form-control" name="barang_id[]">'+
                         '@foreach ($barang as $item)'+
                         '<option value="{{ $item-> id_barang }}"> {{ $item-> nama_barang }} </option>'+
                         '@endforeach'+
@@ -243,18 +242,18 @@
               // <input type="text" name="barang_id" class="form-control">
               '</td>'+
               '<td>'+
-                '<select class="form-control" name="rak_id[' + index + ']">'+
+                '<select class="form-control" name="rak_id[]">'+
                         '@foreach ($rak as $item)'+
                         '<option value="{{ $item-> id_rak }}"> {{ $item-> nomor_rak }} </option>'+
                         '@endforeach'+
                       '</select>'+
               '</td>'+
-              '<td><input type="text" name="jumlah[' + index + ']" class="form-control jumlah"></td>'+
-              '<td><input type="text" name="harga_satuan[' + index + ']" class="form-control harga_satuan"></td>'+
-              ' <td><input type="text" name="total[' + index + ']" class="form-control total" readonly></td>'+
+              '<td><input type="text" name="jumlah[]" class="form-control jumlah"></td>'+
+              '<td><input type="text" name="harga_satuan[]" class="form-control harga_satuan"></td>'+
+              ' <td><input type="text" name="total[]" class="form-control total" readonly></td>'+
               '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
               '</tr>';
-              index++;
+              // index++;
               $('tbody').append(tr);
           };
           $('.remove').live('click',function(){

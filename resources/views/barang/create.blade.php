@@ -28,7 +28,7 @@
           <label class="col-md-2 col-form-label text-md-right">Kode Barang</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input type="text" name="kode_barang" class="form-control">
+              <input type="text" name="kode_barang" class="form-control" value="{{ $random }}" readonly>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -85,6 +85,7 @@
           <div class="col-md-6">
             <div class="col-md-6">
               <select class="form-control" name="satuan_penjualan_id">
+                <option value="">Pilih</option>
                 @foreach ($satuanpenjualan as $item)
                 <option value="{{ $item->id_satuan_penjualan }}" {{ old('satuan_penjualan_id') == $item->id_satuan_penjualan ? 'selected':'' }} > {{ $item->satuan }} </option>
                 @endforeach

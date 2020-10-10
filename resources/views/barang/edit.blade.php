@@ -47,10 +47,11 @@
           <label class="col-md-2 col-form-label text-md-right">Jenis Barang</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <select class="form-control" name="jenis_barang_id">
+              <select class="form-control" name="jenis_barang_id" >
+                
                 @foreach ($jenisbarang as $item)
-                @if ($item->id_jenis_barang == $item ->jenis_barang_id)
-                  <option value="{{ $item->id_jenis_barang }}" selected="selected"> {{ $item->jenis }} </option>
+                @if ($item->id_jenis_barang == $barang ->jenis_barang_id)
+                  <option value="{{ $barang->jenis_barang_id }}" selected="selected"> {{ $barang->jenis->jenis }} </option>
                   @else
                   <option value="{{ $item->id_jenis_barang }}"> {{ $item->jenis }} </option>
                 @endif
@@ -68,8 +69,8 @@
               <select class="form-control" name="satuan_pembelian_id">
                
                 @foreach ($satuanpembelian as $item)
-                @if ($item->id_satuan_pembelian == $item ->satuan_pembelian_id)
-                  <option value="{{ $item->id_satuan_pembelian }}" selected="selected"> {{ $item->satuan }} </option>
+                @if ($item->id_satuan_pembelian == $barang ->satuan_pembelian_id)
+                  <option value="{{ $barang->satuan_pembelian_id }}" selected="selected"> {{ $barang-> satuanPembelian->satuan }} </option>
                   @else
                   <option value="{{ $item->id_satuan_pembelian }}"> {{ $item->satuan }} </option>
                 @endif
@@ -95,8 +96,8 @@
             <div class="col-md-6">
               <select class="form-control" name="satuan_penjualan_id">
                 @foreach ($satuanpenjualan as $item)
-                @if ($item->id_satuan_penjualan == $item ->satuan_penjualan_id)
-                  <option value="{{ $item->id_satuan_penjualan }}" selected="selected"> {{ $item->satuan }} </option>
+                @if ($item->id_satuan_penjualan == $barang ->satuan_penjualan_id)
+                  <option value="{{ $barang->satuan_penjualan_id }}" selected="selected"> {{ $barang->satuanPenjualan->satuan }} </option>
                   @else
                   <option value="{{ $item->id_satuan_penjualan }}"> {{ $item->satuan }} </option>
                 @endif

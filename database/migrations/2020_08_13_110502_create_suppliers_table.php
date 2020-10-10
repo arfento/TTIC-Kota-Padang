@@ -17,7 +17,8 @@ class CreateSuppliersTable extends Migration
             $table->Bigincrements('id_supplier');
             $table->string('nama_supplier', 100);
             $table->string('email_supplier', 100)->unique();
-            $table->string('telepon', 14)->nullable();
+            $table->string('telepon', 14);
+            $table->text('alamat_supplier');
             $table->timestamps();
         });
     }

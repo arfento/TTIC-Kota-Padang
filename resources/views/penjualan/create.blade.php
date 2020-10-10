@@ -74,7 +74,7 @@
                       <div class="form-group">
 
                         <span class="label text-dark">Nomor Faktur</span>
-                        <input class="form-control" name="nomor_faktur">
+                        <input class="form-control" name="nomor_faktur" value="{{ $random }}" readonly>
                       </div>
                     </div>
 
@@ -82,7 +82,7 @@
                       <div class="form-group">
                         <span class="label text-dark">Tanggal</span>
                         {!! Form::text('tanggal', old('tanggal',
-                        Carbon\Carbon::today()->format('Y-m-d')),['class'=>'form-control date-picker', 'readonly']) !!}
+                        Carbon\Carbon::today()->format('d-m-Y')),['class'=>'form-control date-picker', 'readonly']) !!}
                         {{-- <span class="value" value="tanggal">{{ date('d-m-Y', strtotime($penjualan -> tanggal)) }}</span>
                         --}}
                       </div>
@@ -163,16 +163,6 @@
                                   <button type="submit" class="btn btn-info">Tambah data</button> --}}
                           <a href="{{ route('pembelian.index') }}" class="btn btn-danger">Kembali</a>
                           {{-- </div> --}}
-                        </td>
-
-                      </tr>
-                      <tr>
-                        {{-- <td style="border: none"></td> --}}
-                        <td style="border: none"></td>
-                        <td style="border: none"></td>
-                        <td>jumlah bayar</td>
-                        <td>
-                          <input class="jumlahbayar" name="jumlah_bayar">
                         </td>
 
                       </tr>

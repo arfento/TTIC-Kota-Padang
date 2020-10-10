@@ -42,7 +42,7 @@
 		<div class="top_menu row m0">
 			<div class="container-fluid">
 				<div class="float-left">
-					<p>Call Us: 012 44 5698 7456 896</p>
+					<p>Call Us: 012 34 5678 9012</p>
 				</div>
 				<div class="float-right">
 					{{-- <ul class="right_side">
@@ -62,7 +62,7 @@
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand logo_h" href="{{ url('/front') }}">
-						<img src="https://daengweb.id/front/dw-theme/images/logo-head.png" alt="">
+						<img src="{{ url('ecommerce/img/logo1.png') }}" alt="" width="70">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
@@ -231,8 +231,7 @@
 			<div class="row footer-bottom d-flex justify-content-between align-items-center">
 				<p class="col-lg-12 footer-text text-center">
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
-                    All rights reserved | This template is made with 
-                    <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://daengweb.id" target="_blank">Daengweb</a>
+                    
 				</p>
 			</div>
 		</div>

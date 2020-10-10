@@ -19,6 +19,12 @@ class Barang extends Model
     public function persediaan()
     {
         return $this->hasMany(Persediaan::class, 'barang_id');
+        // return $this->hasOne('App\Persediaan', 'barang_id');
+    }
+    public function persediaanstok()
+    {
+        // return $this->hasMany(Persediaan::class, 'barang_id');
+        return $this->hasOne('App\Persediaan', 'barang_id');
     }
 
     public function getpersediaanCountAttribute($value)

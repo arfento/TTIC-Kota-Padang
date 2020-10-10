@@ -39,29 +39,36 @@
                         @csrf
                         <div class="col-md-12 form-group p_star">
                             <label for="">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="first" name="customer_name" required>
-                            <p class="text-danger">{{ $errors->first('customer_name') }}</p>
-                        </div>
-                        <div class="col-md-6 form-group p_star">
-                            <label for="">No Telp</label>
-                            <input type="text" class="form-control" id="number" name="customer_phone" required>
-                            <p class="text-danger">{{ $errors->first('customer_phone') }}</p>
-                        </div>
-                        <div class="col-md-6 form-group p_star">
-                            <label for="">Email</label>
-                            {{-- @if (auth()->guard('customer')->check())
-                            <input type="email" class="form-control" id="email" name="email" 
-                                value="{{ auth()->guard('customer')->user()->email }}"
-                            required {{ auth()->guard('customer')->check() ? 'readonly':'' }}>
-                            @else --}}
-                            <input type="email" class="form-control" id="email" name="email" required>
-                            {{-- @endif
-                            <p class="text-danger">{{ $errors->first('email') }}</p> --}}
+                            <input type="text" class="form-control" id="first" name="user_nama" required>
+                            <p class="text-danger">{{ $errors->first('user_nama') }}</p>
                         </div>
                         <div class="col-md-12 form-group p_star">
+                            <label for="">No Telp</label>
+                            <input type="text" class="form-control" id="number" name="user_nohp" required>
+                            <p class="text-danger">{{ $errors->first('user_nohp') }}</p>
+                        </div>
+                        {{-- <div class="col-md-6 form-group p_star">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required> --}}
+                        {{-- @if (auth()->guard('customer')->check())
+                            <input type="email" class="form-control" id="email" name="email" 
+                                value="{{ auth()->guard('customer')->user()->email }}"
+                        required {{ auth()->guard('customer')->check() ? 'readonly':'' }}>
+                        @else --}}
+                        {{-- @endif
+                            <p class="text-danger">{{ $errors->first('email') }}</p> --}}
+                        {{-- </div> --}}
+                        <div class="col-md-12 form-group p_star">
                             <label for="">Alamat Pengiriman</label>
-                            <input type="text" class="form-control" id="add1" name="customer_address" required>
-                            <p class="text-danger">{{ $errors->first('customer_address') }}</p>
+                            <input type="text" class="form-control" id="add1" name="user_alamat" required>
+                            {{-- <p class="text-danger">{{ $errors->first('user_alamat') }}</p> --}}
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            {{-- <span class="label text-dark">Tanggal</span> --}}
+                            {!! Form::text('tanggal', old('tanggal',
+                            Carbon\Carbon::today()->format('Y-m-d')),['class'=>'form-control date-picker', 'hidden'])
+                            !!}
+                            {{-- <p class="text-danger">{{ $errors->first('user_alamat') }}</p> --}}
                         </div>
                         {{-- <div class="col-md-12 form-group p_star">
                             <label for="">Propinsi</label>
@@ -144,7 +151,7 @@
 @endsection
 
 @section('js')
-<script>
+{{-- <script>
     $('#province_id').on('change', function() {
             $.ajax({
                 url: "{{ url('/api/city') }}",
@@ -203,5 +210,5 @@
         //     let total = parseInt(subtotal) + parseInt(split['2'])
         //     $('#total').text('Rp' + total)
         // })
-</script>
+</script> --}}
 @endsection

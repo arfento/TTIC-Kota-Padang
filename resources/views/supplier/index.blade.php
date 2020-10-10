@@ -36,6 +36,7 @@
                         <th>Nama Supplier</th>
                         <th>Email Supplier</th>
                         <th>Nomor Telepon Supplier</th>
+                        <th>Alamat Supplier</th>
                         <th>Jumlah Transaksi</th>
                         <th>Aksi</th>
                     </tr>
@@ -47,6 +48,7 @@
                         <td>{{ $item->nama_supplier }}</td>
                         <td>{{ $item->email_supplier }}</td>
                         <td>{{ $item->telepon }}</td>
+                        <td>{{ $item->alamat_supplier }}</td>
                         <td>{{ $item->pembelian_count }}</td>
                         <td>
                             <a href="{{ route('supplier.edit',$item->id_supplier)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>

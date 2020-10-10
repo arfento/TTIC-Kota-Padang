@@ -32,7 +32,7 @@
 						<ul class="list">
 							<li>
 								<a href="#">
-                                    <span>Invoice</span> : {{ $order->invoice }}</a>
+                                    <span>Invoice</span> : {{ $order->nomor_faktur }}</a>
 							</li>
 							<li>
 								<a href="#">
@@ -40,14 +40,14 @@
 							</li>
 							<li>
 								<a href="#">
-									<span>Subtotal</span> : Rp {{ number_format($order->subtotal) }}
+									<span>Subtotal</span> : Rp {{ number_format($order->total) }}
 								</a>
 							</li>
-							<li>
+							{{-- <li>
 								<a href="#">
 									<span>Ongkos Kirim</span> : Rp {{ number_format($order->cost) }}
 								</a>
-							</li>
+							</li> --}}
 							<li>
 								<a href="#">
 									<span>Total</span> : Rp {{ number_format($order->total) }}
@@ -62,11 +62,11 @@
 						<ul class="list">
 							<li>
 								<a href="#">
-                                    <span>Alamat</span> : {{ $order->customer_address }}</a>
+                                    <span>Alamat</span> : {{ $order->user_alamat }}</a>
 							</li>
 							<li>
 								<a href="#">
-                                    <span>Kota</span> : {{ $order->district->city->name }}</a>
+                                    <span>Kota</span> : {{-- {{ $order->district->city->name }} --}}</a>
 							</li>
 							<li>
 								<a href="#">

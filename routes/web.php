@@ -16,47 +16,49 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
     
+Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+
+
+
+Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/homes', 'Frontend\BarangController@index')->name('homes');
 
-Route::resource('satuanpenjualan','SatuanPenjualanController');
-Route::resource('satuanpembelian','SatuanPembelianController');
-Route::resource('rak','RakController');
-Route::resource('jenisbarang','JenisBarangController');
-Route::resource('supplier','SupplierController');
-Route::resource('barang','BarangController');
-Route::resource('jenisbarang','JenisBarangController');
+Route::resource('satuanpenjualan','Admin\SatuanPenjualanController');
+Route::resource('satuanpembelian','Admin\SatuanPembelianController');
+Route::resource('rak','Admin\RakController');
+Route::resource('jenisbarang','Admin\JenisBarangController');
+Route::resource('supplier','Admin\SupplierController');
+Route::resource('barang','Admin\BarangController');
+Route::resource('jenisbarang','Admin\JenisBarangController');
 
-Route::resource('pembelian','PembelianController');
-Route::get('pembelian/detail/{nomorFaktur}', 'PembelianController@detail');
+Route::resource('pembelian','Admin\PembelianController');
+Route::get('pembelian/detail/{nomorFaktur}', 'Admin\PembelianController@detail');
 
-Route::resource('detailpembelian','DetailPembelianController');
-Route::resource('penjualan','PenjualanController');
-Route::resource('detailpenjualan','DetailPenjualanController');
+Route::resource('detailpembelian','Admin\DetailPembelianController');
+Route::resource('penjualan','Admin\PenjualanController');
+Route::resource('detailpenjualan','Admin\DetailPenjualanController');
 
-Route::resource('persediaan','PersediaanController');
-Route::get('/persediaan/{id}', 'PersediaanController@index');
-Route::get('/persediaan/{id}/create','PersediaanController@create');
-Route::post('/persediaan/store','PersediaanController@store');
-Route::delete('/persediaan/hapus/{id}','PersediaanController@destroy');
-Route::get('/persediaan/edit/{id}','PersediaanController@edit');
-Route::post('/persediaan/update','PersediaanController@update');
-Route::get('/persediaanperrak', 'PersediaanController@indexperrak')->name('persediaanperrak');
+Route::resource('persediaan','Admin\PersediaanController');
+Route::get('/persediaan/{id}', 'Admin\PersediaanController@index');
+Route::get('/persediaan/{id}/create','Admin\PersediaanController@create');
+Route::post('/persediaan/store','Admin\PersediaanController@store');
+Route::delete('/persediaan/hapus/{id}','Admin\PersediaanController@destroy');
+Route::get('/persediaan/edit/{id}','Admin\PersediaanController@edit');
+Route::post('/persediaan/update','Admin\PersediaanController@update');
+Route::get('/persediaanperrak', 'Admin\PersediaanController@indexperrak')->name('persediaanperrak');
 
-Route::get('/perkembangansiswa/{id}/siswa_perkelas', 'PersediaanController@getsiswaPerkelas');
-
-
-
+////front
 Route::get('/front', 'Ecommerce\FrontController@index')->name('front.index');
 Route::get('/product', 'Ecommerce\FrontController@product')->name('front.product');
-Route::get('/category/{slug}', 'Ecommerce\FrontController@categoryProduct')->name('front.category');
-Route::get('/product/{slug}', 'Ecommerce\FrontController@show')->name('front.show_product');
+Route::get('/category/{id}', 'Ecommerce\FrontController@categoryProduct')->name('front.category');
+Route::get('/product/{id}', 'Ecommerce\FrontController@show')->name('front.show_product');
 
 Route::post('cart', 'Ecommerce\CartController@addToCart')->name('front.cart');
 Route::get('/cart', 'Ecommerce\CartController@listCart')->name('front.list_cart');
@@ -65,31 +67,30 @@ Route::post('/cart/update', 'Ecommerce\CartController@updateCart')->name('front.
 Route::get('/checkout', 'Ecommerce\CartController@checkout')->name('front.checkout');
 Route::post('/checkout', 'Ecommerce\CartController@processCheckout')->name('front.store_checkout');
 Route::get('/checkout/{invoice}', 'Ecommerce\CartController@checkoutFinish')->name('front.finish_checkout');
+///endfront
 
+//ezonefront
 
+Route::get('/products', 'ProductController@index');
+Route::get('/products/{id}', 'ProductController@show');
+Route::get('/products/quick-view/{id}', 'ProductController@quickView');
 
+Route::get('/carts', 'CartController@index');
+Route::get('/carts/remove/{cartID}', 'CartController@destroy');
+Route::post('/carts', 'CartController@store');
+Route::post('/carts/update', 'CartController@update');
 
+Route::get('orders/checkout', 'OrderController@checkout');
+Route::post('orders/checkout', 'OrderController@doCheckout');
+Route::post('orders/shipping-cost', 'OrderController@shippingCost');
+Route::post('orders/set-shipping', 'OrderController@setShipping');
+Route::get('orders/received/{orderID}', 'OrderController@received');
+Route::get('orders/cities', 'OrderController@cities');
+Route::get('orders', 'OrderController@index');
+Route::get('orders/{orderID}', 'OrderController@show');
 
-
-Route::resource('barangs','Frontend\BarangController');
-// Route::resource('history','Frontend\HistoryController');
-// Route::resource('pesan','Frontend\PesanController');
-Route::get('pesan/{id}', 'Frontend\PesanController@index');
-Route::post('pesan/{id}', 'Frontend\PesanController@pesan');
-//checkout
-Route::get('check-out', 'PesanController@check_out');
-Route::delete('check-out/{id}', 'PesanController@delete');
-//konfirmasi
-Route::get('konfirmasi-check-out', 'PesanController@konfirmasi');
-//profile
-Route::get('profile', 'Frontend\ProfileController@index');
-Route::post('profile', 'Frontend\ProfileController@update');
-//history
-Route::get('history', 'HistoryController@index');
-Route::get('history/{id}', 'HistoryController@detail');
-
-// Route::resource('profile','frontend\ProfileController');
-// Route::post('satuanpembelian/delid', 'SatuanPembelianController@delid');
-    
-
-// Route::get('rak/{id_rak:slug}/{id_persediaan:slug}', 'RakController@show')->name('rak.show');
+Route::post('payments/notification', 'PaymentController@notification');
+Route::get('payments/completed', 'PaymentController@completed');
+Route::get('payments/failed', 'PaymentController@failed');
+Route::get('payments/unfinish', 'PaymentController@unfinish');
+//endezonefront

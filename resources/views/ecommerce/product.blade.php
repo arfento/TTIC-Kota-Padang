@@ -76,19 +76,19 @@
                             </div>
                             <div class="widgets_inner">
                                 <ul class="list" >
-                                    {{-- @foreach ($jenisbarang as $category)
+                                    @foreach ($jenisbarang as $jsnbarang)
                                     <li>
-                                        <strong><a href="{{ url('/category/' . $category->id_barang) }}">{{ $category->jenis }}</a></strong>
+                                        <strong><a href="{{ url('/category/' . $jsnbarang->id_jenis_barang) }}">{{ $jsnbarang->jenis }}</a></strong>
                                         
-                                        @foreach ($category->child as $child)
+                                        {{-- @foreach ($category->child as $child)
                                         <ul class="list" style="display: block">
                                             <li>
                                                 <a href="{{ url('/category/' . $child->id_barang) }}">{{ $child->name }}</a>
                                             </li>
                                         </ul>
-                                        @endforeach
+                                        @endforeach --}}
                                     </li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
                             </div>
                         </aside>

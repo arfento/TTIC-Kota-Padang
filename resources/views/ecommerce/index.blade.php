@@ -71,12 +71,12 @@
 							<div class="f_p_img">
                                 <img class="img-fluid" src="{{ asset('storage/barangs/' . $row->gambar) }}" alt="{{ $row->nama_barang }}">
 								<div class="p_icon">
-									<a href="{{ url('/product/' . $row->slug) }}">
+									<a href="{{ url('/product/' . $row->id_barang) }}">
 										<i class="lnr lnr-cart"></i>
 									</a>
 								</div>
 							</div>
-                            <a href="{{ url('/product/' . $row->slug) }}">
+                            <a href="{{ url('/product/' . $row->id_barang) }}">
                                 <h4>{{ $row->nama_barang }}</h4>
 							</a>
                             <h5>Rp {{ number_format($row->harga_jual) }}</h5>

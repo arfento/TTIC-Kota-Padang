@@ -43,7 +43,7 @@
                                         <label class="label text-dark">Tanggal Pembelian</label>
                                         <input class="form-control" type="text" onfocus="(this.type='date')"
                                             onfocusout="(this.type='text')" name="tanggal_pembelian"
-                                            value="{{ \Carbon\Carbon::parse($pembelian->tanggal_pembelian) ->format('d/m/Y')}}"
+                                            value="{{ \Carbon\Carbon::parse($pembelian->tanggal_pembelian)}}"
                                             disabled>
                                         {{-- <input v-model="pembelian.tanggal" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" class="input" @change="checkForm('tanggal')"> --}}
                                         {{-- <span v-if="errors.tanggal" class="help error">{{ errors.tanggal[0] }}</span>
@@ -95,8 +95,8 @@
                                 <td>{{ $item->jumlah }}</td>
                                 <td>{{ $item->harga_satuan}}</td>
                                 <td>{{ $item->jumlah * $item->harga_satuan }}</td>
+                                <?php $totalall = $totalall + ($item -> jumlah * $item->harga_satuan) ?>
                             </tr>
-                            <?php $totalall = $totalall + ($item -> jumlah * $item->harga_satuan) ?>
                             @endforeach
                         </tbody>
                     </table>

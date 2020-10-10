@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         
+
+        Darryldecode\Cart\CartServiceProvider::class,
     ],
     
     /*
@@ -232,6 +234,8 @@ return [
         'Datatables' => Yajra\DataTables\Facades\DataTables::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         
     ],
     

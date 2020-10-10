@@ -23,13 +23,18 @@ class FrontController extends Controller
     public function product()
     {
         $barangs = Barang::orderBy('created_at', 'DESC')->paginate(12);
-        return view('ecommerce.product', compact('barangs'));
+        $jenisbarang = JenisBarang::orderBy('jenis', 'asc')->get();
+        return view('ecommerce.product', compact('barangs', 'jenisbarang'));
     }
 
-    public function categoryProduct($slug)
+    public function categoryProduct($id_jenis_barang)
     {
-        $barangs = JenisBarang::where('id_barang', $slug)->first()->product()->orderBy('created_at', 'DESC')->paginate(12);
-        return view('ecommerce.product', compact('barangs'));
+    //    dd($id_jenis_barang);
+        $barangs = JenisBarang::findOrFail($id_jenis_barang)->barang()->orderBy('created_at', 'ASC')->paginate(12);;
+        // $barangs = JenisBarang::where('id_jenis_barang', $id_jenis_barang)->get();
+        $jenisbarang = JenisBarang::orderBy('jenis', 'asc')->get();
+        // $barangs = Barang::where('id_barang', $id)->first()->barang()->orderBy('jenis', 'ASC')->paginate(12);
+        return view('ecommerce.product', compact('barangs', 'jenisbarang'));
     }
 
     public function show($slug)

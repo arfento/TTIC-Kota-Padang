@@ -57,8 +57,8 @@
                         <td>Rp. {{ number_format($item-> total) }}</td>
                         <td>{{ $item-> user -> name }}</td>   
                         <td>
-                            <a href="{{ route('pembelian.edit',$item->id_pembelian)}}" class="btn btn-info btn-sm fa fa-list-alt"> Detail </a>
-                            <a href="{{ route('pembelian.edit',$item->nomor_faktur)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
+                            <a href="{{ route('pembelian.show',$item->nomor_faktur)}}" class="btn btn-info btn-sm fa fa-list-alt"> Detail </a>
+                            <a href="{{ route('pembelian.edit',$item->id_pembelian)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
                             <form action="{{ route('pembelian.destroy', $item->id_pembelian) }}" method="POST" style="display: inline">
                                 @csrf
                                 @method('delete')
