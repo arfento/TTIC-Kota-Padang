@@ -31,15 +31,15 @@
             <hr>
             @include('notifikasi')
             
-            <table class="table table-bordered" id="users-table">
+            <table class="table table-bordered table-striped" id="users-table">
                 <thead>
                     <tr>
-                        <th>Nomor</th>
+                        <th width="10">Nomor</th>
                         <th>Nomor Faktur</th>
-                        <th>Tanggal</th>
-                        <th>Jumlah Item</th>
                         <th>Total</th>
-                        <th>Petugas</th>
+                        <th>Nama Pembeli</th>
+                        <th>Status</th>
+                        <th>Payment</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,14 +47,23 @@
                     @foreach ($penjualan as $item)
                     <tr>
                         <td>{{ $loop-> iteration }}</td>
-                        <td>{{ $item-> nomor_faktur }}</td>
-                        <td>{{ $item-> tanggal }}</td>
-                        <td>{{ $item-> detailPenjualan_count }}</td>
-                        <td>{{ $item-> total }}</td>
-                        <td>{{ $item-> user -> name }}</td>
+                        <td>
+                            {{ $item-> nomor_faktur }}
+                            <br>
+                            <span style="font-size: 12px; font-weight: normal"> {{($item->tanggal) }}</span>
+                        </td>
+                        <td>
+                            Rp. {{ number_format($item-> grand_total) }}
+                            <br>
+                            {{ $item-> detailPenjualan_count }}
+                        </td>
+                        <td>{{ $item-> customer_full_name }}</td>
+                        <td>{{ $item-> status }}</td>
+                        <td>{{ $item->payment_status }}</td>
                         
                         
                         <td>
+                            <a href="{{ route('penjualan.show',$item->id_penjualan) }}" class="btn btn-info btn-sm fa fa-list-alt" >show</a>
                             <a href="{{ route('penjualan.edit',$item->id_penjualan)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
                             <form action="{{ route('penjualan.destroy', $item->id_penjualan) }}" method="POST" style="display: inline">
                                 @csrf

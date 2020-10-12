@@ -27,12 +27,7 @@ class PembelianController extends Controller
     public function index()
     {
 
-        // $sales = DB::table('order_lines')
-        // ->join('orders', 'orders.id', '=', 'order_lines.order_id')
-        // ->select(DB::raw('sum(order_lines.quantity*order_lines.per_qty) AS total_sales'))
-        // ->where('order_lines.product_id', $product->id)
-        // ->where('orders.order_status_id', 4)
-        // ->first();
+     
         $pembelian = Pembelian::orderBy('tanggal_pembelian', 'desc')->withCount('detailPembelian')->with('supplier')->with('user')->get();
         return view('pembelian.index', compact('pembelian'));
     }
@@ -292,7 +287,7 @@ class PembelianController extends Controller
 
     public function detail($id_pembelian)
     {
-        $pembelian = Pembelian::withCount('detailPembelian')->with('user')->with('supplier')->where('id_pembelian', $nomorFaktur)->first();
+        $pembelian = Pembelian::withCount('detailPembelian')->with('user')->with('supplier')->where('id_pembelian', $id_pembelian)->first();
         $detail = DetailPembelian::join('pembelians', 'detail_pembelians.pembelian_id', '=', 'pembelians.id_pembelian')
             ->join('barangs', 'detail_pembelians.barang_id', '=', 'barangs.id_barang')
             ->where('pembelians.id_pembelian', $id_pembelian)

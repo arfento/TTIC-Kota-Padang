@@ -16,7 +16,7 @@
 	<!-- checkout-area start -->
 	<div class="checkout-area ptb-100">
 		<div class="container">
-			@include('admin.partials.flash', ['$errors' => $errors])
+			@include('themes.ezone.partials.flash', ['$errors' => $errors])
 
 			{!! Form::model($user, ['url' => 'orders/checkout']) !!}
 			<div class="row">
@@ -178,7 +178,7 @@
 									@forelse ($items as $item)
 										@php
 											$product = isset($item->associatedModel->parent) ? $item->associatedModel->parent : $item->associatedModel;
-											$image = !empty($product->productImages->first()) ? asset('storage/'.$product->productImages->first()->path) : asset('themes/ezone/assets/img/cart/3.jpg')
+											$image = !empty($product->gambar) ? asset('storage/barangs/' . $product->gambar) : asset('themes/ezone/assets/img/cart/3.jpg')
 										@endphp
 										<tr class="cart_item">
 											<td class="product-name">
@@ -199,10 +199,10 @@
 										<th>Subtotal</th>
 										<td><span class="amount">{{ number_format(\Cart::getSubTotal()) }}</span></td>
 									</tr>
-									<tr class="cart-subtotal">
+									{{-- <tr class="cart-subtotal">
 										<th>Tax</th>
 										<td><span class="amount">{{ number_format(\Cart::getCondition('TAX 10%')->getCalculatedValue(\Cart::getSubTotal())) }}</span></td>
-									</tr>
+									</tr> --}}
 									<tr class="cart-subtotal">
 										<th>Shipping Cost ({{ $totalWeight }} kg)</th>
 										<td><select id="shipping-cost-option" required name="shipping_service"></select></td>

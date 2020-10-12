@@ -55,7 +55,7 @@
                         <td>{{ $item-> tanggal_pembelian }}</td>
                         <td>{{ $item-> detailPembelian_count }}</td>
                         <td>Rp. {{ number_format($item-> total) }}</td>
-                        <td>{{ $item-> user -> name }}</td>   
+                        <td>{{ $item-> user -> first_name }}</td>   
                         <td>
                             <a href="{{ route('pembelian.show',$item->nomor_faktur)}}" class="btn btn-info btn-sm fa fa-list-alt"> Detail </a>
                             <a href="{{ route('pembelian.edit',$item->id_pembelian)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>

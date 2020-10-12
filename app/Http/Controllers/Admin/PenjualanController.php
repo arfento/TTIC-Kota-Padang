@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\User;
 use App\Barang;
 use App\Penjualan;
@@ -11,12 +10,23 @@ use App\Persediaan;
 use Midtrans\Config;
 use App\DetailPenjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Exceptions\OutOfStockException;
 
 class PenjualanController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+
+        parent::__construct();
+
+		$this->data['currentAdminMenu'] = 'order';
+		$this->data['currentAdminSubMenu'] = 'order';
+        $this->data['statuses'] = Penjualan::STATUSES;
+        
         Config::$serverKey = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
@@ -70,9 +80,9 @@ class PenjualanController extends Controller
             'tanggal'=>'required|date',
             // 'total'=>'required|numeric',
             'user_id'=>'required|string',
-            'user_nama'=>'required|string',
-            'user_nohp'=>'required|string',
-            'user_alamat'=>'required',
+            // 'user_nama'=>'required|string',
+            // 'user_nohp'=>'required|string',
+            // 'user_alamat'=>'required',
         ]);
         
         $total = 0;
@@ -85,9 +95,9 @@ class PenjualanController extends Controller
             'tanggal'       => $request->tanggal,
             'total'         => $total,
             'user_id'       => $request->user_id,
-            'user_nama'       => $request->user_nama,
-            'user_nohp'       => $request->user_nohp,
-            'user_alamat'       => $request->user_alamat,
+            // 'user_nama'       => $request->user_nama,
+            // 'user_nohp'       => $request->user_nohp,
+            // 'user_alamat'       => $request->user_alamat,
         ]);
 
         foreach ($request->total as $key => $value){
@@ -168,7 +178,10 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Penjualan::withTrashed()->findOrFail($id);
+
+
+		return view('penjualan.show', compact('order'));
     }
 
     /**
@@ -199,9 +212,9 @@ class PenjualanController extends Controller
             'tanggal'=>'required|date',
             'total'=>'required|numeric',
             'user_id'=>'required|string',
-            'user_nama'=>'required|string',
-            'user_nohp'=>'required|string',
-            'user_alamat'=>'required',
+            // 'user_nama'=>'required|string',
+            // 'user_nohp'=>'required|string',
+            // 'user_alamat'=>'required',
         ]);
         $penjualan=Penjualan::find($id_penjualan);
         $penjualan->update($request->all());
@@ -221,6 +234,54 @@ class PenjualanController extends Controller
         $penjualan->delete();
         return redirect()->route('penjualan.index')->with('success','Data Berhasil Dihapus');
         //
+
+
+
+
+
+        // $order = Order::withTrashed()->findOrFail($id);
+
+		// if ($order->trashed()) {
+		// 	$canDestroy = \DB::transaction(
+		// 		function () use ($order) {
+		// 			OrderItem::where('order_id', $order->id)->delete();
+		// 			$order->shipment->delete();
+		// 			$order->forceDelete();
+
+		// 			return true;
+		// 		}
+		// 	);
+
+		// 	if ($canDestroy) {
+		// 		\Session::flash('success', 'The order has been removed permanently');
+		// 	} else {
+		// 		\Session::flash('success', 'The order could not be removed permanently');
+		// 	}
+
+		// 	return redirect('admin/orders/trashed');
+		// } else {
+		// 	$canDestroy = \DB::transaction(
+		// 		function () use ($order) {
+		// 			if (!$order->isCancelled()) {
+		// 				foreach ($order->orderItems as $item) {
+		// 					ProductInventory::increaseStock($item->product_id, $item->qty);
+		// 				}
+		// 			};
+
+		// 			$order->delete();
+
+		// 			return true;
+		// 		}
+		// 	);
+			
+		// 	if ($canDestroy) {
+		// 		\Session::flash('success', 'The order has been removed');
+		// 	} else {
+		// 		\Session::flash('success', 'The order could not be removed');
+		// 	}
+
+		// 	return redirect('admin/orders');
+		// }
     }
 
 
@@ -263,4 +324,120 @@ class PenjualanController extends Controller
     public function removeLeadingZero($value) {
         return (int)ltrim($value, '0');
     }
+
+
+
+
+
+    public function trashed()
+	{
+		$orders = Penjualan::onlyTrashed()->orderBy('created_at', 'DESC')->paginate(10);
+
+		return view('penjualan.trashed', compact('orders'));
+    }
+    
+
+
+    public function cancel($id)
+	{
+		$order = Penjualan::where('id', $id)
+			->whereIn('status', [Penjualan::CREATED, Penjualan::CONFIRMED])
+			->firstOrFail();
+
+
+		return view('penjualan.cancel', compact('order'));
+	}
+
+
+
+    public function doCancel(Request $request, $id)
+	{
+		$request->validate(
+			[
+				'cancellation_note' => 'required|max:255',
+			]
+		);
+
+		$order = Penjualan::findOrFail($id);
+		
+		$cancelOrder = DB::transaction(
+			function () use ($order, $request) {
+				$params = [
+					'status' => Penjualan::CANCELLED,
+					'cancelled_by' => Auth::user()->id,
+					'cancelled_at' => now(),
+					'cancellation_note' => $request->input('cancellation_note'),
+				];
+
+                if ($cancelOrder = $order->update($params) && $order->orderItems->count() > 0) {
+                    foreach ($order->DetailPenjualan as $item) {
+                        Persediaan::increaseStock($item->barang_id, $item->jumlah);
+                    }
+                }
+				return $cancelOrder;
+			}
+		);
+
+		\Session::flash('success', 'The order has been cancelled');
+
+		return redirect('admin/orders');
+    }
+    
+    public function doComplete(Request $request, $id)
+	{
+		$order = Penjualan::findOrFail($id);
+		
+		if (!$order->isDelivered()) {
+			\Session::flash('error', 'Mark as complete the order can be done if the latest status is delivered');
+			return redirect('admin/orders');
+		}
+
+		$order->status = Penjualan::COMPLETED;
+		$order->approved_by = Auth::user()->id;
+		$order->approved_at = now();
+		
+		if ($order->save()) {
+			\Session::flash('success', 'The order has been marked as completed!');
+			return redirect('admin/orders');
+		}
+    }
+    
+
+
+    public function restore($id)
+	{
+		$order = Penjualan::onlyTrashed()->findOrFail($id);
+
+		$canRestore = \DB::transaction(
+			function () use ($order) {
+				$isOutOfStock = false;
+				if (!$order->isCancelled()) {
+					foreach ($order->orderItems as $item) {
+						try {
+							Persediaan::reduceStock($item->barang_id, $item->jumlah);
+						} catch (OutOfStockException $e) {
+							$isOutOfStock = true;
+							\Session::flash('error', $e->getMessage());
+						}
+					}
+				};
+
+				if ($isOutOfStock) {
+					return false;
+				} else {
+					return $order->restore();
+				}
+			}
+		);
+
+		if ($canRestore) {
+			\Session::flash('success', 'The order has been restored');
+			return redirect('admin/orders');
+		} else {
+			if (!\Session::has('error')) {
+				\Session::flash('error', 'The order could not be restored');
+			}
+			return redirect('penjualan/trashed');
+		}
+	}
 }

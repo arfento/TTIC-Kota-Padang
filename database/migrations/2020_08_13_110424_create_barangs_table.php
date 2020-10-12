@@ -15,14 +15,15 @@ class CreateBarangsTable extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->BigIncrements('id_barang');
-            $table->string('kode_barang', 10)->unique();
-            $table->string('nama_barang', 50);
+            $table->string('kode_barang')->unique();
+            $table->string('nama_barang', 100);
             $table->unsignedBigInteger('jenis_barang_id');
-            $table->unsignedBigInteger('satuan_pembelian_id');
-            $table->unsignedBigInteger('isi');
-            $table->unsignedBigInteger('satuan_penjualan_id');
+            $table->unsignedBigInteger('satuan_pembelian_id')->nullable();
+            $table->unsignedBigInteger('isi')->nullable();
+            $table->unsignedBigInteger('satuan_penjualan_id')->nullable();
             $table->unsignedBigInteger('harga_beli')->nullable();
             $table->unsignedBigInteger('harga_jual')->nullable();
+            $table->unsignedBigInteger('berat_barang')->nullable();
             $table->string('gambar')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();

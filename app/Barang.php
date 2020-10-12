@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
-    protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual', 'gambar', 'keterangan'];
+    protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang_id', 'satuan_pembelian_id', 'isi', 'satuan_penjualan_id', 'harga_beli', 'harga_jual','berat_barang', 'gambar', 'keterangan'];
     protected $primaryKey = 'id_barang';
     // protected $uploads = '/uploads/gambar/' ;
     // protected $guarded=[];
@@ -16,6 +16,7 @@ class Barang extends Model
     //     return $this->uploads . $gambar ;
     // }
 
+    
     public function persediaan()
     {
         return $this->hasMany(Persediaan::class, 'barang_id');

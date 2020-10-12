@@ -19,7 +19,7 @@
 					@include('themes.ezone.partials.user_menu')
 				</div>
 				<div class="col-lg-9">
-					@include('admin.partials.flash')
+					@include('themes.ezone.partials.flash')
 					<div class="shop-product-wrapper res-xl">
 						<div class="table-content table-responsive">
 							<table class="table table-bordered table-striped">
@@ -35,13 +35,13 @@
 										<tr>    
 											<td>
 												{{ $order->code }}<br>
-												<span style="font-size: 12px; font-weight: normal"> {{\General::datetimeFormat($order->order_date) }}</span>
+												<span style="font-size: 12px; font-weight: normal"> {{($order->tanggal) }}</span>
 											</td>
-											<td>{{\General::priceFormat($order->grand_total) }}</td>
+											<td>{{($order->grand_total) }}</td>
 											<td>{{ $order->status }}</td>
 											<td>{{ $order->payment_status }}</td>
 											<td>
-												<a href="{{ url('orders/'. $order->id) }}" class="btn btn-info btn-sm">details</a>
+												<a href="{{ url('orders/'. $order->id_penjualan) }}" class="btn btn-info btn-sm">details</a>
 											</td>
 										</tr>
 									@empty

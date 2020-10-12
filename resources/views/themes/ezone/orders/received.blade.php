@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					@include('admin.partials.flash', ['$errors' => $errors])
+					@include('themes.ezone.partials.flash', ['$errors' => $errors])
 					<h1 class="cart-heading">Your Order:</h4>
 					<div class="row">
 						<div class="col-xl-3 col-lg-4">
@@ -47,8 +47,8 @@
 							<p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Details</p>
 							<address>
 								Invoice ID:
-								<span class="text-dark">#{{ $order->code }}</span>
-								<br> {{ \General::datetimeFormat($order->order_date) }}
+								<span class="text-dark">#{{ $order->nomor_faktur }}</span>
+								<br> {{ ($order->tanggal) }}
 								<br> Status: {{ $order->status }}
 								<br> Payment Status: {{ $order->payment_status }}
 								<br> Shipped by: {{ $order->shipping_service_name }}
@@ -68,14 +68,15 @@
 								</tr>
 							</thead>
 							<tbody>
-								@forelse ($order->orderItems as $item)
+								@forelse ($order->detailPenjualan as $item)
 									<tr>
-										<td>{{ $item->sku }}</td>
-										<td>{{ $item->name }}</td>
-										<td>{!! \General::showAttributes($item->attributes) !!}</td>
-										<td>{{ $item->qty }}</td>
-										<td>{{ \General::priceFormat($item->base_price) }}</td>
-										<td>{{ \General::priceFormat($item->sub_total) }}</td>
+										<td>     <img width="100px" height="100px" class="profile-user-img img-fluid" src="{{ asset('storage/barangs/' . $item->barang->gambar) }}" >
+										</td>
+										<td>{{ $item->barang->nama_barang }}</td>
+										<td>{!! ($item->attributes) !!}</td>
+										<td>{{ $item->jumlah }}</td>
+										<td>{{ ($item->harga_satuan) }}</td>
+										<td>{{ ($item->jumlah * $item->harga_satuan ) }}</td>
 									</tr>
 								@empty
 									<tr>
@@ -90,16 +91,16 @@
 							<div class="cart-page-total">
 								<ul>
 									<li> Subtotal
-										<span>{{ \General::priceFormat($order->base_total_price) }}</span>
+										<span>{{ ($order->total) }}</span>
 									</li>
-									<li>Tax (10%)
-										<span>{{ \General::priceFormat($order->tax_amount) }}</span>
-									</li>
+									{{-- <li>Tax (10%)
+										<span>{{ ($order->tax_amount) }}</span>
+									</li> --}}
 									<li>Shipping Cost
-										<span>{{ \General::priceFormat($order->shipping_cost) }}</span>
+										<span>{{ ($order->shipping_cost) }}</span>
 									</li>
 									<li>Total
-										<span>{{ \General::priceFormat($order->grand_total) }}</span>
+										<span>{{ ($order->grand_total) }}</span>
 									</li>
 								</ul>
 								@if (!$order->isPaid())

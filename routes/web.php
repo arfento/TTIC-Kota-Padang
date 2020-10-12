@@ -21,7 +21,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 // });
 
 Auth::routes();
-    
+
 Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
 
 
@@ -30,28 +30,42 @@ Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/homes', 'Frontend\BarangController@index')->name('homes');
 
-Route::resource('satuanpenjualan','Admin\SatuanPenjualanController');
-Route::resource('satuanpembelian','Admin\SatuanPembelianController');
-Route::resource('rak','Admin\RakController');
-Route::resource('jenisbarang','Admin\JenisBarangController');
-Route::resource('supplier','Admin\SupplierController');
-Route::resource('barang','Admin\BarangController');
-Route::resource('jenisbarang','Admin\JenisBarangController');
+Route::resource('satuanpenjualan', 'Admin\SatuanPenjualanController');
+Route::resource('satuanpembelian', 'Admin\SatuanPembelianController');
+Route::resource('rak', 'Admin\RakController');
+Route::resource('jenisbarang', 'Admin\JenisBarangController');
+Route::resource('supplier', 'Admin\SupplierController');
+Route::resource('barang', 'Admin\BarangController');
+Route::resource('jenisbarang', 'Admin\JenisBarangController');
 
-Route::resource('pembelian','Admin\PembelianController');
+Route::resource('pembelian', 'Admin\PembelianController');
 Route::get('pembelian/detail/{nomorFaktur}', 'Admin\PembelianController@detail');
 
-Route::resource('detailpembelian','Admin\DetailPembelianController');
-Route::resource('penjualan','Admin\PenjualanController');
-Route::resource('detailpenjualan','Admin\DetailPenjualanController');
+Route::resource('detailpembelian', 'Admin\DetailPembelianController');
 
-Route::resource('persediaan','Admin\PersediaanController');
+//penjualan
+Route::get('penjualan/trashed', 'Admin\PenjualanController@trashed');
+Route::get('penjualan/restore/{orderID}', 'Admin\PenjualanController@restore');
+
+Route::get('penjualan/{orderID}/cancel', 'Admin\PenjualanController@cancel');
+Route::put('penjualan/cancel/{orderID}', 'Admin\PenjualanController@doCancel');
+Route::post('penjualan/complete/{orderID}', 'Admin\PenjualanController@doComplete');
+Route::resource('penjualan', 'Admin\PenjualanController');
+
+
+Route::resource('shipments', 'ShipmentController');
+
+
+
+Route::resource('detailpenjualan', 'Admin\DetailPenjualanController');
+
+Route::resource('persediaan', 'Admin\PersediaanController');
 Route::get('/persediaan/{id}', 'Admin\PersediaanController@index');
-Route::get('/persediaan/{id}/create','Admin\PersediaanController@create');
-Route::post('/persediaan/store','Admin\PersediaanController@store');
-Route::delete('/persediaan/hapus/{id}','Admin\PersediaanController@destroy');
-Route::get('/persediaan/edit/{id}','Admin\PersediaanController@edit');
-Route::post('/persediaan/update','Admin\PersediaanController@update');
+Route::get('/persediaan/{id}/create', 'Admin\PersediaanController@create');
+Route::post('/persediaan/store', 'Admin\PersediaanController@store');
+Route::delete('/persediaan/hapus/{id}', 'Admin\PersediaanController@destroy');
+Route::get('/persediaan/edit/{id}', 'Admin\PersediaanController@edit');
+Route::post('/persediaan/update', 'Admin\PersediaanController@update');
 Route::get('/persediaanperrak', 'Admin\PersediaanController@indexperrak')->name('persediaanperrak');
 
 ////front
@@ -93,4 +107,8 @@ Route::post('payments/notification', 'PaymentController@notification');
 Route::get('payments/completed', 'PaymentController@completed');
 Route::get('payments/failed', 'PaymentController@failed');
 Route::get('payments/unfinish', 'PaymentController@unfinish');
+
+
+Route::get('profile', 'ProfileController@index');
+Route::post('profile', 'ProfileController@update');
 //endezonefront

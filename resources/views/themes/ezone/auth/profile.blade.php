@@ -19,7 +19,7 @@
 					@include('themes.ezone.partials.user_menu')
 				</div>
 				<div class="col-lg-9">
-					@include('admin.partials.flash')
+					@include('themes.ezone.partials.flash')
 					<div class="login">
 						<div class="login-form-container">
 							<div class="login-form">

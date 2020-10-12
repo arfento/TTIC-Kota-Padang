@@ -37,12 +37,9 @@
                         <th>Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
-                        <th>Satuan Pembelian</th>
-                        <th>Isi</th>
-                        <th>Satuan Penjualan</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Keterangan</th>
+                        <th>Berat Barang</th>
                         <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
@@ -55,12 +52,9 @@
                         <td>{{ $item-> kode_barang }}</td>
                         <td>{{ $item-> nama_barang }}</td>
                         <td>{{ $item-> jenis-> jenis }}</td>
-                        <td>{{ $item-> satuanPembelian -> satuan }}</td>
-                        <td>{{ $item-> isi }}</td>
-                        <td>{{ $item-> satuanPenjualan -> satuan }}</td>
                         <td>{{ $item-> harga_beli }}</td>
                         <td>{{ $item-> harga_jual }}</td>
-                        <td>{{ $item-> keterangan }}</td>
+                        <td>{{ $item-> berat_barang }} gr</td>
                         <td>
                             {{-- <a href="{{ asset('/upload/barangs/'.$item->gambar) }}" target="_blank">{{ $item->gambar }}</a> --}}
                             {{-- <img src="{{ asset('storage/products/' . $product->image) }}" width="100px" height="100px" alt="{{ $product->name }}"> --}}

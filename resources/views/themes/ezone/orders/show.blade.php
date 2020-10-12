@@ -20,7 +20,7 @@
 				</div>
 				<div class="col-lg-9">
 					<div class="d-flex justify-content-between">
-						<h2 class="text-dark font-weight-medium">Order ID #{{ $order->code }}</h2>
+						<h2 class="text-dark font-weight-medium">Order ID #{{ $order->nomor_faktur }}</h2>
 					</div>
 					<div class="row pt-5">
 						<div class="col-xl-4 col-lg-4">
@@ -50,9 +50,9 @@
 						<div class="col-xl-4 col-lg-4">
 							<p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Details</p>
 							<address>
-								ID: <span class="text-dark">#{{ $order->code }}</span>
-								<br> {{ \General::datetimeFormat($order->order_date) }}
-								<br> Status: {{ $order->status }} {{ $order->isCancelled() ? '('. \General::datetimeFormat($order->cancelled_at) .')' : null}}
+								ID: <span class="text-dark">#{{ $order->nomor_faktur }}</span>
+								<br> {{ ($order->tanggal) }}
+								<br> Status: {{ $order->status }} {{ $order->isCancelled() ? '('. ($order->cancelled_at) .')' : null}}
 								@if ($order->isCancelled())
 									<br> Cancellation Note : {{ $order->cancellation_note}}
 								@endif
@@ -74,23 +74,30 @@
 								</tr>
 							</thead>
 							<tbody>
-								@forelse ($order->orderItems as $item)
+								@forelse ($order->detailPenjualan as $item)
 									<tr>
-										<td>{{ $item->sku }}</td>
-										<td>{{ $item->name }}</td>
-										<td>{!! \General::showAttributes($item->attributes) !!}</td>
-										<td>{{ $item->qty }}</td>
-										<td>{{ \General::priceFormat($item->base_price) }}</td>
-										<td>{{ \General::priceFormat($item->sub_total) }}</td>
+										<td>     <img width="100px" height="100px" class="profile-user-img img-fluid" src="{{ asset('storage/barangs/' . $item->barang->gambar) }}" >
+										</td>
+										<td>{{ $item->barang->nama_barang }}</td>
+										<td>{!! ($item->attributes) !!}</td>
+										<td>{{ $item->jumlah }}</td>
+										<td>{{ ($item->harga_satuan) }}</td>
+										<td>{{ ($item->jumlah * $item->harga_satuan) }}</td>
 									</tr>
 								@empty
 									<tr>
 										<td colspan="6">Order item not found!</td>
 									</tr>
 								@endforelse
+								
 							</tbody>
+							
 						</table>
+						
 					</div>
+					@if (!$order->isPaid())
+						<a href="{{ $order->payment_url }}">Proceed to payment</a>
+					@endif
 				</div>
 			</div>
 		</div>

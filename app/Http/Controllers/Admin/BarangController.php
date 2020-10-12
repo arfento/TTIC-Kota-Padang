@@ -88,11 +88,12 @@ class BarangController extends Controller
             'kode_barang' => 'required',
             'nama_barang' => 'required',
             'jenis_barang_id' => 'required',
-            'satuan_pembelian_id' => 'required',
-            'isi' => 'required',
-            'satuan_penjualan_id' => 'required',
+            'satuan_pembelian_id' => 'nullable',
+            'isi' => 'nullable',
+            'satuan_penjualan_id' => 'nullable',
             'harga_beli' => 'required',
             'harga_jual' => 'required',
+            'berat_barang' => 'nullable',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'keterangan' => 'nullable',
         ]);
@@ -113,6 +114,7 @@ class BarangController extends Controller
                 'satuan_penjualan_id' => $request->satuan_penjualan_id,
                 'harga_beli' => $request->harga_beli,
                 'harga_jual' => $request->harga_jual,
+                'berat_barang' => $request->berat_barang,
                 'gambar' => $filename,
                 'keterangan' => $request->keterangan
             ]);
@@ -122,35 +124,35 @@ class BarangController extends Controller
 
 
         //input foto
-        $barangs = new Barang();
+        // $barangs = new Barang();
 
-        // $barangs->id_barang = $request->input('id_barang');
+        // // $barangs->id_barang = $request->input('id_barang');
 
-        if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('/uploads/gambar'), $filename);
-            $barangs->gambar = $filename;
-        } else {
-            return $request;
-            $barangs->gambar = '';
-        }
+        // if ($request->hasFile('gambar')) {
+        //     $file = $request->file('gambar');
+        //     $extension = $file->getClientOriginalName();
+        //     $filename = time() . '.' . $extension;
+        //     $file->move(public_path('/uploads/gambar'), $filename);
+        //     $barangs->gambar = $filename;
+        // } else {
+        //     return $request;
+        //     $barangs->gambar = '';
+        // }
 
-        $barangs->kode_barang = $request->input('kode_barang');
-        $barangs->nama_barang = $request->input('nama_barang');
-        $barangs->jenis_barang_id = $request->input('jenis_barang_id');
-        $barangs->satuan_pembelian_id = $request->input('satuan_pembelian_id');
-        $barangs->isi = $request->input('isi');
-        $barangs->satuan_penjualan_id = $request->input('satuan_penjualan_id');
-        $barangs->harga_beli = $request->input('harga_beli');
-        $barangs->harga_jual = $request->input('harga_jual');
-        $barangs->keterangan = $request->input('keterangan');
+        // $barangs->kode_barang = $request->input('kode_barang');
+        // $barangs->nama_barang = $request->input('nama_barang');
+        // $barangs->jenis_barang_id = $request->input('jenis_barang_id');
+        // $barangs->satuan_pembelian_id = $request->input('satuan_pembelian_id');
+        // $barangs->isi = $request->input('isi');
+        // $barangs->satuan_penjualan_id = $request->input('satuan_penjualan_id');
+        // $barangs->harga_beli = $request->input('harga_beli');
+        // $barangs->harga_jual = $request->input('harga_jual');
+        // $barangs->keterangan = $request->input('keterangan');
 
-        $request->save();
+        // $request->save();
 
-        // alihkan halaman ke halaman pegawai
-        return redirect('/barang');
+        // // alihkan halaman ke halaman pegawai
+        // return redirect('/barang');
     }
 
     /**
@@ -194,11 +196,12 @@ class BarangController extends Controller
             'kode_barang'         => 'required',
             'nama_barang'         => 'required',
             'jenis_barang_id'     => 'required',
-            'satuan_pembelian_id' => 'required',
-            'isi'                 => 'required',
-            'satuan_penjualan_id' => 'required',
+            'satuan_pembelian_id' => 'nullable',
+            'isi'                 => 'nullable',
+            'satuan_penjualan_id' => 'nullable',
             'harga_beli'          => 'required',
             'harga_jual'          => 'required',
+            'berat_barang'        => 'nullable',
             'gambar'              => 'nullable',
             'keterangan'          => 'nullable',
         ]);

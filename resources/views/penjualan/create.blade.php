@@ -95,27 +95,7 @@
                       </div>
                     </div>
 
-                    <div class="col col-4" style="padding: 20px">
-                      <div class="form-group">
-
-                        <span class="label text-dark">Nama Pembeli</span>
-                        <input class="form-control" name="user_nama">
-                      </div>
-                    </div>
-                    <div class="col col-4" style="padding: 20px">
-                      <div class="form-group">
-
-                        <span class="label text-dark">Nomor HP Pembeli</span>
-                        <input class="form-control" name="user_nohp">
-                      </div>
-                    </div>
-                    <div class="col col-4" style="padding: 20px">
-                      <div class="form-group">
-
-                        <span class="label text-dark">Alamat Pembeli</span>
-                        <input class="form-control" name="user_alamat">
-                      </div>
-                    </div>
+                   
                   </div>
                 </div>
                 <div class="card row body" style="padding:0px; margin-bottom: 20px">

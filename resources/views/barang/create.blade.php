@@ -112,6 +112,15 @@
             <div class="clearfix"></div>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">Berat Barang</label>
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <input type="text" name="berat_barang" class="form-control">
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
         
         <div class="form-group row">
           <label class="col-md-2 col-form-label text-md-right">Gambar</label>

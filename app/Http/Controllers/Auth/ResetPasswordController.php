@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Client\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +28,16 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function showResetForm(Request $request, $token = null)
+	{
+		if (is_null($token)) {
+			return $this->getEmail();
+		}
+
+		$email = $request->input('email');
+		$token = $token;
+		
+		return view('themes.ezone.auth.password.reset', compact('email', 'token'));
+	}
 }

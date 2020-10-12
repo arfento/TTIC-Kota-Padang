@@ -71,10 +71,10 @@
 					<div class="product-details-content">
 						<h3>{{ $product->nama_barang }}</h3>
 						<div class="details-price">
-							<span>{{ number_format($product->harga_jual) }}</span>
+							<span>Rp. {{ number_format($product->harga_jual) }}</span>
 						</div>
 						<p>{{ $product->keterangan }}</p>
-						<p>{{ $product->persediaanstok->stok }}</p>
+						<p>Stok Tersisa : {{ $product->persediaanstok->stok }}</p>
 						{!! Form::open(['url' => 'carts']) !!}
 							{{ Form::hidden('barang_id', $product->id_barang) }}
 							@if ($product->jenis->jenis == 'configurable')

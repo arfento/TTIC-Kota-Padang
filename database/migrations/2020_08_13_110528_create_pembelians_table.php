@@ -15,7 +15,7 @@ class CreatePembeliansTable extends Migration
     {
         Schema::create('pembelians', function (Blueprint $table) {
             $table->BigIncrements('id_pembelian');
-            $table->string('nomor_faktur', 25)->unique();
+            $table->string('nomor_faktur')->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('supplier_id');
             $table->date('tanggal_pembelian');
