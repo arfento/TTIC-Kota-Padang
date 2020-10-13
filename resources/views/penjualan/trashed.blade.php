@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
     <div class="content">
@@ -9,7 +9,7 @@
                         <h2>Trashed Orders</h2>
                     </div>
                     <div class="card-body">
-                        @include('admin.partials.flash')
+                        @include('themes.ezone.partials.flash')
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <th>Order ID</th>
@@ -23,10 +23,10 @@
                                 @forelse ($orders as $order)
                                     <tr>    
                                         <td>
-                                            {{ $order->code }}<br>
-                                            <span style="font-size: 12px; font-weight: normal"> {{\General::datetimeFormat($order->order_date) }}</span>
+                                            {{ $order->nomor_faktur }}<br>
+                                            <span style="font-size: 12px; font-weight: normal"> {{($order->tanggal) }}</span>
                                         </td>
-                                        <td>{{\General::priceFormat($order->grand_total) }}</td>
+                                        <td>{{($order->grand_total) }}</td>
                                         <td>
                                             {{ $order->customer_full_name }}<br>
                                             <span style="font-size: 12px; font-weight: normal"> {{ $order->customer_email }}</span>
@@ -34,9 +34,9 @@
                                         <td>{{ $order->status }}</td>
                                         <td>{{ $order->payment_status }}</td>
                                         <td>
-                                            @can('edit_orders')
-                                                <a href="{{ url('admin/orders/'. $order->id) }}" class="btn btn-info btn-sm">show</a>
-                                            @endcan
+                                            {{-- @can('edit_orders') --}}
+                                                <a href="{{ route('penjualan.show', $order->id_penjualan) }}" class="btn btn-info btn-sm">show</a>
+                                            {{-- @endcan --}}
                                         </td>
                                     </tr>
                                 @empty

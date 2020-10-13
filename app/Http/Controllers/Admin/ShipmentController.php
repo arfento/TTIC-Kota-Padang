@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ShipmentController extends Controller
 {
-    use Authorizable;
+    // use Authorizable;
 
 	/**
 	 * Create a new controller instance.
@@ -32,8 +32,8 @@ class ShipmentController extends Controller
 	 */
 	public function index()
 	{
-		$shipments = Shipment::join('orders', 'shipments.penjualan_id', '=', 'penjualan.id_penjualan')
-			->whereRaw('penjualan.deleted_at IS NULL')
+		$shipments = Shipment::join('penjualans', 'shipments.penjualan_id', '=', 'penjualans.id_penjualan')
+			->whereRaw('penjualans.deleted_at IS NULL')
 			->orderBy('shipments.created_at', 'DESC')->paginate(10);
 	
 
@@ -47,9 +47,11 @@ class ShipmentController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit($id_shipment)
 	{
-		$shipment = Shipment::findOrFail($id);
+		$shipment = Shipment::findOrFail($id_shipment);
+		// $shipment = Shipment::where('id_shipment', $id_shipment);
+	
 
 		$provinces = $this->getProvinces();
 		$cities = isset($shipment->province_id) ? $this->getCities($shipment->province_id) : [];
@@ -74,7 +76,7 @@ class ShipmentController extends Controller
 		);
 		
 		$shipment = Shipment::findOrFail($id);
-
+		
 		$order = DB::transaction(
 			function () use ($shipment, $request) {
 				$shipment->track_number = $request->input('track_number');
@@ -83,20 +85,22 @@ class ShipmentController extends Controller
 				$shipment->shipped_by = Auth::user()->id;
 				
 				if ($shipment->save()) {
-					$shipment->order->status = Penjualan::DELIVERED;
-					$shipment->order->save();
+					$shipment->penjualan->status = Penjualan::DELIVERED;
+					$shipment->penjualan->save();
 				}
 
-				return $shipment->order;
+				return $shipment->penjualan;
+				
 			}
 		);
+		
 
 		// if ($order) {
 		// 	$this->_sendEmailOrderShipped($shipment->order);
 		// }
 
 		\Session::flash('success', 'The shipment has been updated');
-		return redirect('admin/orders/'. $order->id_penjualan);
+		return redirect('shipment/'. $order->id_shipment);
 	}
 
 	/**

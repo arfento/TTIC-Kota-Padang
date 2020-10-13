@@ -44,19 +44,24 @@ Route::get('pembelian/detail/{nomorFaktur}', 'Admin\PembelianController@detail')
 Route::resource('detailpembelian', 'Admin\DetailPembelianController');
 
 //penjualan
-Route::get('penjualan/trashed', 'Admin\PenjualanController@trashed');
-Route::get('penjualan/restore/{orderID}', 'Admin\PenjualanController@restore');
+Route::get('/penjualan/trashed', 'Admin\PenjualanController@trashed')->name('penjualan.trashed');
+Route::get('/penjualan/restore/{orderID}', 'Admin\PenjualanController@restore')->name('penjualan.restore');
 
-Route::get('penjualan/{orderID}/cancel', 'Admin\PenjualanController@cancel');
-Route::put('penjualan/cancel/{orderID}', 'Admin\PenjualanController@doCancel');
-Route::post('penjualan/complete/{orderID}', 'Admin\PenjualanController@doComplete');
+Route::get('/penjualan/{orderID}/cancel', 'Admin\PenjualanController@cancel')->name('penjualan.get_cancel');
+Route::put('/penjualan/cancel/{orderID}', 'Admin\PenjualanController@doCancel')->name('penjualan.cancel');
+Route::post('/penjualan/complete/{orderID}', 'Admin\PenjualanController@doComplete')->name('penjualan.complete');
 Route::resource('penjualan', 'Admin\PenjualanController');
 
 
-Route::resource('shipments', 'ShipmentController');
+Route::resource('shipments', 'Admin\ShipmentController');
+
+Route::get('reports/revenue', 'ReportController@revenue');
+Route::get('reports/product', 'ReportController@product');
+Route::get('reports/inventory', 'ReportController@inventory');
+Route::get('reports/payment', 'ReportController@payment');
 
 
-
+///////
 Route::resource('detailpenjualan', 'Admin\DetailPenjualanController');
 
 Route::resource('persediaan', 'Admin\PersediaanController');

@@ -102,16 +102,86 @@
                   class="far fa-circle nav-icon"></i>
                 <span>Penjualan</span></a></li>
 
-            <li class="nav-item"><a href="{{ route('detailpenjualan.index') }}" class="nav-link"><i
-                  class="far fa-circle nav-icon"></i> <span>Detail
-                  Penjualan</span></a></li>
+            <li class="nav-item"><a href="{{ route('detailpenjualan.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <span>Detail Penjualan</span></a></li>
 
-
-
+            {{-- <li class="{{ ($currentAdminSubMenu == 'trashed-order') ? 'active' : ''}}"> --}}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('penjualan.trashed')}}">
+                <i class="far fa-circle nav-icon"></i>
+                <span class="nav-text">Trashed</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('shipments.index')}}">
+                <i class="far fa-circle nav-icon"></i>
+                <span class="nav-text">Shipments</span>
+              </a>
+            </li>
           </ul>
         </li>
-        
 
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link active" aria-controls="report" data-toggle="collapse" data-target="#report"
+            aria-expanded="false">
+            <i class="nav-icon fas fa-file"></i>
+            <span>
+              Reports
+            </span>
+            <i class="fas fa-angle-left right"></i>
+          </a>
+
+         
+          <ul class="nav nav-treeview" style="display: none;">
+
+            <li class="nav-item"><a href="{{ url('admin/reports/revenue')}}" class="nav-link"><i
+                  class="far fa-circle nav-icon"></i>
+                <span>Revenue</span></a></li>
+
+            <li class="nav-item"><a href="{{ url('admin/reports/product')}}" class="nav-link"><i
+                  class="far fa-circle nav-icon"></i>
+                <span>Barangs</span></a></li>
+
+            <li class="nav-item"><a href="{{ url('admin/reports/product')}}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <span>Inventories</span></a></li>
+
+            {{-- <li class="{{ ($currentAdminSubMenu == 'trashed-order') ? 'active' : ''}}"> --}}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url('admin/reports/inventory')}}">
+                <i class="far fa-circle nav-icon"></i>
+                <span class="nav-text">Payments</span>
+              </a>
+            </li>
+
+          </ul>
+          {{-- <ul class="collapse {{ ($currentAdminMenu == 'report') ? 'show' : ''}}" id="report"
+          data-parent="#sidebar-menu">
+          <div class="sub-menu">
+        <li class="{{ ($currentAdminSubMenu == 'report-revenue') ? 'active' : ''}}">
+          <a class="sidenav-item-link" href="{{ url('admin/reports/revenue')}}">
+            <span class="nav-text">Revenue</span>
+          </a>
+        </li>
+        <li class="{{ ($currentAdminSubMenu == 'report-product') ? 'active' : ''}}">
+          <a class="sidenav-item-link" href="{{ url('admin/reports/product')}}">
+            <span class="nav-text">Products</span>
+          </a>
+        </li>
+        <li class="{{ ($currentAdminSubMenu == 'report-inventory') ? 'active' : ''}}">
+          <a class="sidenav-item-link" href="{{ url('admin/reports/inventory')}}">
+            <span class="nav-text">Inventories</span>
+          </a>
+        </li>
+        <li class="{{ ($currentAdminSubMenu == 'report-payment') ? 'active' : ''}}">
+          <a class="sidenav-item-link" href="{{ url('admin/reports/payment')}}">
+            <span class="nav-text">Payments</span>
+          </a>
+        </li>
+        </div>
+      </ul> --}}
+      </li>
     </nav>
 
     <!-- Sidebar Menu -->

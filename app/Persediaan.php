@@ -42,7 +42,7 @@ class Persediaan extends Model
 	 */
 	public static function increaseStock($barangId, $stok)
 	{
-		$inventory = self::where('product_id', $barangId)->firstOrFail();
+		$inventory = self::where('barang_id', $barangId)->firstOrFail();
 		$inventory->stok = $inventory->stok + $stok;
 		$inventory->save();
 	}

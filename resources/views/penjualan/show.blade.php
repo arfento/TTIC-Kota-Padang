@@ -39,7 +39,7 @@
 				<p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Details</p>
 				<address>
 					ID: <span class="text-dark">#{{ $order->nomor_faktur }}</span>
-					<br> {{ ($order->order_date) }}
+					<br> {{ ($order->tanggal) }}
 					<br> Status: {{ $order->status }} {{ $order->isCancelled() ? '('. ($order->cancelled_at) .')' : null}}
 					@if ($order->isCancelled())
 						<br> Cancellation Note : {{ $order->cancellation_note}}
@@ -101,21 +101,21 @@
 					@endif
 
 					@if (in_array($order->status, [\App\Penjualan::CREATED, \App\Penjualan::CONFIRMED]))
-						<a href="{{ url('orders/'. $order->id_penjualan .'/cancel')}}" class="btn btn-block mt-2 btn-lg btn-warning btn-pill"> Cancel</a>
+						<a href="{{ url('penjualan/'. $order->id_penjualan .'/cancel')}}" class="btn btn-block mt-2 btn-lg btn-warning btn-pill"> Cancel</a>
 					@endif
 
 					@if ($order->isDelivered())
 						<a href="#" class="btn btn-block mt-2 btn-lg btn-success btn-pill" onclick="event.preventDefault();
 						document.getElementById('complete-form-{{ $order->id_penjualan }}').submit();"> Mark as Completed</a>
 
-						{!! Form::open(['url' => 'orders/complete/'. $order->id_penjualan, 'id' => 'complete-form-'. $order->id_penjualan, 'style' => 'display:none']) !!}
+						{!! Form::open(['url' => 'penjualan/complete/'. $order->id_penjualan, 'id' => 'complete-form-'. $order->id_penjualan, 'style' => 'display:none']) !!}
 						{!! Form::close() !!}
 					@endif
 
 					@if (!in_array($order->status, [\App\Penjualan::DELIVERED, \App\Penjualan::COMPLETED]))
 						<a href="#" class="btn btn-block mt-2 btn-lg btn-secondary btn-pill delete" order-id="{{ $order->id_penjualan }}"> Remove</a>
 
-						{!! Form::open(['url' => 'orders/'. $order->id_penjualan, 'class' => 'delete', 'id' => 'delete-form-'. $order->id_penjualan, 'style' => 'display:none']) !!}
+						{!! Form::open(['url' => 'penjualan/'. $order->id_penjualan, 'class' => 'delete', 'id' => 'delete-form-'. $order->id_penjualan, 'style' => 'display:none']) !!}
 						{!! Form::hidden('_method', 'DELETE') !!}
 						{!! Form::close() !!}
 					@endif

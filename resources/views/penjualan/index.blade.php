@@ -63,7 +63,7 @@
                         
                         
                         <td>
-                            <a href="{{ route('penjualan.show',$item->id_penjualan) }}" class="btn btn-info btn-sm fa fa-list-alt" >show</a>
+                            <a href="{{ route('penjualan.show',$item->id_penjualan) }}" class="btn btn-info btn-sm fa fa-list-alt" > show </a>
                             <a href="{{ route('penjualan.edit',$item->id_penjualan)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>
                             <form action="{{ route('penjualan.destroy', $item->id_penjualan) }}" method="POST" style="display: inline">
                                 @csrf

@@ -23,10 +23,10 @@ class PenjualanController extends Controller
 
         parent::__construct();
 
-		$this->data['currentAdminMenu'] = 'order';
-		$this->data['currentAdminSubMenu'] = 'order';
+        $this->data['currentAdminMenu'] = 'order';
+        $this->data['currentAdminSubMenu'] = 'order';
         $this->data['statuses'] = Penjualan::STATUSES;
-        
+
         Config::$serverKey = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
@@ -38,14 +38,14 @@ class PenjualanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        
-       
-        $penjualan=Penjualan::all();
+    {
+
+
+        $penjualan = Penjualan::all();
         // $pembelian = Pembelian::orderBy('tanggal_pembelian', 'desc')->withCount('detailPembelian')->with('supplier')->with('user')->get();
         $data = Penjualan::orderBy('tanggal', 'desc')->orderBy('nomor_faktur', 'desc')->withCount('detailPenjualan')->with('user')->get();
-       
-        return view('penjualan.index',compact('penjualan'));
+
+        return view('penjualan.index', compact('penjualan'));
     }
 
     /**
@@ -55,8 +55,8 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        
-        $user= User::all();
+
+        $user = User::all();
         $penjualan = Penjualan::all();
         $detailpenjualan = DetailPenjualan::all();
         $persediaan = Persediaan::all();
@@ -74,49 +74,44 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
-            'nomor_faktur'=>'required|string',
-            'tanggal'=>'required|date',
+            'nomor_faktur' => 'required|string',
+            'tanggal' => 'required|date',
             // 'total'=>'required|numeric',
-            'user_id'=>'required|string',
-            // 'user_nama'=>'required|string',
-            // 'user_nohp'=>'required|string',
-            // 'user_alamat'=>'required',
+            'user_id' => 'required|string',
+
         ]);
-        
+
         $total = 0;
-        foreach ($request->total as $key => $value){
+        foreach ($request->total as $key => $value) {
             $total += $value;
         }
-        
+
         Penjualan::create([
             'nomor_faktur'  => $request->nomor_faktur,
             'tanggal'       => $request->tanggal,
             'total'         => $total,
             'user_id'       => $request->user_id,
-            // 'user_nama'       => $request->user_nama,
-            // 'user_nohp'       => $request->user_nohp,
-            // 'user_alamat'       => $request->user_alamat,
         ]);
 
-        foreach ($request->total as $key => $value){
+        foreach ($request->total as $key => $value) {
             DetailPenjualan::create([
                 'penjualan_id' => $this->getPenjualanID($request->nomor_faktur),
                 'barang_id' => $request->barang_id[$key],
-                'jumlah'       => $request-> jumlah[$key],
-                'harga_satuan' => $request-> harga_satuan[$key],
+                'jumlah'       => $request->jumlah[$key],
+                'harga_satuan' => $request->harga_satuan[$key],
             ]);
 
-            $barang_id = $request-> barang_id[$key];
-            $jumlah = $request-> jumlah[$key];
+            $barang_id = $request->barang_id[$key];
+            $jumlah = $request->jumlah[$key];
 
             $persediaan = Persediaan::where('barang_id', $barang_id)->get();
 
             $n = 0;
-            for($j = 0; $j < count($persediaan); $j++){
+            for ($j = 0; $j < count($persediaan); $j++) {
                 $stok = $persediaan[$j]['stok'];
-                if(($n + $stok) > $jumlah) {
+                if (($n + $stok) > $jumlah) {
                     $terkurangi = $stok - (($n + $stok) - $jumlah);
                     Persediaan::where('id_persediaan', $persediaan[$j]['id_persediaan'])->update([
                         'stok' => ($stok - $terkurangi)
@@ -127,14 +122,14 @@ class PenjualanController extends Controller
                 Persediaan::where('id_persediaan', $persediaan[$j]['id_persediaan'])->delete();
             }
         }
-           
+
         // $penjualan=Penjualan::create($request->all());
-        return redirect()->route('penjualan.index')->with('success','Data Berhasil Dimasukkan');
+        return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Dimasukkan');
         //
 
-        
 
-      
+
+
         // Pembelian::create([
         //     'nomor_faktur'      => $request->nomor_faktur,
         //     'user_id'           => $request->user_id,
@@ -142,7 +137,7 @@ class PenjualanController extends Controller
         //     'tanggal_pembelian' => $request->tanggal_pembelian,
         //     'total'             => $total
 
-            
+
         // ]);
         // $detail = array();
         // foreach ($request->total as $key => $value) {
@@ -166,7 +161,7 @@ class PenjualanController extends Controller
         //         'harga_beli'           => $request->harga_satuan[$key],
         //     ]);
 
-            
+
         // }
     }
 
@@ -181,7 +176,7 @@ class PenjualanController extends Controller
         $order = Penjualan::withTrashed()->findOrFail($id);
 
 
-		return view('penjualan.show', compact('order'));
+        return view('penjualan.show', compact('order'));
     }
 
     /**
@@ -192,9 +187,9 @@ class PenjualanController extends Controller
      */
     public function edit($id_penjualan)
     {
-        $user= User::all();
-        $penjualan=Penjualan::findOrFail($id_penjualan);
-        return view('penjualan.edit',compact('penjualan', 'user'));
+        $user = User::all();
+        $penjualan = Penjualan::findOrFail($id_penjualan);
+        return view('penjualan.edit', compact('penjualan', 'user'));
     }
 
     /**
@@ -206,19 +201,19 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, $id_penjualan)
     {
-        
+
         $request->validate([
-            'nomor_faktur'=>'required|string',
-            'tanggal'=>'required|date',
-            'total'=>'required|numeric',
-            'user_id'=>'required|string',
+            'nomor_faktur' => 'required|string',
+            'tanggal' => 'required|date',
+            'total' => 'required|numeric',
+            'user_id' => 'required|string',
             // 'user_nama'=>'required|string',
             // 'user_nohp'=>'required|string',
             // 'user_alamat'=>'required',
         ]);
-        $penjualan=Penjualan::find($id_penjualan);
+        $penjualan = Penjualan::find($id_penjualan);
         $penjualan->update($request->all());
-        return redirect()->route('penjualan.index')->with('success','Data Berhasil Diupdate');
+        return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Diupdate');
         //
     }
 
@@ -230,98 +225,99 @@ class PenjualanController extends Controller
      */
     public function destroy($id_penjualan)
     {
-        $penjualan=Penjualan::find($id_penjualan);
-        $penjualan->delete();
-        return redirect()->route('penjualan.index')->with('success','Data Berhasil Dihapus');
-        //
+        // $penjualan = Penjualan::find($id_penjualan);
+        // $penjualan->delete();
+        // return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Dihapus');
+        // //
 
+        $order = Penjualan::withTrashed()->findOrFail($id_penjualan);
 
+        if ($order->trashed()) {
+            $canDestroy = DB::transaction(
+                function () use ($order) {
+                    DetailPenjualan::where('penjualan_id', $order->id_penjualan)->delete();
+                    $order->shipment->delete();
+                    $order->forceDelete();
 
+                    return true;
+                }
+            );
 
+            if ($canDestroy) {
+                \Session::flash('success', 'The order has been removed permanently');
+            } else {
+                \Session::flash('success', 'The order could not be removed permanently');
+            }
 
-        // $order = Order::withTrashed()->findOrFail($id);
+            return redirect()->route('penjualan.trashed');
+        } else {
+            $canDestroy = DB::transaction(
+                function () use ($order) {
+                    if (!$order->isCancelled()) {
+                        foreach ($order->detailPenjualan as $item) {
+                            Persediaan::increaseStock($item->barang_id, $item->jumlah);
+                        }
+                    };
 
-		// if ($order->trashed()) {
-		// 	$canDestroy = \DB::transaction(
-		// 		function () use ($order) {
-		// 			OrderItem::where('order_id', $order->id)->delete();
-		// 			$order->shipment->delete();
-		// 			$order->forceDelete();
+                    $order->delete();
 
-		// 			return true;
-		// 		}
-		// 	);
+                    return true;
+                }
+            );
 
-		// 	if ($canDestroy) {
-		// 		\Session::flash('success', 'The order has been removed permanently');
-		// 	} else {
-		// 		\Session::flash('success', 'The order could not be removed permanently');
-		// 	}
+            if ($canDestroy) {
+                \Session::flash('success', 'The order has been removed');
+            } else {
+                \Session::flash('success', 'The order could not be removed');
+            }
 
-		// 	return redirect('admin/orders/trashed');
-		// } else {
-		// 	$canDestroy = \DB::transaction(
-		// 		function () use ($order) {
-		// 			if (!$order->isCancelled()) {
-		// 				foreach ($order->orderItems as $item) {
-		// 					ProductInventory::increaseStock($item->product_id, $item->qty);
-		// 				}
-		// 			};
-
-		// 			$order->delete();
-
-		// 			return true;
-		// 		}
-		// 	);
-			
-		// 	if ($canDestroy) {
-		// 		\Session::flash('success', 'The order has been removed');
-		// 	} else {
-		// 		\Session::flash('success', 'The order could not be removed');
-		// 	}
-
-		// 	return redirect('admin/orders');
-		// }
+            return redirect()->route('penjualan.index');
+        }
     }
 
 
-    
 
-    public function getPenjualanID($nomor_faktur) {
+
+    public function getPenjualanID($nomor_faktur)
+    {
         $data = Penjualan::where('nomor_faktur', $nomor_faktur)->first();
         return $data->id_penjualan;
     }
 
-    public function getPenjualan() {
+    public function getPenjualan()
+    {
         $data = Penjualan::getAllDataPenjualan();
         $periode = $data['periode'];
-        $penjualan = Penjualan::getTotal($data['periode'],$data['data']);
+        $penjualan = Penjualan::getTotal($data['periode'], $data['data']);
         return response()->json(['periode' => $periode, 'penjualan' => $penjualan]);
     }
 
-    public function getNomorFaktur() {
+    public function getNomorFaktur()
+    {
         $nextNomorFaktur = '';
         $data = Penjualan::orderBy('id_penjualan', 'desc')->first();
         $year = Carbon::today()->year;
 
-        if(empty($data)){
-            $nextNomorFaktur = 'RM'.substr($year, 2) . $this->addLeadingZero(1);
-        }else{
+        if (empty($data)) {
+            $nextNomorFaktur = 'RM' . substr($year, 2) . $this->addLeadingZero(1);
+        } else {
             // $number = explode('-', $data); //RM17-00001
             $number = substr($data->nomor_faktur, 4);
             $before = $this->removeLeadingZero($number);
             $new = $this->addLeadingZero($before + 1);
-            $nextNomorFaktur = 'RM'.substr($year, 2) . $new;
+            $nextNomorFaktur = 'RM' . substr($year, 2) . $new;
         }
 
         return response()->json($nextNomorFaktur);
     }
 
-    public function addLeadingZero($value, $threshold = 5) {
+    public function addLeadingZero($value, $threshold = 5)
+    {
         return sprintf('%0' . $threshold . 's', $value);
     }
 
-    public function removeLeadingZero($value) {
+    public function removeLeadingZero($value)
+    {
         return (int)ltrim($value, '0');
     }
 
@@ -330,114 +326,118 @@ class PenjualanController extends Controller
 
 
     public function trashed()
-	{
-		$orders = Penjualan::onlyTrashed()->orderBy('created_at', 'DESC')->paginate(10);
+    {
+        $orders = Penjualan::onlyTrashed()->orderBy('created_at', 'DESC')->paginate(10);
 
-		return view('penjualan.trashed', compact('orders'));
+        return view('penjualan.trashed', compact('orders'));
     }
-    
+
 
 
     public function cancel($id)
-	{
-		$order = Penjualan::where('id', $id)
-			->whereIn('status', [Penjualan::CREATED, Penjualan::CONFIRMED])
-			->firstOrFail();
+    {
+        $order = Penjualan::where('id_penjualan', $id)
+            ->whereIn('status', [Penjualan::CREATED, Penjualan::CONFIRMED])
+            ->firstOrFail();
 
 
-		return view('penjualan.cancel', compact('order'));
-	}
+        return view('penjualan.cancel', compact('order'));
+    }
 
 
 
     public function doCancel(Request $request, $id)
-	{
-		$request->validate(
-			[
-				'cancellation_note' => 'required|max:255',
-			]
-		);
+    {
+        $request->validate(
+            [
+                'cancellation_note' => 'required|max:255',
+            ]
+        );
 
-		$order = Penjualan::findOrFail($id);
-		
-		$cancelOrder = DB::transaction(
-			function () use ($order, $request) {
-				$params = [
-					'status' => Penjualan::CANCELLED,
-					'cancelled_by' => Auth::user()->id,
-					'cancelled_at' => now(),
-					'cancellation_note' => $request->input('cancellation_note'),
-				];
+        $order = Penjualan::findOrFail($id);
 
-                if ($cancelOrder = $order->update($params) && $order->orderItems->count() > 0) {
-                    foreach ($order->DetailPenjualan as $item) {
+        // dd($order);
+        $cancelOrder = DB::transaction(
+            function () use ($order, $request) {
+                $params = [
+                    'status' => Penjualan::CANCELLED,
+                    'cancelled_by' => Auth::user()->id,
+                    'cancelled_at' => now(),
+                    'cancellation_note' => $request->input('cancellation_note'),
+                ];
+
+                if ($cancelOrder = $order->update($params) && $order->detailPenjualan->count() > 0) {
+                    foreach ($order->detailPenjualan as $item) {
                         Persediaan::increaseStock($item->barang_id, $item->jumlah);
                     }
                 }
-				return $cancelOrder;
-			}
-		);
+               
+                return $cancelOrder;
+            }
+            
+        );
+        // dd($cancelOrder);
 
-		\Session::flash('success', 'The order has been cancelled');
+        \Session::flash('success', 'The order has been cancelled');
 
-		return redirect('admin/orders');
+        return redirect()->route('penjualan.trashed');
     }
-    
+
     public function doComplete(Request $request, $id)
-	{
-		$order = Penjualan::findOrFail($id);
-		
-		if (!$order->isDelivered()) {
-			\Session::flash('error', 'Mark as complete the order can be done if the latest status is delivered');
-			return redirect('admin/orders');
-		}
+    {
+        $order = Penjualan::findOrFail($id);
 
-		$order->status = Penjualan::COMPLETED;
-		$order->approved_by = Auth::user()->id;
-		$order->approved_at = now();
-		
-		if ($order->save()) {
-			\Session::flash('success', 'The order has been marked as completed!');
-			return redirect('admin/orders');
-		}
+        if (!$order->isDelivered()) {
+            \Session::flash('error', 'Mark as complete the order can be done if the latest status is delivered');
+            return redirect()->route('penjualan.index');
+        }
+
+        $order->status = Penjualan::COMPLETED;
+        $order->approved_by = Auth::user()->id;
+        $order->approved_at = now();
+
+        if ($order->save()) {
+            \Session::flash('success', 'The order has been marked as completed!');
+            return redirect()->route('penjualan.index');
+        }
     }
-    
+
 
 
     public function restore($id)
-	{
-		$order = Penjualan::onlyTrashed()->findOrFail($id);
+    {
+        $order = Penjualan::onlyTrashed()->findOrFail($id);
 
-		$canRestore = \DB::transaction(
-			function () use ($order) {
-				$isOutOfStock = false;
-				if (!$order->isCancelled()) {
-					foreach ($order->orderItems as $item) {
-						try {
-							Persediaan::reduceStock($item->barang_id, $item->jumlah);
-						} catch (OutOfStockException $e) {
-							$isOutOfStock = true;
-							\Session::flash('error', $e->getMessage());
-						}
-					}
-				};
+        $canRestore = \DB::transaction(
+            function () use ($order) {
+                $isOutOfStock = false;
+                if (!$order->isCancelled()) {
+                    foreach ($order->detailPenjualan as $item) {
+                        try {
+                            Persediaan::reduceStock($item->barang_id, $item->jumlah);
+                        } catch (OutOfStockException $e) {
+                            $isOutOfStock = true;
+                            \Session::flash('error', $e->getMessage());
+                        }
+                    }
+                };
 
-				if ($isOutOfStock) {
-					return false;
-				} else {
-					return $order->restore();
-				}
-			}
-		);
+                if ($isOutOfStock) {
+                    return false;
+                } else {
+                    return $order->restore();
+                }
+            }
+        );
 
-		if ($canRestore) {
-			\Session::flash('success', 'The order has been restored');
-			return redirect('admin/orders');
-		} else {
-			if (!\Session::has('error')) {
-				\Session::flash('error', 'The order could not be restored');
-			}
-			return redirect('penjualan/trashed');
-		}
-	}
+        if ($canRestore) {
+            \Session::flash('success', 'The order has been restored');
+            return redirect()->route('penjualan.index');
+        } else {
+            if (!\Session::has('error')) {
+                \Session::flash('error', 'The order could not be restored');
+            }
+            return redirect()->route('penjualan.trashed');
+        }
+    }
 }

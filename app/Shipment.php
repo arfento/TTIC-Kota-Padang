@@ -8,6 +8,7 @@ class Shipment extends Model
 {
     public const PENDING = 'pending';
 	public const SHIPPED = 'shipped';
+	protected $primaryKey = 'id_shipment';
 
 	protected $fillable = [
 		'user_id',

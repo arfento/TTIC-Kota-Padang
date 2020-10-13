@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
 <div class="content">
@@ -6,19 +6,19 @@
         <div class="col-lg-6">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom">
-                    <h2>Cancel Order #{{ $order->code }}</h2>
+                    <h2>Cancel Order #{{ $order->nomor_faktur }}</h2>
                 </div>
                 <div class="card-body">
-                    @include('admin.partials.flash', ['$errors' => $errors])
-                    {!! Form::model($order, ['url' => ['admin/orders/cancel', $order->id], 'method' => 'PUT']) !!}
-                    {!! Form::hidden('id') !!}
+                    @include('themes.ezone.partials.flash', ['$errors' => $errors])
+                    {!! Form::model($order, ['url' => ['penjualan/cancel', $order->id_penjualan], 'method' => 'PUT']) !!}
+                    {!! Form::hidden('id_penjualan') !!}
                     <div class="form-group">
                         {!! Form::label('cancellation_note', 'Cancellation Note') !!}
                         {!! Form::textarea('cancellation_note', null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-footer pt-5 border-top">
                         <button type="submit" class="btn btn-primary btn-default">Cancel the Order</button>
-                        <a href="{{ url('admin/orders') }}" class="btn btn-secondary btn-default">Back</a>
+                        <a href="{{ url('penjualan') }}" class="btn btn-secondary btn-default">Back</a>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -45,8 +45,8 @@
                         <div class="col-xl-6 col-lg-6">
                             <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Details</p>
                             <address>
-                                ID: <span class="text-dark">#{{ $order->code }}</span>
-                                <br> {{ \General::datetimeFormat($order->order_date) }}
+                                ID: <span class="text-dark">#{{ $order->nomor_faktur }}</span>
+                                <br> {{ ($order->tanggal) }}
                                 <br> Status: {{ $order->status }}
                                 <br> Payment Status: {{ $order->payment_status }}
                                 <br> Shipped by: {{ $order->shipping_service_name }}
@@ -56,19 +56,19 @@
                     <table class="table mt-3 table-striped table-responsive table-responsive-large" style="width:100%">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Item</th>
                                 <th>Qty</th>
                                 <th>Total</th>
+                                <th>Berat Barang</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($order->orderItems as $item)
+                            @forelse ($order->detailPenjualan as $item)
                                 <tr>
-                                    <td>{{ $item->sku }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->qty }}</td>
-                                    <td>{{ \General::priceFormat($item->sub_total) }}</td>
+                                    <td>{{ $item->barang->nama_barang }}</td>
+                                    <td>{{ $item->jumlah }}</td>
+                                    <td>{{ ($item->total) }}</td>
+                                    <td>{{ $item->berat_barang }}</td>
                                 </tr>
                             @empty
                                 <tr>
@@ -81,16 +81,14 @@
                         <div class="col-lg-5 col-xl-6 col-xl-3 ml-sm-auto">
                             <ul class="list-unstyled mt-4">
                                 <li class="mid pb-3 text-dark">Subtotal
-                                    <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->base_total_price) }}</span>
+                                    <span class="d-inline-block float-right text-default">{{ ($order->total) }}</span>
                                 </li>
-                                <li class="mid pb-3 text-dark">Tax(10%)
-                                    <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->tax_amount) }}</span>
-                                </li>
+
                                 <li class="mid pb-3 text-dark">Shipping Cost
-                                    <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->shipping_cost) }}</span>
+                                    <span class="d-inline-block float-right text-default">{{ ($order->shipping_cost) }}</span>
                                 </li>
                                 <li class="pb-3 text-dark">Total
-                                    <span class="d-inline-block float-right">{{ \General::priceFormat($order->grand_total) }}</span>
+                                    <span class="d-inline-block float-right">{{ ($order->grand_total) }}</span>
                                 </li>
                             </ul>
                         </div>
