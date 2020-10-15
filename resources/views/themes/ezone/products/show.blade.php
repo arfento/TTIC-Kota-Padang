@@ -110,16 +110,7 @@
 								{{-- @endforeach --}}
 							</ul>
 						</div>
-						<div class="product-details-cati-tag mtb-10">
-							<ul>
-								<li class="categories-title">Tags :</li>
-								<li><a href="#">fashion</a></li>
-								<li><a href="#">electronics</a></li>
-								<li><a href="#">toys</a></li>
-								<li><a href="#">food</a></li>
-								<li><a href="#">jewellery</a></li>
-							</ul>
-						</div>
+						
 						<div class="product-share">
 							<ul>
 								<li class="categories-title">Share :</li>
@@ -135,12 +126,12 @@
 								</li>
 								<li>
 									<a href="#">
-										<i class="icofont icofont-social-pinterest"></i>
+										<i class="icofont icofont-social-instagram"></i>
 									</a>
 								</li>
 								<li>
 									<a href="#">
-										<i class="icofont icofont-social-flikr"></i>
+										<i class="icofont icofont-social-whatsapp"></i>
 									</a>
 								</li>
 							</ul>
@@ -158,7 +149,7 @@
 						Description
 					</a>
 					<a href="#pro-review" data-toggle="tab" role="tab" aria-selected="false">
-						Reviews (0)
+						Spesifikasi
 					</a>
 				</div>
 				<div class="description-review-text tab-content">
@@ -166,7 +157,34 @@
 						<p>{{ $product->keterangan }} </p>
 					</div>
 					<div class="tab-pane fade" id="pro-review" role="tabpanel">
-						<a href="#">Be the first to write your review!</a>
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<h5>Berat :</h5>
+									</td>
+									<td>
+                                        <h5>{{ $product->berat_barang }} gr</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Harga :</h5>
+									</td>
+									<td>
+										<h5>Rp {{ number_format($product->harga_jual) }}</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Kategori :</h5>
+									</td>
+									<td>
+										<h5>{{ $product->jenis->jenis }}</h5>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

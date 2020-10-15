@@ -19,7 +19,7 @@
 		@endphp
 		@foreach ($revenues as $revenue)
 			<tr>    
-				<td>{{ \General::datetimeFormat($revenue->date, 'd M Y') }}</td>
+				<td>{{ ($revenue->date, 'd M Y') }}</td>
 				<td>{{ $revenue->num_of_orders }}</td>
 				<td>{{ $revenue->gross_revenue }}</td>
 				<td>{{ $revenue->taxes_amount }}</td>

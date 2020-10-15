@@ -12,19 +12,7 @@
 					<nav>
 						<ul>
 							<li><a href="/">home</a>
-								<ul class="single-dropdown">
-									<li><a href="index.html">Fashion</a></li>
-									<li><a href="index-fashion-2.html">Fashion style 2</a></li>
-									<li><a href="index-fruits.html">fruits</a></li>
-									<li><a href="index-book.html">book</a></li>
-									<li><a href="index-electronics.html">electronics</a></li>
-									<li><a href="index-electronics-2.html">electronics style 2</a></li>
-									<li><a href="index-food.html">food & drink</a></li>
-									<li><a href="index-furniture.html">furniture</a></li>
-									<li><a href="index-handicraft.html">handicraft</a></li>
-									<li><a target="_blank" href="index-smart-watch.html">smart watch</a></li>
-									<li><a href="index-sports.html">sports</a></li>
-								</ul>
+
 							</li>
 							<li><a href="#">pages</a>
 								<ul class="single-dropdown">
@@ -84,7 +72,25 @@
 									<li><a href="blog-details-sidebar.html">blog details 2</a></li>
 								</ul>
 							</li>
-							<li><a href="contact.html">contact</a></li>
+
+
+							@guest
+							<li><a href="{{ url('login') }}">Login</a></li>
+							<li><a href="{{ url('register') }}">Register</a></li>
+							@else
+							<li><a href="{{ url('profile') }}">Profile</a></li>
+							<li>
+								<a class='text-dark' href="{{ route('logout') }}" onclick="event.preventDefault();
+													document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+								</a>
+							</li>
+
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								@csrf
+							</form>
+							@endguest
+
 						</ul>
 					</nav>
 				</div>
@@ -151,9 +157,9 @@
 										<li><a href="blog-details-sidebar.html">blog details 2</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.html"> Contact  </a></li>
+								<li><a href="contact.html"> Contact </a></li>
 							</ul>
-						</nav>							
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -165,25 +171,25 @@
 				<div class="furniture-login">
 					<ul>
 						@guest
-							<li>Get Access: <a href="{{ url('login') }}">Login</a></li>
-							<li><a href="{{ url('register') }}">Register</a></li>
+						<li>Get Access: <a href="{{ url('login') }}">Login</a></li>
+						<li><a href="{{ url('register') }}">Register</a></li>
 						@else
-							<li>Hello: <a href="{{ url('profile') }}">{{ Auth::user()->first_name }}</a></li>
-							<a href="{{ route('logout') }}"
-								onclick="event.preventDefault();
+						<li>Hello: <a href="{{ url('profile') }}">{{ Auth::user()->first_name }}</a></li>
+						<a href="{{ route('logout') }}" onclick="event.preventDefault();
 											document.getElementById('logout-form').submit();">
-								{{ __('Logout') }}
-							</a>
+							{{ __('Logout') }}
+						</a>
 
-							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								@csrf
-							</form>
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>
 						@endguest
 					</ul>
 				</div>
 				<div class="furniture-search">
 					<form action="{{ url('products') }}" method="GET">
-						<input placeholder="I am Searching for . . ." type="text" name="q" value="{{ isset($q) ? $q : null }}">
+						<input placeholder="I am Searching for . . ." type="text" name="q"
+							value="{{ isset($q) ? $q : null }}">
 						<button>
 							<i class="ti-search"></i>
 						</button>

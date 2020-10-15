@@ -21,7 +21,7 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Tabel Satuan Pembelian {{ $countbarang }}</h3>
+            <h3 class="card-title">Tabel Satuan Pembelian </h3>
            
             
         </div>
@@ -29,8 +29,8 @@
         <div class="card-body">
             <div class="header">
                 <a href="{{ route('satuanpembelian.create')}}" class="btn btn-primary btn-sm" >Tambah Satuan Pembelian</a>
-                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
-                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
             </div>
             <hr>
             @include('notifikasi')

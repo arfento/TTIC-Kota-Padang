@@ -22,7 +22,8 @@ class DetailPenjualanController extends Controller
     public function index()
     {
         $detailpenjualan=detailpenjualan::all();
-        return view('detailpenjualan.index',compact('detailpenjualan'));
+        $penjualan= Penjualan::all();
+        return view('detailpenjualan.index',compact('detailpenjualan', 'penjualan'));
     }
 
     /**

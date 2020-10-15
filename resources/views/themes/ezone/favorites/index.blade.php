@@ -19,7 +19,7 @@
 					@include('themes.ezone.partials.user_menu')
 				</div>
 				<div class="col-lg-9">
-					@include('admin.partials.flash')
+					@include('themes.ezone.partials.flash')
 					<div class="shop-product-wrapper res-xl">
 						<div class="table-content table-responsive">
 							<table>

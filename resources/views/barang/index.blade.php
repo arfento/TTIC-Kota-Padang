@@ -25,8 +25,8 @@
         <div class="card-body">
             <div class="header">
                 <a href="{{ route('barang.create')}}" class="btn btn-primary btn-sm" >Tambah Barang</a>
-                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
-                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
             </div>
             <hr>
             @include('notifikasi')

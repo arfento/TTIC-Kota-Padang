@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="content">
@@ -9,8 +9,8 @@
 						<h2>Product Report</h2>
 					</div>
 					<div class="card-body">
-						@include('admin.partials.flash')
-						@include('admin.reports.filter')
+						@include('themes.ezone.partials.flash')
+						@include('reports.filter')
 						<table class="table table-bordered table-striped">
 							<thead>
 								<th>Name</th>
@@ -29,7 +29,7 @@
 										<td>{{ $product->name }}</td>
 										<td>{{ $product->sku }}</td>
 										<td>{{ $product->items_sold }}</td>
-										<td>{{ \General::priceFormat($product->net_revenue) }}</td>
+										<td>{{ ($product->net_revenue) }}</td>
 										<td>{{ $product->num_of_orders }}</td>
 										<td>{{ $product->stock }}</td>
 									</tr>
@@ -48,7 +48,7 @@
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
-										<td>{{ \General::priceFormat($totalNetRevenue) }}</td>
+										<td>{{ ($totalNetRevenue) }}</td>
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 									</tr>

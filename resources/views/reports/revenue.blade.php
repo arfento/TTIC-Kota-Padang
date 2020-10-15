@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="content">
@@ -9,14 +9,13 @@
 						<h2>Revenue Report</h2>
 					</div>
 					<div class="card-body">
-						@include('admin.partials.flash')
-						@include('admin.reports.filter')
+						@include('themes.ezone.partials.flash')
+						@include('reports.filter')
 						<table class="table table-bordered table-striped">
 							<thead>
 								<th>Date</th>
 								<th>Orders</th>
 								<th>Gross Revenue</th>
-								<th>Taxes</th>
 								<th>Shipping</th>
 								<th>Net Revenue</th>
 							</thead>
@@ -30,20 +29,20 @@
 								@endphp
 								@forelse ($revenues as $revenue)
 									<tr>    
-										<td>{{ \General::datetimeFormat($revenue->date, 'd M Y') }}</td>
+										<td>{{ $revenue->date, 'd M Y' }}</td>
 										<td>
-											<a href="{{ url('admin/orders?start='. $revenue->date .'&end='. $revenue->date . '&status=completed') }}">{{ $revenue->num_of_orders }}</a>
+											<a href="{{ url('penjualan?start='. $revenue->date .'&end='. $revenue->date . '&status=completed') }}">{{ $revenue->num_of_orders }}</a>
 										</td>
-										<td>{{ \General::priceFormat($revenue->gross_revenue) }}</td>
-										<td>{{ \General::priceFormat($revenue->taxes_amount) }}</td>
-										<td>{{ \General::priceFormat($revenue->shipping_amount) }}</td>
-										<td>{{ \General::priceFormat($revenue->net_revenue) }}</td>
+										<td>{{($revenue->gross_revenue) }}</td>
+										
+										<td>{{($revenue->shipping_amount) }}</td>
+										<td>{{($revenue->net_revenue) }}</td>
 									</tr>
 
 									@php
 										$totalOrders += $revenue->num_of_orders;
 										$totalGrossRevenue += $revenue->gross_revenue;
-										$totalTaxesAmount += $revenue->taxes_amount;
+									
 										$totalShippingAmount += $revenue->shipping_amount;
 										$totalNetRevenue += $revenue->net_revenue;
 									@endphp
@@ -57,10 +56,10 @@
 									<tr>
 										<td>Total</td>
 										<td><strong>{{ $totalOrders }}</strong></td>
-										<td><strong>{{ \General::priceFormat($totalGrossRevenue) }}</strong></td>
-										<td><strong>{{ \General::priceFormat($totalTaxesAmount) }}</strong></td>
-										<td><strong>{{ \General::priceFormat($totalShippingAmount) }}</strong></td>
-										<td><strong>{{ \General::priceFormat($totalNetRevenue) }}</strong></td>
+										<td><strong>{{ ($totalGrossRevenue) }}</strong></td>
+									
+										<td><strong>{{ ($totalShippingAmount) }}</strong></td>
+										<td><strong>{{ ($totalNetRevenue) }}</strong></td>
 									</tr>
 								@endif
 							</tbody>

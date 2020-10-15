@@ -23,7 +23,7 @@
           <div class="col col-12">
             <div class="card custom" style="padding: 25px 40px">
               <span class="title " style="margin-bottom: 10px">
-                <font size="5">Pembelian Baru</font>
+                <font size="5">Edit Pembelian Barang</font>
               </span>
 
               <div class="row">

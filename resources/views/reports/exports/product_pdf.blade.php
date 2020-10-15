@@ -35,7 +35,7 @@
   	<body>
 		<h2>Product Report</h2>
 		<hr>
-		<p>Period : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
+		<p>Period : {{ ($startDate, 'd M Y') }} - {{ ($endDate, 'd M Y') }}</p>
 		<table>
 			<thead>
 				<tr>
@@ -56,7 +56,7 @@
 						<td>{{ $product->name }}</td>
 						<td>{{ $product->sku }}</td>
 						<td>{{ $product->items_sold }}</td>
-						<td>{{ \General::priceFormat($product->net_revenue) }}</td>
+						<td>{{ ($product->net_revenue) }}</td>
 						<td>{{ $product->num_of_orders }}</td>
 						<td>{{ $product->stock }}</td>
 					</tr>
@@ -69,7 +69,7 @@
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-					<td>{{ \General::priceFormat($totalNetRevenue) }}</td>
+					<td>{{ ($totalNetRevenue) }}</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>

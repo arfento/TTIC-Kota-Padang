@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="content">
@@ -9,7 +9,7 @@
 						<h2>Inventory Report</h2>
 					</div>
 					<div class="card-body">
-						@include('admin.partials.flash')
+						@include('themes.ezone.partials.flash')
 						{!! Form::open(['url'=> Request::path(),'method'=>'GET','class' => 'form-inline']) !!}
 							<div class="form-group mb-2">
 								{{ Form::select('export', $exports, !empty(request()->input('export')) ? request()->input('export') : null, ['placeholder' => '-- Export to --', 'class' => 'form-control input-block']) }}
@@ -21,14 +21,14 @@
 						<table class="table table-bordered table-striped">
 							<thead>
 								<th>Name</th>
-								<th>SKU</th>
+								
 								<th>Stock</th>
 							</thead>
 							<tbody>
 								@forelse ($products as $product)
 									<tr>    
-										<td>{{ $product->name }}</td>
-										<td>{{ $product->sku }}</td>
+										<td>{{ $product->nama_barang }}</td>
+										
 										<td>{{ $product->stock }}</td>
 									</tr>
 								@empty

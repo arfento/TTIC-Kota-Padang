@@ -55,10 +55,10 @@ Route::resource('penjualan', 'Admin\PenjualanController');
 
 Route::resource('shipments', 'Admin\ShipmentController');
 
-Route::get('reports/revenue', 'ReportController@revenue');
-Route::get('reports/product', 'ReportController@product');
-Route::get('reports/inventory', 'ReportController@inventory');
-Route::get('reports/payment', 'ReportController@payment');
+Route::get('reports/revenue', 'Admin\ReportController@revenue');
+Route::get('reports/product', 'Admin\ReportController@product');
+Route::get('reports/inventory', 'Admin\ReportController@inventory');
+Route::get('reports/payment', 'Admin\ReportController@payment');
 
 
 ///////
@@ -86,6 +86,10 @@ Route::post('/cart/update', 'Ecommerce\CartController@updateCart')->name('front.
 Route::get('/checkout', 'Ecommerce\CartController@checkout')->name('front.checkout');
 Route::post('/checkout', 'Ecommerce\CartController@processCheckout')->name('front.store_checkout');
 Route::get('/checkout/{invoice}', 'Ecommerce\CartController@checkoutFinish')->name('front.finish_checkout');
+
+
+
+
 ///endfront
 
 //ezonefront

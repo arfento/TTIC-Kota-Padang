@@ -25,8 +25,8 @@
         <div class="card-body">
             <div class="header">
                 <a href="{{ route('detailpembelian.create')}}" class="btn btn-primary btn-sm" >Tambah Detail Pembelian</a>
-                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
-                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
             </div>
             <hr>
             @include('notifikasi')
@@ -39,7 +39,7 @@
                         <th>Pembelian</th>
                         <th>Jumlah</th>
                         <th>Harga Satuan</th>
-                        <th>Tanggal Kadaluarsa</th>
+                        {{-- <th>Tanggal Kadaluarsa</th> --}}
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                         <td>{{ $item-> pembelian -> nomor_faktur }}</td>
                         <td>{{ $item-> jumlah }}</td>
                         <td>{{ $item-> harga_satuan }}</td>
-                        <td>{{ $item-> tanggal_kadaluarsa }}</td>
+                        {{-- <td>{{ $item-> tanggal_kadaluarsa }}</td> --}}
                         
                         <td>
                             <a href="{{ route('detailpembelian.edit',$item->id_detail_pembelian)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>

@@ -35,7 +35,7 @@
         
         @yield('content')
        
-        @include('themes.ezone.partials.services')
+       
         @include('themes.ezone.partials.footer')
         @include('themes.ezone.partials.modals')
 		

@@ -35,7 +35,7 @@
   	<body>
 		<h2>Product Report</h2>
 		<hr>
-		<p>Period : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
+		<p>Period : {{ ($startDate, 'd M Y') }} - {{ ($endDate, 'd M Y') }}</p>
 		<table>
 			<thead>
 				<tr>
@@ -52,9 +52,9 @@
 				@foreach ($payments as $payment)
 					<tr>
 						<td>{{ $payment->code }}</td>
-						<td>{{ \General::datetimeFormat($payment->created_at) }}</td>
+						<td>{{ ($payment->created_at) }}</td>
 						<td>{{ $payment->status }}</td>
-						<td>{{ \General::priceFormat($payment->amount) }}</td>
+						<td>{{ ($payment->amount) }}</td>
 						<td>{{ $payment->method }}</td>
 						<td>{{ $payment->payment_type }}</td>
 						<td>{{ $payment->token }}</td>

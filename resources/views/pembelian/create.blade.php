@@ -16,7 +16,7 @@
 <section class="content">
 
   <br>
-  <div class="container">
+  <div class="">
     @include('validasi')
     <form action="{{ route('pembelian.store') }}" method="POST">
       @csrf

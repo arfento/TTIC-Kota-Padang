@@ -29,7 +29,7 @@
           <label class="col-md-2 col-form-label text-md-right">Kode Barang</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input type="text" name="kode_barang" class="form-control" value="{{ $barang->kode_barang }}">
+              <input type="text" name="kode_barang" class="form-control" value="{{ $barang->kode_barang }}" readonly>
             </div>
             <div class="clearfix"></div>
           </div>

@@ -25,8 +25,8 @@
         <div class="card-body">
             <div class="header">
                 <a href="{{ route('detailpenjualan.create')}}" class="btn btn-primary btn-sm" >Tambah Detail Penjualan</a>
-                <a {{-- href="{{ route('exportPDF.categoriesAll') }}" --}} class="btn btn-danger btn-sm">Export PDF</a>
-                <a {{-- href="{{ route('exportExcel.categoriesAll') }}" --}} class="btn btn-success btn-sm">Export Excel</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
             </div>
             <hr>
             @include('notifikasi')
@@ -46,7 +46,7 @@
                     @foreach ($detailpenjualan as $item)
                     <tr>
                         <td>{{ $loop-> iteration }}</td>
-                        <td>{{ $item-> penjualan -> nomor_faktur }}</td>
+                        <td>{{ $item-> penjualan-> nomor_faktur }}</td>
                         <td>{{ $item-> barang -> nama_barang }}</td>
                         <td>{{ $item-> jumlah }}</td>
                         <td>{{ $item-> harga_satuan }}</td>

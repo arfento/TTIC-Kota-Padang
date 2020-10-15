@@ -38,7 +38,14 @@ class PersediaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
+    {
+        
+        $barang= Barang::all();
+        $rak= Rak::orderBy('nomor_rak', 'asc')->get();
+        return view('persediaan.create', compact('rak', 'barang'));
+    }
+    public function createperrak($id)
     {
         
         $barang= Barang::all();

@@ -13,7 +13,7 @@
         <img src="{{url('/images/user.png')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{ Auth::user()->name }} <span class="caret"></span></a>
+        <a href="#" class="d-block">{{ Auth::user()->first_name  }} {{ Auth::user()->last_name  }} <span class="caret"></span></a>
       </div>
     </div>
 
@@ -135,27 +135,28 @@
          
           <ul class="nav nav-treeview" style="display: none;">
 
-            <li class="nav-item"><a href="{{ url('admin/reports/revenue')}}" class="nav-link"><i
+            <li class="nav-item"><a href="{{ url('reports/revenue')}}" class="nav-link"><i
                   class="far fa-circle nav-icon"></i>
-                <span>Revenue</span></a></li>
+                <span>Laporan Transaksi Penjualan</span></a></li>
 
-            <li class="nav-item"><a href="{{ url('admin/reports/product')}}" class="nav-link"><i
+            <li class="nav-item"><a href="{{ url('reports/product')}}" class="nav-link"><i
                   class="far fa-circle nav-icon"></i>
-                <span>Barangs</span></a></li>
+                <span>Laporan Barangs</span></a></li>
 
-            <li class="nav-item"><a href="{{ url('admin/reports/product')}}" class="nav-link">
+            <li class="nav-item"><a href="{{ url('reports/product')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <span>Inventories</span></a></li>
+                <span>Laporan Pembayaran</span></a></li>
 
             {{-- <li class="{{ ($currentAdminSubMenu == 'trashed-order') ? 'active' : ''}}"> --}}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('admin/reports/inventory')}}">
+              <a class="nav-link" href="{{ url('reports/inventory')}}">
                 <i class="far fa-circle nav-icon"></i>
-                <span class="nav-text">Payments</span>
+                <span class="nav-text">Laporan Persediaan </span>
               </a>
             </li>
 
           </ul>
+          
           {{-- <ul class="collapse {{ ($currentAdminMenu == 'report') ? 'show' : ''}}" id="report"
           data-parent="#sidebar-menu">
           <div class="sub-menu">
@@ -181,6 +182,26 @@
         </li>
         </div>
       </ul> --}}
+      </li>
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link active">
+          <i class="nav-icon fas fa-cogs"></i>
+          <p>
+            Pengaturan
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+
+          <li class="nav-item"><a href="{{ route('pembelian.index') }}" class="nav-link"><i
+                class="far fa-circle nav-icon"></i>
+              <span>Users</span></a></li>
+
+          <li class="nav-item"><a href="{{ route('detailpembelian.index') }}" class="nav-link"><i
+                class="far fa-circle nav-icon"></i> <span>Hak Akses Users</span></a></li>
+      
+        </ul>
       </li>
     </nav>
 

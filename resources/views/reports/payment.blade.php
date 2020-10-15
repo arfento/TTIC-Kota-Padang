@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="content">
@@ -9,8 +9,8 @@
 						<h2>Payment Report</h2>
 					</div>
 					<div class="card-body">
-						@include('admin.partials.flash')
-						@include('admin.reports.filter')
+						@include('themes.ezone.partials.flash')
+						@include('reports.filter')
 						<table class="table table-bordered table-striped">
 							<thead>
 								<th>Order ID</th>
@@ -25,9 +25,9 @@
 								@forelse ($payments as $payment)
 									<tr>    
 										<td>{{ $payment->code }}</td>
-										<td>{{ \General::datetimeFormat($payment->created_at) }}</td>
+										<td>{{ ($payment->created_at) }}</td>
 										<td>{{ $payment->status }}</td>
-										<td>{{ \General::priceFormat($payment->amount) }}</td>
+										<td>{{ ($payment->amount) }}</td>
 										<td>{{ $payment->method }}</td>
 										<td>{{ $payment->payment_type }}</td>
 										<td>{{ $payment->token }}</td>
