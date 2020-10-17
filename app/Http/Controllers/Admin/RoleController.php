@@ -3,11 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Role;
+use App\Permission;
+
 use Illuminate\Http\Request;
+
+use App\Authorizable;
+use Session;
 
 class RoleController extends Controller
 {
+    use Authorizable;
+
+    public function __construct() {
+        parent::__construct();
+
+        $this->data['currentAdminMenu'] = 'role-user';
+        $this->data['currentAdminSubMenu'] = 'role';
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +29,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $this->data['roles'] = Role::all();
+        $this->data['permissions'] = Permission::all();
+
+        return view('roles.index', $this->data);
     }
 
     /**
@@ -36,7 +53,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['name' => 'required|unique:roles']);
+
+        if (Role::create($request->only('name'))) {
+            Session::flash('successs', 'New role added.');
+        }
+
+        return redirect('roles');
     }
 
     /**
@@ -70,7 +93,19 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        Session::flash('success', $role->name . ' permissions has been updated.');
+
+        if ($role->name == 'Admin') {
+            $role->syncPermissions(Permission::all());
+
+            return redirect('roles');
+        }
+
+        $permissions = $request->get('permissions', []);
+
+        $role->syncPermissions($permissions);
+
+        return redirect('roles');
     }
 
     /**

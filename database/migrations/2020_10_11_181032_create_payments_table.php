@@ -16,16 +16,16 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id_payment');
             $table->unsignedBigInteger('penjualan_id');
-            $table->string('number')->unique();
+            $table->string('number', 50)->unique();
             $table->decimal('amount', 16, 2)->default(0);
-            $table->string('method');
+            $table->string('method',30);
             $table->string('token')->nullable();
             $table->json('payloads')->nullable();
-            $table->string('payment_type')->nullable();
-            $table->string('va_number')->nullable();
-            $table->string('vendor_name')->nullable();
-            $table->string('biller_code')->nullable();
-            $table->string('bill_key')->nullable();
+            $table->string('payment_type', 50)->nullable();
+            $table->string('va_number', 50)->nullable();
+            $table->string('vendor_name',50)->nullable();
+            $table->string('biller_code',50)->nullable();
+            $table->string('bill_key',50)->nullable();
             $table->softDeletes();
             $table->timestamps();
             

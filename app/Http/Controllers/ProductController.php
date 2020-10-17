@@ -76,6 +76,19 @@ class ProductController extends Controller
 	 */
 	public function index(Request $request)
 	{
+
+		$products = Barang::all();
+
+		$products = $this->_searchProducts($products, $request);
+		// $products = $this->_filterProductsByPriceRange($products, $request);
+		// $products = $this->_filterProductsByAttribute($products, $request);
+		$products = $this->_sortProducts($products, $request);
+
+		$this->data['products'] = $products;
+		return view('themes.ezone.products.index', $this->data);
+
+
+
 		$products = Barang::orderBy('created_at', 'asc')->get();
 		$jenisbarang = JenisBarang::orderBy('jenis', 'asc')->get();
 		// $products = $this->_searchProducts($products, $request);
@@ -247,16 +260,15 @@ class ProductController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function quickView($slug)
+	public function quickView($id)
 	{
-		$product = Product::active()->where('slug', $slug)->firstOrFail();
-		if ($product->configurable()) {
-			$this->data['colors'] = ProductAttributeValue::getAttributeOptions($product, 'color')->pluck('text_value', 'text_value');
-			$this->data['sizes'] = ProductAttributeValue::getAttributeOptions($product, 'size')->pluck('text_value', 'text_value');
-		}
+		// dd($id);
+		$product = Barang::where('id_barang', $id)->first();
+		// dd($product);
+		
 
-		$this->data['product'] = $product;
+		// $this->data['product'] = $product;
 
-		return $this->loadTheme('products.quick_view', $this->data);
+		return view('themes.ezone.products.quick_view', compact('product'));
 	}
 }

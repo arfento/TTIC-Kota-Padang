@@ -5,7 +5,7 @@
 			<div class="header-bottom-wrapper">
 				<div class="logo-2 furniture-logo ptb-30">
 					<a href="/">
-						<img src="{{ asset('themes/ezone/assets/img/logo/2.png') }}" alt="">
+						<img src="{{ asset('themes/ezone/assets/img/logo/logo1.png') }}" alt="" width="80" height="80">
 					</a>
 				</div>
 				<div class="menu-style-2 furniture-menu menu-hover">

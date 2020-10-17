@@ -180,6 +180,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
     
     /*

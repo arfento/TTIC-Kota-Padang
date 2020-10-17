@@ -30,7 +30,7 @@ class Controller extends BaseController
 		$this->rajaOngkirBaseUrl = env('RAJAONGKIR_BASE_URL');
 		$this->rajaOngkirOrigin = env('RAJAONGKIR_ORIGIN');
 
-		// $this->_initAdminMenu();
+		$this->_initAdminMenu();
     }
     private function _initAdminMenu()
 	{

@@ -14,8 +14,8 @@ class AddColumnsToDetailPenjualanTable extends Migration
     public function up()
     {
         Schema::table('detail_penjualans', function (Blueprint $table) {
-            $table->string('total')->after('harga_satuan')->nullable();
-            $table->string('berat_barang')->after('total')->nullable();
+            $table->bigInteger('total')->after('harga_satuan')->nullable();
+            $table->integer('berat_barang')->after('total')->nullable();
         });
     }
 

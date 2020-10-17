@@ -23,6 +23,7 @@
         "midtrans/midtrans-php": "^2.3",
         "ramsey/uuid": "^4.1",
         "realrashid/sweet-alert": "^3.1",
+        "spatie/laravel-permission": "^3.17",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {

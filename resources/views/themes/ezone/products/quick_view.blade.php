@@ -10,10 +10,10 @@
 						@php
 							$i = 1
 						@endphp
-						@foreach ($product->productImages as $image)
+						@foreach ($product as $image)
 							<div class="tab-pane fade {{ ($i == 1) ? 'active show' : '' }}" id="modal{{ $i}}" role="tabpanel">
-								@if ($image->medium)
-									<img src="{{ asset('storage/'.$image->medium) }}" alt="{{ $product->name }}" style="width:320px;">
+								@if ($image->gambar)
+									<img src="{{ asset('storage/'.$image->gambar) }}" alt="{{ $product->nama_barang }}" style="width:320px;">
 								@else
 									<img src="{{ asset('themes/ezone/assets/img/quick-view/l3.jpg') }}" alt="">
 								@endif
@@ -28,12 +28,12 @@
 					@php
 						$i = 1
 					@endphp
-					@foreach ($product->productImages as $image)
+					@foreach ($product as $image)
 						<a class="{{ ($i == 1) ? 'active' : '' }} mr-12" href="#modal{{ $i }}" data-toggle="tab" role="tab">
-							@if ($image->small)
-								<img src="{{ asset('storage/'.$image->small) }}" alt="{{ $product->name }}" style="width:100px; height:112px">
+							@if ($image->gambar)
+								<img src="{{ asset('storage/'.$image->gambar) }}" alt="{{ $product->nama_barang }}" style="width:100px; height:112px">
 							@else
-								<img src="{{ asset('themes/ezone/assets/img/quick-view/s3.jpg') }}" alt="{{ $product->name }}">
+								<img src="{{ asset('themes/ezone/assets/img/quick-view/s3.jpg') }}" alt="{{ $product->nama_barang }}">
 							@endif
 						</a>
 						@php
@@ -44,16 +44,16 @@
 			</div>
 			<div class="qwick-view-right">
 				<div class="qwick-view-content">
-					<h3>{{ $product->name }}</h3>
+					<h3>{{ $product->nama_barang }}</h3>
 					<div class="price">
-						<span class="new">{{ number_format($product->priceLabel()) }}</span>
+						<span class="new">{{ number_format($product->harga_jual) }}</span>
 						{{-- <span class="old">$120.00  </span> --}}
 					</div>
-					<p>{{ $product->short_description }}</p>
+					<p>{{ $product->keterangan }}</p>
 					{!! Form::open(['url' => 'carts']) !!}
-						{{ Form::hidden('product_id', $product->id) }}
-						@if ($product->configurable())
-							<div class="quick-view-select">
+						{{ Form::hidden('barang_id', $product->id_barang) }}
+						{{-- @if ($product->configurable()) --}}
+							{{-- <div class="quick-view-select">
 								<div class="select-option-part">
 									<label>Size*</label>
 									{!! Form::select('size', $sizes , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
@@ -62,12 +62,12 @@
 									<label>Color*</label>
 									{!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
 								</div>
-							</div>
-						@endif
+							</div> --}}
+						{{-- @endif --}}
 
 						<div class="quickview-plus-minus">
 							<div class="cart-plus-minus">
-								{!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'placeholder' => 'qty', 'min' => 1]) !!}
+								{!! Form::number('jumlah', 1, ['class' => 'cart-plus-minus-box', 'placeholder' => 'jumlah', 'min' => 1]) !!}
 							</div>
 							<div class="quickview-btn-cart">
 								<button type="submit" class="submit contact-btn btn-hover">add to cart</button>

@@ -150,14 +150,14 @@ function getQuickView(product_slug) {
 	$('.add-to-fav').on('click', function (e) {
 		e.preventDefault();
 
-		var product_slug = $(this).attr('product-slug');
+		var barang_id = $(this).attr('product-slug');
 
 		$.ajax({
 			type: 'POST',
 			url: '/favorites',
 			data:{
 				_token: $('meta[name="csrf-token"]').attr('content'),
-				product_slug: product_slug
+				barang_id: barang_id
 			},
 			success: function (response) {
 				alert(response);

@@ -15,7 +15,7 @@ class CreateRaksTable extends Migration
     {
         Schema::create('raks', function (Blueprint $table) {
             $table->bigIncrements('id_rak');
-            $table->string('nomor_rak', 10)->unique();
+            $table->string('nomor_rak', 20)->unique();
             $table->timestamps();
         });
     }

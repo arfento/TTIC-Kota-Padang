@@ -25,7 +25,7 @@
 									<a class="animate-left add-to-fav" title="Wishlist"  product-slug="{{ $barang->id_barang }}" href="">
 										<i class="pe-7s-like"></i>
 									</a>
-									<a class="animate-top add-to-card" title="Add To Cart" href="" product-id="{{ $barang->id_barang }}" product-type="{{ $barang->jenis_barang_id }}" product-slug="{{ $barang->id_barang }}">
+									<a class="animate-top add-to-card" title="Add To Cart" href="" product-id="{{ $barang->id_barang }}" {{-- product-type="{{ $barang->jenis_barang_id }}" product-slug="{{ $barang->id_barang }}" --}}>
 										<i class="pe-7s-cart"></i>
 									</a>
 									<a class="animate-right quick-view" title="Quick View" product-slug="{{ $barang->id_barang }}" href="">

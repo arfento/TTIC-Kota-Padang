@@ -15,7 +15,7 @@ class CreateSatuanPembeliansTable extends Migration
     {
         Schema::create('satuan_pembelians', function (Blueprint $table) {
             $table->BigIncrements('id_satuan_pembelian');
-            $table->string('satuan', 50)->unique();
+            $table->string('satuan', 25)->unique();
             $table->timestamps();
         });
 

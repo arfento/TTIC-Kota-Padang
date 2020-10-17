@@ -73,6 +73,9 @@ Route::get('/persediaan/edit/{id}', 'Admin\PersediaanController@edit');
 Route::post('/persediaan/update', 'Admin\PersediaanController@update');
 Route::get('/persediaanperrak', 'Admin\PersediaanController@indexperrak')->name('persediaanperrak');
 
+Route::resource('roles', 'Admin\RoleController');
+Route::resource('users', 'Admin\UserController');
+
 ////front
 Route::get('/front', 'Ecommerce\FrontController@index')->name('front.index');
 Route::get('/product', 'Ecommerce\FrontController@product')->name('front.product');
@@ -97,6 +100,9 @@ Route::get('/checkout/{invoice}', 'Ecommerce\CartController@checkoutFinish')->na
 Route::get('/products', 'ProductController@index');
 Route::get('/products/{id}', 'ProductController@show');
 Route::get('/products/quick-view/{id}', 'ProductController@quickView');
+
+
+Route::resource('favorites', 'FavoriteController');
 
 Route::get('/carts', 'CartController@index');
 Route::get('/carts/remove/{cartID}', 'CartController@destroy');

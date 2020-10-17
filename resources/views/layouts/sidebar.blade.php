@@ -3,7 +3,7 @@
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
     <a href="#" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="{{asset('storage/logo1.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8">
       <span class="brand-text font-weight-light">TTIC Kota Padang</span>
     </a>
@@ -194,11 +194,12 @@
         </a>
         <ul class="nav nav-treeview" style="display: none;">
 
-          <li class="nav-item"><a href="{{ route('pembelian.index') }}" class="nav-link"><i
+          <li class="nav-item">
+            <a href="{{ url('roles') }}" class="nav-link"><i
                 class="far fa-circle nav-icon"></i>
               <span>Users</span></a></li>
 
-          <li class="nav-item"><a href="{{ route('detailpembelian.index') }}" class="nav-link"><i
+          <li class="nav-item"><a href="{{ url('roles') }}" class="nav-link"><i
                 class="far fa-circle nav-icon"></i> <span>Hak Akses Users</span></a></li>
       
         </ul>

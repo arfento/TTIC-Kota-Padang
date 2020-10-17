@@ -34,22 +34,23 @@
 								<tbody>
 									@forelse ($favorites as $favorite)
 										@php
-											$product = $favorite->product;
+											$product = $favorite->barang;
 											$product = isset($product->parent) ?: $product;
-											$image = !empty($product->productImages->first()) ? asset('storage/'.$product->productImages->first()->small) : asset('themes/ezone/assets/img/cart/3.jpg')
+											$image = !empty($product->gambar) ? asset('storage/barangs/' . $product->gambar) : asset('themes/ezone/assets/img/cart/3.jpg')	
+									
 										@endphp
 										<tr>
 											<td class="product-remove">
-												{!! Form::open(['url' => 'favorites/'. $favorite->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+												{!! Form::open(['url' => 'favorites/'. $favorite->id_favorite, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                                 {!! Form::hidden('_method', 'DELETE') !!}
                                                 <button type="submit" style="background-color: transparent; border-color: #FFF;">X</button>
                                                 {!! Form::close() !!}
 											</td>
 											<td class="product-thumbnail">
-												<a href="{{ url('product/'. $product->slug) }}"><img src="{{ $image }}" alt="{{ $product->name }}" style="width:100px"></a>
+												<a href="{{ url('products/'. $product->id_barang) }}"><img src="{{ $image }}" alt="{{ $product->nama_barang }}" style="width:100px"></a>
 											</td>
-											<td class="product-name"><a href="{{ url('product/'. $product->slug) }}">{{ $product->name }}</a></td>
-											<td class="product-price-cart"><span class="amount">{{ number_format($product->priceLabel()) }}</span></td>
+											<td class="product-name"><a href="{{ url('products/'. $product->id_barang) }}">{{ $product->nama_barang }}</a></td>
+											<td class="product-price-cart"><span class="amount">{{ number_format($product->harga_jual) }}</span></td>
 										</tr>
 									@empty
 										<tr>

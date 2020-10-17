@@ -15,7 +15,7 @@ class CreateBarangsTable extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->BigIncrements('id_barang');
-            $table->string('kode_barang')->unique();
+            $table->string('kode_barang', 50)->unique();
             $table->string('nama_barang', 100);
             $table->unsignedBigInteger('jenis_barang_id');
             $table->unsignedBigInteger('satuan_pembelian_id')->nullable();

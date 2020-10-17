@@ -17,7 +17,7 @@
 		</div>
     </form>
 
-    @if ($jenisbarang)
+    {{-- @if ($jenisbarang)
 		<div class="sidebar-widget mb-45">
 			<h3 class="sidebar-title">Categories</h3>
 			<div class="sidebar-categories">
@@ -28,7 +28,7 @@
 				</ul>
 			</div>
 		</div>
-	@endif
+	@endif --}}
     
     {{-- @if ($colors)
 		<div class="sidebar-widget sidebar-overflow mb-45">
