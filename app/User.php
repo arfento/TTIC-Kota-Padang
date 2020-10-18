@@ -45,5 +45,11 @@ class User extends Authenticatable
     public function favorites()
 	{
 		return $this->hasMany('App\Favorite');
-	}
+    }
+    public function roles()
+    {
+       
+            return $this->belongsTo('App\Role', 'role_id');
+       
+    }
 }

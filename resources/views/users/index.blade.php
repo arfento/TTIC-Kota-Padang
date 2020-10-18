@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
     <div class="content">
@@ -9,7 +9,7 @@
                         <h2>Users</h2>
                     </div>
                     <div class="card-body">
-                        @include('admin.partials.flash')
+                        @include('themes.ezone.partials.flash')
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <th>#</th>
@@ -28,18 +28,18 @@
                                         <td>{{ $user->roles->implode('name', ', ') }}</td>
                                         <td>{{ $user->created_at }}</td>
                                         <td>
-                                        @if (!$user->hasRole('Admin'))
+                                        {{-- @if (!$user->hasRole('Admin')) --}}
                                             @can('edit_categories')
-                                                <a href="{{ url('admin/users/'. $user->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
+                                                <a href="{{ url('users/'. $user->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
                                             @endcan
 
                                             @can('delete_categories')
-                                                {!! Form::open(['url' => 'admin/users/'. $user->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                                {!! Form::open(['url' => 'users/'. $user->id, 'class' => 'delete', 'style' => 'admindisplay:inline-block']) !!}
                                                 {!! Form::hidden('_method', 'DELETE') !!}
                                                 {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
                                                 {!! Form::close() !!}
                                             @endcan
-                                        @endif
+                                        {{-- @endif --}}
                                         </td>
                                     </tr>
                                 @empty
@@ -54,7 +54,7 @@
 
                     @can('add_users')
                         <div class="card-footer text-right">
-                            <a href="{{ url('admin/users/create') }}" class="btn btn-primary">Add New</a>
+                            <a href="{{ url('users/create') }}" class="btn btn-primary">Add New</a>
                         </div>
                     @endcan
                 </div>

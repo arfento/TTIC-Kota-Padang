@@ -143,7 +143,7 @@
                   class="far fa-circle nav-icon"></i>
                 <span>Laporan Barangs</span></a></li>
 
-            <li class="nav-item"><a href="{{ url('reports/product')}}" class="nav-link">
+            <li class="nav-item"><a href="{{ url('reports/payment')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <span>Laporan Pembayaran</span></a></li>
 
@@ -195,7 +195,7 @@
         <ul class="nav nav-treeview" style="display: none;">
 
           <li class="nav-item">
-            <a href="{{ url('roles') }}" class="nav-link"><i
+            <a href="{{ url('users') }}" class="nav-link"><i
                 class="far fa-circle nav-icon"></i>
               <span>Users</span></a></li>
 

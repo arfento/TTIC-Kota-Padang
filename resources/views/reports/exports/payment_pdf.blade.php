@@ -2,7 +2,7 @@
 <html>
   	<head>
 		<meta charset="utf-8">
-		<title>Payment Report</title>
+		<title>Pembayaran Report</title>
 		<style type="text/css">
 			table {
 				width: 100%;
@@ -33,9 +33,9 @@
 		</style>
 	</head>
   	<body>
-		<h2>Product Report</h2>
+		<h2>Pembayaran Report</h2>
 		<hr>
-		<p>Period : {{ ($startDate, 'd M Y') }} - {{ ($endDate, 'd M Y') }}</p>
+		{{-- <p>Period : {{ ($startDate, 'd M Y') }} - {{ ($endDate, 'd M Y') }}</p> --}}
 		<table>
 			<thead>
 				<tr>
@@ -51,7 +51,7 @@
 			<tbody>
 				@foreach ($payments as $payment)
 					<tr>
-						<td>{{ $payment->code }}</td>
+						<td>{{ $payment->nomor_faktur }}</td>
 						<td>{{ ($payment->created_at) }}</td>
 						<td>{{ $payment->status }}</td>
 						<td>{{ ($payment->amount) }}</td>

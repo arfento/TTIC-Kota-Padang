@@ -40,7 +40,6 @@
 			<thead>
 				<tr>
 				<th>Name</th>
-				<th>SKU</th>
 				<th>Items Sold</th>
 				<th>Net Revenue</th>
 				<th>Orders</th>
@@ -54,7 +53,6 @@
 				@foreach ($products as $product)
 					<tr>    
 						<td>{{ $product->name }}</td>
-						<td>{{ $product->sku }}</td>
 						<td>{{ $product->items_sold }}</td>
 						<td>{{ ($product->net_revenue) }}</td>
 						<td>{{ $product->num_of_orders }}</td>

@@ -1,13 +1,13 @@
 @extends('themes.ezone.layout')
 
 @section('content')
-	<div class="breadcrumb-area pt-205 breadcrumb-padding pb-210" style="background-image: url({{ asset('themes/ezone/assets/img/bg/breadcrumb.jpg') }})">
+	<div class="breadcrumb-area pt-205 breadcrumb-padding pb-210" style="background-image: url({{ asset('themes/ezone/assets/img/bg/ttic.jpg') }})">
 		<div class="container-fluid">
 			<div class="breadcrumb-content text-center">
-				<h2>shop grid 3 column</h2>
+				<h2>Barang</h2>
 				<ul>
 					<li><a href="#">home</a></li>
-					<li>shop grid 3 column</li>
+					<li>Barang</li>
 				</ul>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 										<p><span>{{ count($products) }}</span> Product Found of <span>{{ $products->count() }}</span></p>
 									</div>
 									<div class="shop-selector">
-										<label>Sort By : </label>
+										{{-- <label>Sort By : </label> --}}
 										{{-- {{ Form::select('sort', $sorts , $selectedSort ,array('onChange' => 'this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);')) }} --}}
 									</div>
 								</div>

@@ -77,15 +77,15 @@ class ProductController extends Controller
 	public function index(Request $request)
 	{
 
-		$products = Barang::all();
+		// $products = Barang::all();
 
-		$products = $this->_searchProducts($products, $request);
-		// $products = $this->_filterProductsByPriceRange($products, $request);
-		// $products = $this->_filterProductsByAttribute($products, $request);
-		$products = $this->_sortProducts($products, $request);
+		// $products = $this->_searchProducts($products, $request);
+		// // $products = $this->_filterProductsByPriceRange($products, $request);
+		// // $products = $this->_filterProductsByAttribute($products, $request);
+		// $products = $this->_sortProducts($products, $request);
 
-		$this->data['products'] = $products;
-		return view('themes.ezone.products.index', $this->data);
+		// $this->data['products'] = $products;
+		// return view('themes.ezone.products.index', $this->data);
 
 
 
@@ -118,16 +118,16 @@ class ProductController extends Controller
 			$this->data['q'] = $q;
 		}
 
-		if ($categorySlug = $request->query('category')) {
-			$category = Category::where('slug', $categorySlug)->firstOrFail();
+		if ($categorySlug = $request->query('jenisbarang')) {
+			$category = JenisBarang::where('id_jenis_barang', $categorySlug)->firstOrFail();
 
-			$childIds = Category::childIds($category->id);
-			$categoryIds = array_merge([$category->id], $childIds);
+			$childIds = JenisBarang::childIds($category->id_jenis_barang);
+			$categoryIds = array_merge([$category->id_jenis_barang], $childIds);
 
 			$products = $products->whereHas(
-				'categories',
+				'jenisbarangs',
 				function ($query) use ($categoryIds) {
-					$query->whereIn('categories.id', $categoryIds);
+					$query->whereIn('jenisbarangs.id_jenis_barang', $categoryIds);
 				}
 			);
 		}

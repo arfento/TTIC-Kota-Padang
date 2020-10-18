@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -79,14 +80,14 @@ class Controller extends BaseController
 		$provinceFile = 'provinces.txt';
 		$provinceFilePath = $this->uploadsFolder. 'files/' . $provinceFile;
 
-		$isExistProvinceJson = \Storage::disk('local')->exists($provinceFilePath);
+		$isExistProvinceJson = Storage::disk('local')->exists($provinceFilePath);
 
 		if (!$isExistProvinceJson) {
 			$response = $this->rajaOngkirRequest('province');
-			\Storage::disk('local')->put($provinceFilePath, serialize($response['rajaongkir']['results']));
+			Storage::disk('local')->put($provinceFilePath, serialize($response['rajaongkir']['results']));
 		}
 
-		$province = unserialize(\Storage::get($provinceFilePath));
+		$province = unserialize(Storage::get($provinceFilePath));
 
 		$provinces = [];
 		if (!empty($province)) {
@@ -110,14 +111,14 @@ class Controller extends BaseController
 		$cityFile = 'cities_at_'. $provinceId .'.txt';
 		$cityFilePath = $this->uploadsFolder. 'files/' .$cityFile;
 
-		$isExistCitiesJson = \Storage::disk('local')->exists($cityFilePath);
+		$isExistCitiesJson = Storage::disk('local')->exists($cityFilePath);
 
 		if (!$isExistCitiesJson) {
 			$response = $this->rajaOngkirRequest('city', ['province' => $provinceId]);
-			\Storage::disk('local')->put($cityFilePath, serialize($response['rajaongkir']['results']));
+			Storage::disk('local')->put($cityFilePath, serialize($response['rajaongkir']['results']));
 		}
 
-		$cityList = unserialize(\Storage::get($cityFilePath));
+		$cityList = unserialize(Storage::get($cityFilePath));
 		
 		$cities = [];
 		if (!empty($cityList)) {

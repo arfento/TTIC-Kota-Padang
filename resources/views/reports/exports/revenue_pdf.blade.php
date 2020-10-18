@@ -33,7 +33,7 @@
 		</style>
 	</head>
   	<body>
-		<h2>Revenue Report</h2>
+		<h2>Laporan Penjualan</h2>
 		<hr>
 		<p>Period : {{ ($startDate, 'd M Y') }} - {{ ($endDate, 'd M Y') }}</p>
 		<table>

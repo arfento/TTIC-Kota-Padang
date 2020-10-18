@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('title', 'Roles & Permissions')
 
@@ -39,15 +39,15 @@
                         <h2>Roles and Permissions</h2>
                     </div>
                     <div class="card-body">
-                        @include('admin.partials.flash')
+                        @include('themes.ezone.partials.flash')
                         <div id="accordion-role-permission" class="accordion accordion-bordered ">
                             @forelse ($roles as $role)
                                 {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update',  $role->id ], 'class' => 'm-b']) !!}
 
                                 @if($role->name === 'Admin')
-                                    @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'options' => ['disabled'], 'showButton' => true])
+                                    @include('roles._permissions', ['title' => $role->name .' Permissions', 'options' => ['disabled'], 'showButton' => true])
                                 @else
-                                    @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'model' => $role, 'showButton' => true])
+                                    @include('roles._permissions', ['title' => $role->name .' Permissions', 'model' => $role, 'showButton' => true])
                                 @endif
 
                                 {!! Form::close() !!}

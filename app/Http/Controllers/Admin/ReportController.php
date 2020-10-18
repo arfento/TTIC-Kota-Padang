@@ -162,18 +162,18 @@ class ReportController extends Controller
 
 		if ($startDate && !$endDate) {
 			\Session::flash('error', 'The end date is required if the start date is present');
-			return redirect('admin/reports/product');
+			return redirect('reports/product');
 		}
 
 		if (!$startDate && $endDate) {
 			\Session::flash('error', 'The start date is required if the end date is present');
-			return redirect('admin/reports/product');
+			return redirect('reports/product');
 		}
 
 		if ($startDate && $endDate) {
 			if (strtotime($endDate) < strtotime($startDate)) {
 				\Session::flash('error', 'The end date should be greater or equal than start date');
-				return redirect('admin/reports/product');
+				return redirect('reports/product');
 			}
 
 			$earlier = new \DateTime($startDate);
@@ -182,7 +182,7 @@ class ReportController extends Controller
 			
 			if ($diff >= 31) {
 				\Session::flash('error', 'The number of days in the date ranges should be lower or equal to 31 days');
-				return redirect('admin/reports/product');
+				return redirect('reports/product');
 			}
 		} else {
 			$currentDate = date('Y-m-d');
@@ -195,20 +195,20 @@ class ReportController extends Controller
 		$sql = "
 		SELECT
 			OI.barang_id,
-			
+			OI.name,
 			
 			SUM(OI.jumlah) as items_sold,
 			COALESCE(SUM(OI.total),0) net_revenue,
 			COUNT(OI.penjualan_id) num_of_orders,
 			PI.stok as stock
 		FROM detail_penjualans OI
-		LEFT JOIN penjualans O ON O.id_penjualan = OI.barang_id
+		LEFT JOIN penjualans O ON O.id_penjualan = OI.penjualan_id
 		LEFT JOIN persediaans PI ON PI.barang_id = OI.barang_id
 		WHERE DATE(O.tanggal) >= :start_date
 			AND DATE(O.tanggal) <= :end_date
 			AND O.status = :status
 			AND O.payment_status = :payment_status
-		GROUP BY OI.barang_id,  PI.stok
+		GROUP BY OI.barang_id, OI.name, PI.stok
 		";
 
 		$products = DB::select(

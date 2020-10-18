@@ -51,7 +51,7 @@
 								<span>2 Ratting (S)</span>
 							</div>
 						</div>
-						<p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
+						{{-- <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p> --}}
 						<div class="quick-view-select">
 							<div class="select-option-part">
 								<label>Size*</label>

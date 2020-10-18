@@ -100,7 +100,7 @@ class ShipmentController extends Controller
 		// }
 
 		\Session::flash('success', 'The shipment has been updated');
-		return redirect('shipment/'. $order->id_shipment);
+		return redirect('shipments/'. $order->id_shipment);
 	}
 
 	/**

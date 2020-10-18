@@ -76,24 +76,6 @@ Route::get('/persediaanperrak', 'Admin\PersediaanController@indexperrak')->name(
 Route::resource('roles', 'Admin\RoleController');
 Route::resource('users', 'Admin\UserController');
 
-////front
-Route::get('/front', 'Ecommerce\FrontController@index')->name('front.index');
-Route::get('/product', 'Ecommerce\FrontController@product')->name('front.product');
-Route::get('/category/{id}', 'Ecommerce\FrontController@categoryProduct')->name('front.category');
-Route::get('/product/{id}', 'Ecommerce\FrontController@show')->name('front.show_product');
-
-Route::post('cart', 'Ecommerce\CartController@addToCart')->name('front.cart');
-Route::get('/cart', 'Ecommerce\CartController@listCart')->name('front.list_cart');
-Route::post('/cart/update', 'Ecommerce\CartController@updateCart')->name('front.update_cart');
-
-Route::get('/checkout', 'Ecommerce\CartController@checkout')->name('front.checkout');
-Route::post('/checkout', 'Ecommerce\CartController@processCheckout')->name('front.store_checkout');
-Route::get('/checkout/{invoice}', 'Ecommerce\CartController@checkoutFinish')->name('front.finish_checkout');
-
-
-
-
-///endfront
 
 //ezonefront
 

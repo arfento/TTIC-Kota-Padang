@@ -6,7 +6,7 @@
                 <div class="footer-widget mb-30">
                     <a href="#"><img src="{{ asset('themes/ezone/assets/img/logo/logo1.png') }}" alt=""></a>
                     <div class="footer-about-2">
-                        <p>There are many variations of passages of Lorem Ipsum <br>the majority have suffered alteration in some form, by <br> injected humour</p>
+                        {{-- <p>There are many variations of passages of Lorem Ipsum <br>the majority have suffered alteration in some form, by <br> injected humour</p> --}}
                     </div>
                 </div>
                 <div class="footer-widget mb-30">
@@ -17,7 +17,11 @@
                                 <span>Address: </span>
                             </div>
                             <div class="footer-info-content3">
-                                <p>66 Sipu road Rampura Banasree <br>USA- 10800</p>
+                                
+
+
+                                <p>Jl. By Pass KM 15 Air Pacah <br>UPTD Distribusi Pasokan dan Akses Pangan<br>Dinas Pangan Prov Sumbar</p>
+                                
                             </div>
                         </div>
                         <div class="footer-address-furniture">
@@ -25,17 +29,17 @@
                                 <span>Phone: </span>
                             </div>
                             <div class="footer-info-content3">
-                                <p>+8801 (33) 515609735 <br>+8801 (66) 223352333</p>
+                                <p>0882-7123-8725<br></p>
                             </div>
                         </div>
-                        <div class="footer-address-furniture">
+                        {{-- <div class="footer-address-furniture">
                             <div class="footer-info-icon3">
                                 <span>E-mail: </span>
                             </div>
                             <div class="footer-info-content3">
                                 <p><a href="#"> email@domain.com</a> <br><a href="#"> domain@mail.info</a></p>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="footer-widget mb-30">

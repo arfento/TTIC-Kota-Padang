@@ -2,7 +2,7 @@
 <html>
   	<head>
 		<meta charset="utf-8">
-		<title>Inventory Report</title>
+		<title>Persediaan Report</title>
 		<style type="text/css">
 			table {
 				width: 100%;
@@ -33,7 +33,7 @@
 		</style>
 	</head>
   	<body>
-		<h2>Inventory Report</h2>
+		<h2>Persediaan Report</h2>
 		<hr>
 		<table>
 			<thead>

@@ -6,7 +6,7 @@
 			<div class="col-lg-12">
 				<div class="card card-default">
 					<div class="card-header card-header-border-bottom">
-						<h2>Payment Report</h2>
+						<h2>Pembayaran Report</h2>
 					</div>
 					<div class="card-body">
 						@include('themes.ezone.partials.flash')
@@ -24,7 +24,7 @@
 							<tbody>
 								@forelse ($payments as $payment)
 									<tr>    
-										<td>{{ $payment->code }}</td>
+										<td>{{ $payment->nomor_faktur }}</td>
 										<td>{{ ($payment->created_at) }}</td>
 										<td>{{ $payment->status }}</td>
 										<td>{{ ($payment->amount) }}</td>

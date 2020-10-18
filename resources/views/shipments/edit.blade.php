@@ -74,7 +74,7 @@
 					</div>
 					<div class="form-footer pt-5 border-top">
 						<button type="submit" class="btn btn-primary btn-default">Save</button>
-						<a href="{{ url('admin/orders/'. $shipment->penjualan->id_penjualan) }}" class="btn btn-secondary btn-default">Back</a>
+						<a href="{{ url('penjualan/'. $shipment->penjualan->id_penjualan) }}" class="btn btn-secondary btn-default">Back</a>
 					</div>
 					{!! Form::close() !!}
 				</div>

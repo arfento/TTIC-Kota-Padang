@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('title', 'Create')
 
@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     {!! Form::open(['route' => ['users.store'] ]) !!}
-                        @include('admin.users.form')
+                        @include('users.form')
                         <!-- Submit Form Button -->
                         <div class="form-footer pt-5 border-top">
                             {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
