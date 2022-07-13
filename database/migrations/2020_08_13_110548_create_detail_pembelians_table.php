@@ -14,11 +14,11 @@ class CreateDetailPembeliansTable extends Migration
     public function up()
     {
         Schema::create('detail_pembelians', function (Blueprint $table) {
-            $table->increments('id_detail_pembelian');
-            $table->unsignedInteger('barang_id');
-            $table->unsignedInteger('pembelian_id');
-            $table->unsignedInteger('jumlah');
-            $table->unsignedInteger('harga_satuan');
+            $table->BigIncrements('id_detail_pembelian');
+            $table->unsignedBigInteger('barang_id');
+            $table->unsignedBigInteger('pembelian_id');
+            $table->unsignedBigInteger('jumlah');
+            $table->unsignedBigInteger('harga_satuan');
             $table->date('tanggal_kadaluarsa')->nullable();
             $table->timestamps();
         });

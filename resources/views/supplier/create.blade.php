@@ -51,6 +51,15 @@
             <div class="clearfix"></div>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">Alamat Supplier</label>
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <input type="text" name="alamat_supplier" class="form-control">
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
         
         <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-2">

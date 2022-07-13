@@ -22,13 +22,13 @@
     <div class="card-header">Tambah Barang</div>
     <div class="card-body">
       @include('validasi')
-      <form action="{{ route('barang.store') }}" method="POST">
+      <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group row">
           <label class="col-md-2 col-form-label text-md-right">Kode Barang</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input type="text" name="kode_barang" class="form-control">
+              <input type="text" name="kode_barang" class="form-control" value="{{ $random }}" readonly>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -47,8 +47,10 @@
           <div class="col-md-6">
             <div class="col-md-6">
               <select class="form-control" name="jenis_barang_id">
+                {{-- <option value="" placeholder="Select Jenis Barang" readonly >Select Jenis Barang</option> --}}
+                <option value="">Pilih</option>
                 @foreach ($jenisbarang as $item)
-                <option value="{{ $item->id_jenis_barang }}"> {{ $item->jenis }} </option>
+                <option value="{{ $item->id_jenis_barang }}"  {{ old('jenis_barang_id') == $item->id_jenis_barang ? 'selected':'' }}  > {{ $item->jenis }} </option>
                 @endforeach
               </select>
             </div>
@@ -60,19 +62,14 @@
           <div class="col-md-6">
             <div class='col-md-6'>
               <select class="form-control" name="satuan_pembelian_id">
+                <option value="">Pilih</option>
                 @foreach ($satuanpembelian as $item)
-                <option value="{{ $item->id_satuan_pembelian }}"> {{ $item->satuan }} </option>
+                <option value="{{ $item->id_satuan_pembelian }}" {{ old('satuan_pembelian_id') == $item->id_satuan_pembelian ? 'selected':'' }} > {{ $item->satuan }} </option>
                 @endforeach
               </select>
               <div class="clearfix"></div>
             </div>
           </div>
-          {{-- <div class="col-md-6">
-            <div class="col-md-6">
-              <input type="text" name="satuan_pembelian_id" class="form-control">
-            </div>
-            <div class="clearfix"></div>
-          </div> --}}
         </div>
         <div class="form-group row">
           <label class="col-md-2 col-form-label text-md-right">Isi</label>
@@ -88,8 +85,9 @@
           <div class="col-md-6">
             <div class="col-md-6">
               <select class="form-control" name="satuan_penjualan_id">
+                <option value="">Pilih</option>
                 @foreach ($satuanpenjualan as $item)
-                <option value="{{ $item->id_satuan_penjualan }}"> {{ $item->satuan }} </option>
+                <option value="{{ $item->id_satuan_penjualan }}" {{ old('satuan_penjualan_id') == $item->id_satuan_penjualan ? 'selected':'' }} > {{ $item->satuan }} </option>
                 @endforeach
               </select>
             </div>
@@ -115,10 +113,33 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">stok</label>
+          <label class="col-md-2 col-form-label text-md-right">Berat Barang</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input type="text" name="stok" class="form-control">
+              <input type="text" name="berat_barang" class="form-control">
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">Gambar</label>
+          <div class="col-md-6">
+            <div class="col-md-6">
+                <input type="file" class="form-control-file @error('gambar') is-invalid @enderror" id="gambar" name="gambar" onchange="loadPreview(this);" value="{{ old('gambar') }}" >
+                <span class="help-block with-errors"></span>
+                <label for="gambar"></label>
+                <img id="preview_img" src="" class="" width="200" height="200"/>
+        
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">Keterangan</label>
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <input type="text" name="keterangan" class="form-control">
             </div>
             <div class="clearfix"></div>
           </div>
@@ -134,3 +155,20 @@
     </div>
   </section>
   @endsection
+  <script>
+    function loadPreview(input, id) {
+      id = id || '#preview_img';
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+   
+          reader.onload = function (e) {
+              $(id)
+                      .attr('src', e.target.result)
+                      .width(200)
+                      .height(200);
+          };
+   
+          reader.readAsDataURL(input.files[0]);
+      }
+   }
+  </script>

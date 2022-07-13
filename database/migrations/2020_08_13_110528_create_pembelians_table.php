@@ -14,12 +14,12 @@ class CreatePembeliansTable extends Migration
     public function up()
     {
         Schema::create('pembelians', function (Blueprint $table) {
-            $table->increments('id_pembelian');
-            $table->string('nomor_faktur', 25);
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('supplier_id');
+            $table->BigIncrements('id_pembelian');
+            $table->string('nomor_faktur',100)->unique();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('supplier_id');
             $table->date('tanggal_pembelian');
-            $table->unsignedInteger('total');
+            $table->unsignedBigInteger('total');
             $table->timestamps();
         });
 

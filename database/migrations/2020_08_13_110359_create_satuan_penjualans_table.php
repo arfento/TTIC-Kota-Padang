@@ -14,8 +14,8 @@ class CreateSatuanPenjualansTable extends Migration
     public function up()
     {
         Schema::create('satuan_penjualans', function (Blueprint $table) {
-            $table->increments('id_satuan_penjualan');
-            $table->string('satuan', 50)->unique();
+            $table->BigIncrements('id_satuan_penjualan');
+            $table->string('satuan', 25)->unique();
             $table->timestamps();
         });
     }

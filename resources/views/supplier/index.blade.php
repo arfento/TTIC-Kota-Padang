@@ -22,7 +22,12 @@
     <div class="card">
         <div class="card-header">Table Supplier</div>
         <div class="card-body">
-            <a href="{{ route('supplier.create')}}" class="btn btn-info btn-sm">Tambah Supplier</a><hr>
+            <div class="header">
+                <a href="{{ route('supplier.create')}}" class="btn btn-primary btn-sm" >Tambah Supplier</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
+            </div>
+            <hr>
             @include('notifikasi')
             <table class="table table-bordered" id="supplier-table">
                 <thead>
@@ -31,6 +36,7 @@
                         <th>Nama Supplier</th>
                         <th>Email Supplier</th>
                         <th>Nomor Telepon Supplier</th>
+                        <th>Alamat Supplier</th>
                         <th>Jumlah Transaksi</th>
                         <th>Aksi</th>
                     </tr>
@@ -42,6 +48,7 @@
                         <td>{{ $item->nama_supplier }}</td>
                         <td>{{ $item->email_supplier }}</td>
                         <td>{{ $item->telepon }}</td>
+                        <td>{{ $item->alamat_supplier }}</td>
                         <td>{{ $item->pembelian_count }}</td>
                         <td>
                             <a href="{{ route('supplier.edit',$item->id_supplier)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>

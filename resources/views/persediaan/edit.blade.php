@@ -8,7 +8,8 @@
 <!-- daterange picker -->
 <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
 <!-- bootstrap datepicker -->
-<link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+<link rel="stylesheet"
+  href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 @endsection
 
 @section('content')
@@ -22,7 +23,8 @@
     <div class="card-header">Edit Persediaan</div>
     <div class="card-body">
       @include('validasi')
-      <form action="{{ route('persediaan.update', $persediaan->id_persediaan) }}" method="POST">
+
+      <form {{-- action="/persediaan/update/" --}} action="{{ route('persediaan.update' , $persediaan ->id_persediaan) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group row">
@@ -31,8 +33,16 @@
             <div class="col-md-6">
               <select class="form-control" name="rak_id">
                 @foreach ($rak as $item)
-                <option value="{{ $item->id_rak }}"> {{ $item->nomor_rak }} </option>
+                @if ($persediaan->rak_id == $item->id_rak)
+                <option value="{{ $persediaan->rak_id }}" selected="selected"> {{ $persediaan->rak->nomor_rak }}</option>
+      
+                @else
+                <option value="{{ $item->id_rak }}">{{ $item->nomor_rak }}</option>
+                @endif
                 @endforeach
+                {{-- @foreach ($rak as $item)
+                <option value="{{ $item->id_rak }}"> {{ $item->nomor_rak }} </option>
+                @endforeach --}}
               </select>
             </div>
             <div class="clearfix"></div>
@@ -44,7 +54,11 @@
             <div class="col-md-6">
               <select class="form-control" name="barang_id">
                 @foreach ($barang as $item)
+                @if ($persediaan->barang_id == $item->id_barang)
+                <option value="{{ $persediaan->barang_id }}" selected="selected"> {{ $persediaan->barang->nama_barang }}</option>
+                @else
                 <option value="{{ $item->id_barang }}"> {{ $item->nama_barang }} </option>
+                @endif
                 @endforeach
               </select>
             </div>
@@ -64,19 +78,20 @@
           <label class="col-md-2 col-form-label text-md-right">Tanggal Kadaluarsa</label>
           <div class="col-md-6">
             <div class="col-md-6">
-              <input class="form-control" type="date" name="tanggal_kadaluarsa" value="{{ $persediaan->tanggal_kadaluarsa }}">
+              <input class="form-control" type="date" name="tanggal_kadaluarsa"
+                value="{{ $persediaan->tanggal_kadaluarsa }}">
             </div>
             <div class="clearfix"></div>
           </div>
-        </div>  
-        
+        </div>
+
         <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-2">
             <button type="submit" class="btn btn-info">Update data</button>
-            <a href="{{ route('persediaan.index') }}" class="btn btn-danger">Kembali</a>
+            <a href="/persediaan/{{ $persediaan->rak_id }}" class="btn btn-danger">Kembali</a>
           </div>
         </div>
-        
+
       </form>
     </div>
   </div>

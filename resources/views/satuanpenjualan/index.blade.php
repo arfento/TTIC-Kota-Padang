@@ -20,7 +20,12 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <a href="{{ route('satuanpenjualan.create')}}" class="btn btn-info btn-sm">Tambah Satuan Penjualan</a><hr>
+            <div class="header">
+                <a href="{{ route('satuanpenjualan.create')}}" class="btn btn-primary btn-sm" >Tambah Satuan Penjualan</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
+            </div>
+            <hr>
             @include('notifikasi')
 
             <table id="satuanpenjualan" class="table table-bordered table-striped">

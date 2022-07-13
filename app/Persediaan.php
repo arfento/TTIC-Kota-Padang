@@ -18,4 +18,32 @@ class Persediaan extends Model
     {
         return $this->belongsTo(Rak::class, 'rak_id');
     }
+
+    public static function reduceStock($barangId, $stok)
+	{
+		$inventory = self::where('barang_id', $barangId)->firstOrFail();
+
+		if ($inventory->stok < $stok) {
+			$product = Barang::findOrFail($barangId);
+			throw new \App\Exceptions\OutOfStockException('The product '. $product->nama_barang .' is out of stock');
+		}
+
+		$inventory->stok = $inventory->stok - $stok;
+		$inventory->save();
+	}
+
+	/**
+	 * Increase stock product
+	 *
+	 * @param int $productId product ID
+	 * @param int $qty       qty product
+	 *
+	 * @return void
+	 */
+	public static function increaseStock($barangId, $stok)
+	{
+		$inventory = self::where('barang_id', $barangId)->firstOrFail();
+		$inventory->stok = $inventory->stok + $stok;
+		$inventory->save();
+	}
 }

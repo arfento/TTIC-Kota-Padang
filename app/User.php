@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -16,8 +17,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-    ];
+		'first_name', 'last_name', 'email', 'phone', 'password', 'company', 'address1', 'address2', 'province_id', 'city_id', 'postcode,','role_id',
+	];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,4 +37,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pesanan()
+    {
+        return $this->hasMany(Penjualan::class, 'user_id' ,'id');
+    }
+    public function favorites()
+	{
+		return $this->hasMany('App\Favorite');
+    }
+    public function roles()
+    {
+       
+            return $this->belongsTo('App\Role', 'role_id');
+       
+    }
 }

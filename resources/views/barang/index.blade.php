@@ -23,9 +23,13 @@
         <div class="card-header">Barang</div>
         
         <div class="card-body">
-            <a href="{{ route('barang.create')}}" class="btn btn-info btn-sm">Tambah Barang</a><hr>
+            <div class="header">
+                <a href="{{ route('barang.create')}}" class="btn btn-primary btn-sm" >Tambah Barang</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
+            </div>
+            <hr>
             @include('notifikasi')
-            
             <table class="table table-bordered" id="barang-table">
                 <thead>
                     <tr>
@@ -33,12 +37,10 @@
                         <th>Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
-                        <th>Satuan Pembelian</th>
-                        <th>Isi</th>
-                        <th>Satuan Penjualan</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Stok</th>
+                        <th>Berat Barang</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -50,12 +52,14 @@
                         <td>{{ $item-> kode_barang }}</td>
                         <td>{{ $item-> nama_barang }}</td>
                         <td>{{ $item-> jenis-> jenis }}</td>
-                        <td>{{ $item-> satuanPembelian -> satuan }}</td>
-                        <td>{{ $item-> isi }}</td>
-                        <td>{{ $item-> satuanPenjualan -> satuan }}</td>
                         <td>{{ $item-> harga_beli }}</td>
                         <td>{{ $item-> harga_jual }}</td>
-                        <td>{{ $item-> stok }}</td>
+                        <td>{{ $item-> berat_barang }} gr</td>
+                        <td>
+                            {{-- <a href="{{ asset('/upload/barangs/'.$item->gambar) }}" target="_blank">{{ $item->gambar }}</a> --}}
+                            {{-- <img src="{{ asset('storage/products/' . $product->image) }}" width="100px" height="100px" alt="{{ $product->name }}"> --}}
+                            <img width="200px" height="100px" class="profile-user-img img-fluid" src="{{ asset('storage/barangs/' . $item->gambar) }}" >
+                        </td>
                         
                         <td>
                             <a href="{{ route('barang.edit',$item->id_barang)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a>

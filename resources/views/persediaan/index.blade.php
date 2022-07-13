@@ -23,7 +23,12 @@
         <div class="card-header">Persediaan</div>
 
         <div class="card-body">
-            <a href="{{ route('persediaan.create')}}" class="btn btn-info btn-sm">Tambah Persediaan</a><hr>
+            <div class="header">
+                <a {{-- href="persediaan/{{ $persediaan->id_persediaan }}/create" --}} href="{{ route('persediaan.create') }}" class="btn btn-primary btn-sm" >Tambah Persediaan</a>
+                {{-- <a href="{{ route('exportPDF.categoriesAll') }}" class="btn btn-danger btn-sm">Export PDF</a> --}}
+                {{-- <a href="{{ route('exportExcel.categoriesAll') }}" class="btn btn-success btn-sm">Export Excel</a> --}}
+            </div>
+            <hr>
             @include('notifikasi')
 
             <table class="table table-bordered" id="users-table">
@@ -47,8 +52,8 @@
                         <td>{{ $item-> tanggal_kadaluarsa }}</td>
                         
                         
-                        <td><a href="{{ route('persediaan.edit',$item->id_persediaan)}}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
-                        <td><form action="{{ route('persediaan.destroy', $item->id_persediaan) }}" method="POST">
+                        <td><a href="/persediaan/edit/{{ $item->id_persediaan }}" class="btn btn-success btn-sm fa fa-edit"> Edit </a></td>
+                        <td><form action="/persediaan/hapus/{{ $item->id_persediaan }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger btn-sm fas fa-trash-alt">Delete</button>

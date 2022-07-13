@@ -14,11 +14,11 @@ class CreateDetailPenjualansTable extends Migration
     public function up()
     {
         Schema::create('detail_penjualans', function (Blueprint $table) {
-            $table->increments('id_detail_penjualan');
-            $table->unsignedInteger('penjualan_id');
-            $table->unsignedInteger('barang_id');
-            $table->unsignedInteger('jumlah');
-            $table->unsignedInteger('harga_satuan');
+            $table->bigIncrements('id_detail_penjualan');
+            $table->unsignedBigInteger('penjualan_id');
+            $table->unsignedBigInteger('barang_id');
+            $table->unsignedBigInteger('jumlah');
+            $table->unsignedBigInteger('harga_satuan');
             $table->timestamps();
         
            

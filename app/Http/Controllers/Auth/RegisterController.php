@@ -51,7 +51,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -66,7 +67,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -74,7 +76,15 @@ class RegisterController extends Controller
 
     protected function registered()
     {
-        $this ->guard()->logout();
-        return redirect()->route('login')->with('pesan', "You're registered, and please login.");
+        $this->guard()->logout();
+        return redirect()->route('login')->with('success', "You're registered, and please login.");
     }
+
+    public function showRegistrationForm()
+	{
+		if (property_exists($this, 'registerView')) {
+			return view($this->registerView);
+		}
+		return view('themes.ezone.auth.register');
+	}
 }
